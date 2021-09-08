@@ -5,7 +5,7 @@ Current Tasks
 
 #========================================
 Task #1: Design Website
-Resolution: Unresolved
+Resolution: In Progress
 SubTasks: Task #2
 #========================================
 
