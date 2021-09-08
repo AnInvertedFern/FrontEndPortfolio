@@ -11,7 +11,7 @@ SubTasks: Task #2
 
 #========================================
 Task #2: Design Application Test
-Resolution: Unresolved
+Resolution: In Progress
 SubTasks: None
 #========================================
 

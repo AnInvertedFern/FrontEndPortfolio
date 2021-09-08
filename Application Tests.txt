@@ -1,0 +1,175 @@
+Application Tests: (Manual Tests)
+
+
+General Tests
+-----------------------------------------
+#========================================
+Test #1: Ensure Login Works
+Expected Result: 
+Should allow the editing of own user's first name, symbol, secrets, and quote
+Should be able to see own quote
+Nothing else should be changable
+Users should not be able to change themes, only select them
+Themes should be remembered upon next login
+Users should be able change their password
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #2: Ensure Login as Admin Works
+Expected Result: 
+Should allow Admins to access /Admin/Users, /Admin/Titles, Admin/Themes
+Should be able to view all secrets in /Admin/Users
+Should be able to see who is a contact with who
+All visible to normal users should still be visible
+Should be able to edit first and last names, connections, symbol, quotes
+Admins should be able to add new users
+Admins should not be able to edit secrets
+Admins should be able to edit themes
+Admins should be able to edit passwords
+Admins should be able to delete users
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #3: Users should be able to switch tabs
+Expected Result: 
+Users should be routed to the new tab
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #4: Non-admins should not be able to access admin sites
+Expected Result: 
+Users should be redirected to a login page or /Users
+Status: Not Yet Tested
+#========================================
+
+
+/Users Tests
+-----------------------------------------
+#========================================
+Test #1: Attempt to view secrets as a non-logged in user
+Expected Result: 
+No secrets should be visible
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #2: Attempt to view secrets as a logged in user
+Expected Result: 
+Only own user's secret should be visible
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #3: Attempt add a user
+Expected Result: 
+User should be able to register and add in their details
+Users should be able to set their passwords
+Users should recived their ID to login with
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #4: Attempt to add own as as a contact
+Expected Result: 
+Users should be able to set themselves as being in contact with another user
+The total number of contacts for that user should go up by one
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #5: Attempt to search by a field
+Expected Result: 
+Uers shoud be able to enter a value into the search field
+They should then be able to filter the users by a specific value in the field
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #6: Attempt add more users until it flows off screen
+Expected Result: 
+The screen should then be able to scroll
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #7: Attempt to delete users
+Expected Result: 
+Nothing should happen
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #8: Update other users
+Expected Result: 
+Nothing should happen
+Status: Not Yet Tested
+#========================================
+
+
+/Titles Tests
+-----------------------------------------
+#========================================
+Test 1#: Look at the central column (active title)
+Expected Result: 
+The central column should list all users with that title
+It should display the first and last names, and quotes and contacts
+The side column should display more titles and users, but no quotes or contacts
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #2: Click on a side column
+Expected Result: 
+That title should now be the active title
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #3: Keep clicking on a specific side column, then repeat for the other side
+Expected Result: 
+The central column should cycle through all titles without repeat
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #4: Highlight the search bar
+Expected Result: 
+All titles should appear below the bar in a list
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #5: Click on a title in the search bar, or type one in
+Expected Result: 
+The entered title should become the central column's title
+No other test for /Titles should be broken after a search/select is complete
+Status: Not Yet Tested
+#========================================
+
+
+/Themes Tests
+-----------------------------------------
+#========================================
+Test #1: Select the all ready selected theme
+Expected Result: 
+Nothing should happen
+Preview should remain the same
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #2: Select a different theme
+Expected Result: 
+The preview should change to that theme's colors
+Status: Not Yet Tested
+#========================================
+
+#========================================
+Test #3: Confirm a Theme
+Expected Result: 
+Colors across the site should switch to that theme's
+Status: Not Yet Tested
+#========================================
