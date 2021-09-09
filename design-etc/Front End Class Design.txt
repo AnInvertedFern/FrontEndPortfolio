@@ -1,0 +1,170 @@
+Front End Class Break Down (Tests)
+-----------------------------------------
+
+
+
+web.service.ts         Handles all REST Calls
+-----------------------------------------
+Methods:
+
+
+theme.ts                Data Storage Class
+-----------------------------------------
+Responsiblities: 
+Holds structural information about themes (color palette)
+
+themes.component.ts    Connects theme services to the Theme view/html
+-----------------------------------------
+themes.service.ts      Transfers information from the view to the web service
+-----------------------------------------
+Responsiblities: 
+ - When a user clicks on a theme, the selected theme varaible should change
+ - When the selected theme variable changes, the preview should change
+ - When confirm is clicked, the site's theme (via css) should change
+ - Pull list of themes from backend
+ - Pull the user's last theme from backend
+External API (From View):
+SelectTheme( selectedTheme: Theme )
+ConfirmTheme()
+Internal API (To REST):
+GetThemesfromBackend(): Theme[]
+GetUserLastLoggedInTheme(): Theme
+SetUserLastLoggedInTheme( selectedTheme: Theme ): Theme
+Flags (Variable):
+LastUserUsedTheme: Theme
+SelectedTheme: Theme
+CurrentTheme: Theme
+ArrayOfThemes: Theme[]
+
+
+titles.ts                Data Storage Class
+-----------------------------------------
+Responsiblities: 
+Holds a list of user for each title (to be displayed)
+Title
+Users[]
+
+titles.component.ts    Connects title services to the Titles view/html
+-----------------------------------------
+titles.service.ts      Transfers information from the view to the web service
+-----------------------------------------
+Responsiblities: 
+ - When user clicks left or right column the central column should shift
+ - When a title is searched the central column should switch
+External API (From View):
+SetTitleTo( selectedTitle: Title )
+SearchTitles( searchValue: string )
+Internal API (To REST):
+RetriveUserListsByTitle(): Title[]
+Flags (Variable):
+CurrentSelectedTitle: Title
+ArrayOfTitles: Title[]
+
+user.ts                Data Storage Class
+-----------------------------------------
+Responsiblities: 
+Holds structural information about users (to be displayed)
+First Name
+Last Name
+ID
+Title
+Contacts (as a number) (only as an array if the user is logged in as an admin)?
+Quote
+Secret
+Last Theme (if logged in)?
+
+
+users.component.ts     Connects user services to the Users view/html
+-----------------------------------------
+users.service.ts       Transfers information from the view to the web service
+-----------------------------------------
+Responsiblities: 
+ - Upon being accessed, the page should load a list of users
+ - If the user is signed in they can click to add themself as a contact on a user card
+ - If the user is signed in they can click an edit button on their own card
+ - If the user clicks add a new user, they should get a prompt for information and a password
+ - When the user enters something into the search bar it should filter the users based on the entered value
+    - This should actually happen in the toolbar component and then be passed to the user service?
+External API (From View):
+SearchUsers( searchValue: string, orderBy: string )
+AddUser( user: User )
+EditUser( user: User )
+AddAsContact( userAddedTo: User, userAddee: User )
+Internal API (To REST):
+GetUsers(): Users[]
+AddUser( user: User ): User
+EditUser( user: User ): User
+AddAsContact( userAddedTo: User, userAddee: User ): User
+Flags (Variable):
+ArrayOfUsers: User[]
+SelectedUser?
+NewUserPopup: boolean
+EditUserPopup: boolean
+CurrentUser: User (might be better to place in login)
+
+
+toolbar.component.ts   Connects to the toolbar at the top of the screen
+-----------------------------------------
+toolbar.service.ts
+-----------------------------------------
+login.service.ts
+-----------------------------------------
+Responsiblities: 
+ - When user clicks on a tab, angular should route to that page
+ - When something is searched it should be sent to the approprate service based on the tab
+ - When the user is logged in, hitting the login button should bring up a window that can be used to login
+ - If the user is logged in the login button should be replaced with a logout button
+ - if the user is an Admin all links should be replaced by links to the admin version of the sites
+External API (From View):
+IsAdmin()
+Search( value: string, options: Object )
+LoginPopup()
+LoginEnter( loginData: Object | FormData )
+Internal API (To REST):
+AttemptLogin( loginData: Object | FormData ): HttpStatus | Observerable
+Flags (Variable):
+Username: string (for Basic Auth)
+Password: string (for Basic Auth)
+SearchPopup: boolean
+CurrentTab: string | Enum
+isAdmin: boolean
+isLoggedin: boolean
+
+
+themesAdmin.component.ts    Connects to the Theme view/html
+-----------------------------------------
+themesAdmin.service.ts
+-----------------------------------------
+==Both Should Extend the themes ts classes==
+Additional Responsiblities: 
+ - Admin should be able to select a theme preset, click edit, and then have an edit window appear
+ - Admins should be able to submit a changed theme to the backend to update stored themes
+External API:
+EditTheme()
+SubmitChangedTheme( themeData: Object | FormData )
+Internal API:
+SubmitChangedTheme( themeData: Object | FormData ): HttpStatus | Observerable
+Flags (Variable):
+ThemeEditPopup: boolean
+
+
+titlesAdmin.component.ts    Connects to the Titles view/html
+-----------------------------------------
+titlesAdmin.service.ts
+-----------------------------------------
+==Both Should Extend the titles ts classes==
+Additional Responsiblities: 
+ - None?
+ - A seperate html file might still be necessary to keep router links pointed to the correct locations?
+
+usersAdmin.component.ts     Connects to the Users view/html
+-----------------------------------------
+usersAdmin.service.ts
+-----------------------------------------
+==Both Should Extend the users ts classes==
+Additional Responsiblities: 
+ - Admins should be able to view all fields (secrets) of each user
+ - Admins should have an edit button for each user
+ - Admins should be able to change all fields except secrets, ids, and last used themes
+ - The edit field should have a delete button
+ - The contacts field should list names as well as the total number

@@ -4,17 +4,43 @@ Current Tasks
 -----------------------------------------
 
 #========================================
-Task #1: Design Website
-Resolution: In Progress
-SubTasks: Task #2
+Task #5: Implement Basic Structure of Code (HTML, CSS, and TS)
+Resolution: Not Started
+SubTasks: Task #6
 #========================================
 
 #========================================
-Task #2: Design Application Test
-Resolution: In Progress
+Task #6: Design Unit and Intergration Tests
+Resolution: Not Started
+SubTasks: None
+#========================================
+
+On Hold
+-----------------------------------------
+
+#========================================
+Task #3: Do Application Tests
+Resolution: Not Started
 SubTasks: None
 #========================================
 
 Finished Tasks
 -----------------------------------------
 
+#========================================
+Task #4: Make Front End Class Design
+Resolution: Finished
+SubTasks: None
+#========================================
+
+#========================================
+Task #1: Design Website
+Resolution: Finished
+SubTasks: Task #2, Task #4
+#========================================
+
+#========================================
+Task #2: Design Application Test
+Resolution: Finished
+SubTasks: Task #3
+#========================================
