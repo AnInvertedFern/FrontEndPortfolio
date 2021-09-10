@@ -6,7 +6,25 @@ Current Tasks
 #========================================
 Task #5: Implement Basic Structure of Code (HTML, CSS, and TS)
 Resolution: Not Started
-SubTasks: Task #6
+SubTasks: Task #6, Task #7, Task #8
+#========================================
+
+#========================================
+Task #8: Implement the TS of the Three Main Tabs
+Resolution: Rough Implementation of Users and Titles Tabs Implemented
+SubTasks: Task #9
+#========================================
+
+#========================================
+Task #9: Hook the Login and Web Services into the Main Components for the Site
+Resolution: Not Started
+SubTasks: None
+#========================================
+
+#========================================
+Task #7: Implement HTML and CSS
+Resolution: Rough HTML Basic Structure Implemented, CSS Not Started
+SubTasks: None
 #========================================
 
 #========================================

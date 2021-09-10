@@ -59,6 +59,8 @@ RetriveUserListsByTitle(): Title[]
 Flags (Variable):
 CurrentSelectedTitle: Title
 ArrayOfTitles: Title[]
+DisplayTitlesInSearch: Title[]
+
 
 user.ts                Data Storage Class
 -----------------------------------------
@@ -73,7 +75,6 @@ Quote
 Secret
 Last Theme (if logged in)?
 
-
 users.component.ts     Connects user services to the Users view/html
 -----------------------------------------
 users.service.ts       Transfers information from the view to the web service
@@ -85,6 +86,7 @@ Responsiblities:
  - If the user clicks add a new user, they should get a prompt for information and a password
  - When the user enters something into the search bar it should filter the users based on the entered value
     - This should actually happen in the toolbar component and then be passed to the user service?
+ - When a user logs out their secret should no longer be visible
 External API (From View):
 SearchUsers( searchValue: string, orderBy: string )
 AddUser( user: User )
@@ -105,7 +107,7 @@ CurrentUser: User (might be better to place in login)
 
 toolbar.component.ts   Connects to the toolbar at the top of the screen
 -----------------------------------------
-toolbar.service.ts
+toolbar.service.ts     Should route search functions to the proper service for the current tab
 -----------------------------------------
 login.service.ts
 -----------------------------------------
