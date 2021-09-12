@@ -4,8 +4,14 @@ Current Tasks
 -----------------------------------------
 
 #========================================
-Task #5: Implement Basic Structure of Code (HTML, CSS, and TS)
+Task #10: Mark and Design the Flow of information in and out of the search and login services: Flags, Subscriptions, and Get Calls
 Resolution: Not Started
+SubTasks: None
+#========================================
+
+#========================================
+Task #5: Implement Basic Structure of Code (HTML, CSS, and TS)
+Resolution: In Progress
 SubTasks: Task #6, Task #7, Task #8
 #========================================
 
@@ -17,8 +23,8 @@ SubTasks: Task #9
 
 #========================================
 Task #9: Hook the Login and Web Services into the Main Components for the Site
-Resolution: Not Started
-SubTasks: None
+Resolution: In Progress
+SubTasks: Task #10
 #========================================
 
 #========================================
