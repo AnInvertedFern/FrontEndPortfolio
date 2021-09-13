@@ -4,20 +4,20 @@ Current Tasks
 -----------------------------------------
 
 #========================================
-Task #10: Mark and Design the Flow of information in and out of the search and login services: Flags, Subscriptions, and Get Calls
+Task #6: Design Unit and Intergration Tests
 Resolution: Not Started
 SubTasks: None
 #========================================
 
 #========================================
 Task #5: Implement Basic Structure of Code (HTML, CSS, and TS)
-Resolution: In Progress
+Resolution: Basic Frame Finished, Full Implementation not yet Started
 SubTasks: Task #6, Task #7, Task #8
 #========================================
 
 #========================================
 Task #8: Implement the TS of the Three Main Tabs
-Resolution: Rough Implementation of Users and Titles Tabs Implemented
+Resolution: Rough Implementation of all Tabs Implemented
 SubTasks: Task #9
 #========================================
 
@@ -33,12 +33,6 @@ Resolution: Rough HTML Basic Structure Implemented, CSS Not Started
 SubTasks: None
 #========================================
 
-#========================================
-Task #6: Design Unit and Intergration Tests
-Resolution: Not Started
-SubTasks: None
-#========================================
-
 On Hold
 -----------------------------------------
 
@@ -50,6 +44,12 @@ SubTasks: None
 
 Finished Tasks
 -----------------------------------------
+
+#========================================
+Task #10: Mark and Design the Flow of information in and out of the search and login services: Flags, Subscriptions, and Get Calls
+Resolution: Finished
+SubTasks: None
+#========================================
 
 #========================================
 Task #4: Make Front End Class Design

@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { User } from "./user";
@@ -11,74 +11,52 @@ export class WebService {
     constructor( private http: HttpClient ) { 
     }
 
-    public getUsers() : Observable<User[]> {
-        return this.http.get<User[]>(this.serverUrl, //{headers: {"Content-Type": "application/json",
-            // "Accept": "application/json",
-            // "Access-Control-Allow-Origin": "/" }, 
-            // observe: 'body', responseType: 'json'}
-            );
+
+    public getUsers(){ //needs to also pass in current user, to get the secret
+        return this.http.get<User[]>(`${this.serverUrl}api/users/all`);
     }
-    public addContact(userAddTo: User, userToAdd: User) : Observable<User[]> {
-      
+    public addContact(userAddTo: User, userToAdd: User){
+        return this.http.post<User[]>(`${this.serverUrl}api/addcontact/`, {userAddTo, userToAdd} );
     }
-    public updateUsers(user: User) {
-        // const headers = new HttpHeaders({ 'Access-Control-Allow-Origin':'*','Authorization': 'Basic' + btoa('user' +':'+'password') });
-        // return this.http.post<User>( this.serverUrl, user, {headers});
-        return this.http.post<User>( this.serverUrl, user, {headers: {"Content-Type": "application/json",
-            "Accept": "application/json",
-            "Access-Control-Allow-Origin": "/" }, 
-            observe: 'body', responseType: 'json'} 
-            );
+    public updateUsers(user:User) { //needs to also pass in current user, to see if certian fields can be updated
+        return this.http.post<User[]>(`${this.serverUrl}api/users/`, user );
     }
-    public sendForm(username: string, password: string) {
-        // return this.http.post<User>( `${this.serverUrl}login`, {headers: 
-        //     new HttpHeaders({ authorization: 'Basic ' + btoa(username+":"+password) })
-        // }, 
-        // );
-        return fetch( `${this.serverUrl}login`, {headers: 
-            { "Authorization": 'Basic ' + btoa(username+":"+password) }
-        }, 
-        );
+    public addUser(user:User){
+        return this.http.put<User[]>( `${this.serverUrl}api/users/`, user);
     }
-    public addUser(user: any ) {
-        return this.http.put( this.serverUrl, user//, {headers: {"Content-Type": "application/json",
-            // "Accept": "application/json",
-            // "Access-Control-Allow-Origin": "/" }, 
-            // observe: 'body', responseType: 'json'} 
-            );
-    }
- 
-    public deleteUser(user: any , callback: any) {
-        // return this.http.delete( `${this.serverUrl}${user.id}`, {headers: {"Content-Type": "application/json",
-        //     "Accept": "application/json",
-        //     "Access-Control-Allow-Origin": "/" }, observe: 'body', responseType: 'json'} );
-
-        
-        // http.get('token').subscribe( (data: tempData) => {
-        //     const token = data['token'];
-        //     http.get('http://localhost:9000', {headers : new HttpHeaders().set('X-Auth-Token', token) })
-        //     .subscribe(response => this.greeting = response);
-        // }, () => {});
-
-        // this.http.delete<User>(`${this.serverUrl}${user.id}`, {headers : new HttpHeaders( {"Authorization": 'Basic ' + btoa("user"+":"+"password") } ) })
-        //     .subscribe(callback);
-
-
-        // return this.http.get(`${this.serverUrl}token`, {headers: {"Authorization": 'Basic ' + btoa("user"+":"+"password")}  }).subscribe( data => {
-        //     let newdata = <tempData> data;
-        //     const token = newdata['token'];
-        //     this.http.delete<User>(`${this.serverUrl}${user.id}`, {headers : new HttpHeaders( {'X-Auth-Token': token, "Authorization": 'Basic ' + btoa("user"+":"+"password") } ) })
-        //     .subscribe(callback);
-        // });
-
-
-
-        // const headers = new HttpHeaders({ 'Access-Control-Allow-Origin':'*','Authorization': 'Basic' + btoa('user' +':'+'password') });
-        // return this.http.delete<User>( `${this.serverUrl}${user.id}`  , {headers});
-
-        
+    public deleteUser(user:User, callback:Function){ //needs to also pass in current user, to see if the non-admin user can delete that user
         const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa('user' +':'+'password') });
-        this.http.delete<User>( `${this.serverUrl}${user.id}`  , {headers: headers1}).subscribe(callback);
+        this.http.delete<User>( `${this.serverUrl}api/users/${user.id}`  , {headers: headers1}).subscribe(callback);
+
     }
+    public searchUser(searchValue, orderBy){ //needs to also pass in current user, to see if a secret needs to be gotten
+        return this.http.get<User[]>(`${this.serverUrl}api/users/search/`, {searchValue, orderBy});
+    }
+    public getThemes(){
+        return this.http.get<User[]>(`${this.serverUrl}api/themes/all/`);
+    }
+    public updateLastTheme(currentUser, currentTheme){
+        //just use update user
+    }
+    public getTitles(){
+        return this.http.get<User[]>(`${this.serverUrl}api/titles/all/`);
+    }
+    public searchTitles(searchValue){
+        return this.http.get<User[]>(`${this.serverUrl}api/titles/search/`, {searchValue});
+    }
+    public attemptLogin_GetRole(credentials){
+        const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa('${credentials.userID}' +':'+'${credentials.password}') });
+        return this.http.get<User[]>(`${this.serverUrl}login/get_role/`);
+    }
+    public getUserByID(ID:number){ //needs to also pass in current user, although in the current setup it is only used for the current user
+        return this.http.get<User[]>(`${this.serverUrl}api/users/${ID}/`);
+    }
+    public getUsersSearch(value, options){ //needs to also pass in current user, to see if a secret needs to be gotton
+        return this.http.get<User[]>(`${this.serverUrl}api/users/search/`, {value, options});
+    }
+    public getTitlesSearch(value, options){
+        return this.http.get<User[]>(`${this.serverUrl}api/titles/search/`, {value, options});
+    }
+
 
 }

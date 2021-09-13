@@ -14,15 +14,23 @@ export class UserComponent implements OnInit{
   selectedUser: User | undefined;
   NewUserPopup: boolean = false;
   EditUserPopup: boolean = false;
+  currentUser: User;
 
-  constructor (private userservice: UserService){ }
+  constructor (private userservice: UserService, private searchService: SearchService, private loginService: LoginService){ 
+    searchService.searchTitlesUpdate$.subscribe(
+      searchedUsers => {this.users = searchedUsers;
+    });
+    loginService.currentUserUpdate$.subscribe(
+      newCurrentUser => {this.currentUser = newCurrentUser;
+    });
+  }
 
   public ngOnInit() {
     this.getUsers();
     
   }
   public getCurrentUser(){
-    throw 
+    return this.currentUser;
     //get it from login service
   }
 

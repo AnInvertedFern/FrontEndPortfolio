@@ -7,7 +7,8 @@ import { SearchService } from "./search.service";
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent {
-  SearchPopup: boolean = false;
+  searchPopup: boolean = false;
+  loginPopup: boolean = false;
 
   constructor (private route: ActivatedRoute, private searchService: SearchService, private loginService: loginService) {
     
@@ -16,15 +17,21 @@ export class ToolbarComponent {
     return this.route.snapshot.url.join('');
   }
   public search( value: string, options: Object ) {
-    if (this.getCurrentTab === "Users") {
+    if (this.getCurrentTab() === "Users") {
       this.searchService.userSearch();
-    } if (this.getCurrentTab === "Titles") {
+    } if (this.getCurrentTab() === "Titles") {
       this.searchService.titlesSearch();
     }
   }
   
-  LoginPopup()
-  LoginEnter( loginData: Object | FormData )
-  switchTab( tab: string)
+  public loginPopupEvent() {
+    this.loginPopup = !this.loginPopup;
+  }
+  public searchPopupEvent() {
+    this.searchPopup = !this.searchPopup;
+  }
+  login( loginData: Object | FormData ) {
+    this.loginService.login(loginData);
+  }
 
 }

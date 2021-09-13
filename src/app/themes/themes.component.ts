@@ -1,14 +1,7 @@
-SelectTheme( selectedTheme: Theme )
-ConfirmTheme()
-Internal API (To REST):
-GetThemesfromBackend(): Theme[]
-GetUserLastLoggedInTheme(): Theme
-SetUserLastLoggedInTheme( selectedTheme: Theme ): Theme
-Flags (Variable):
-LastUserUsedTheme: Theme
-SelectedTheme: Theme
-CurrentTheme: Theme
-ArrayOfThemes: Theme[]
+import { OnInit } from "@angular/core";
+import { LoginService } from "../toolbarAndLogin/login.service";
+import { WebService } from "../web.service";
+
 
 @Component({
   selector: 'themes',
@@ -16,14 +9,28 @@ ArrayOfThemes: Theme[]
   styleUrls: ['./themes.component.css'],
   providers: [ThemesService]
 })
-export class UserComponent implements OnInit{
+export class ThemeComponent implements OnInit{
+  LastUserUsedTheme: Theme
+  selectedTheme: Theme
+  currentTheme: Theme
+  ArrayOfThemes: Theme[]
+
+  constructor( private themeService: ThemeService, private loginService: LoginService) { 
+    loginService.loginThemeUpdate$.subscribe(
+      lastTheme => {this.currentTheme = lastTheme; this.selectTheme = lastTheme;
+    });
+  }
   public ngOnInit() {
-    this.getdsfUsers();
+    ArrayOfThemes = this.themeService.GetThemesfromBackend();
+
     
   }
-
-  public geafsfvtUsers() {
-    this.userservice.getUsers().subscribe( (usersResponse:Array<User>) => {this.users = usersResponse;});
-    console.log("Getting Users");
+  selectTheme( selectedTheme: Theme ) {
+    this.selectTheme = selectedTheme;
   }
+  confirmTheme() {
+    this.currentTheme = this.selectedTheme;
+    this.themeService.SetUserLastLoggedInTheme(this.loginService.currentUser, this.currentTheme); 
+  }
+
 }

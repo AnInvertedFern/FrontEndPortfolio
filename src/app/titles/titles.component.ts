@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { SearchService } from "../toolbarAndLogin/search.service";
 import { Title } from "./titles";
 import { TitlesService } from "./titles.service";
 
@@ -8,14 +9,18 @@ import { TitlesService } from "./titles.service";
   styleUrls: ['./titles.component.css'],
   providers: [TitlesService]
 })
-export class UserComponent implements OnInit{
+export class TitlesComponent implements OnInit{
   titles: Array<Title> = [];
   currentSelectedTitle: Title | undefined;
   leftTitle: Title | undefined;
   rightTitle: Title | undefined;
   DisplayTitlesInSearch: Array<Title> = [];
 
-  constructor (private titlesservice: TitlesService){ }
+  constructor (private titlesservice: TitlesService, private searchService: SearchService){ 
+    searchService.searchTitlesUpdate$.subscribe(
+      searchedTitles => {this.DisplayTitlesInSearch = searchedTitles;
+    });
+  }
 
   public ngOnInit() {
     this.getTitles();
