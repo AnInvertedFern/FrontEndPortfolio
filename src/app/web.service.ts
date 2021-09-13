@@ -16,7 +16,7 @@ export class WebService {
         return this.http.get<User[]>(`${this.serverUrl}api/users/all`);
     }
     public addContact(userAddTo: User, userToAdd: User){
-        return this.http.post<User[]>(`${this.serverUrl}api/addcontact/`, {userAddTo, userToAdd} );
+        return this.http.post<User[]>(`${this.serverUrl}api/users/addcontact/`, {userAddTo, userToAdd} );
     }
     public updateUsers(user:User) { //needs to also pass in current user, to see if certian fields can be updated
         return this.http.post<User[]>(`${this.serverUrl}api/users/`, user );
@@ -32,17 +32,14 @@ export class WebService {
     public searchUser(searchValue, orderBy){ //needs to also pass in current user, to see if a secret needs to be gotten
         return this.http.get<User[]>(`${this.serverUrl}api/users/search/`, {searchValue, orderBy});
     }
-    public getThemes(){
-        return this.http.get<User[]>(`${this.serverUrl}api/themes/all/`);
-    }
-    public updateLastTheme(currentUser, currentTheme){
-        //just use update user
-    }
     public getTitles(){
         return this.http.get<User[]>(`${this.serverUrl}api/titles/all/`);
     }
     public searchTitles(searchValue){
         return this.http.get<User[]>(`${this.serverUrl}api/titles/search/`, {searchValue});
+    }
+    public getTitlesSearch(value, options){
+        return this.http.get<User[]>(`${this.serverUrl}api/titles/search/`, {value, options});
     }
     public attemptLogin_GetRole(credentials){
         const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa('${credentials.userID}' +':'+'${credentials.password}') });
@@ -54,8 +51,14 @@ export class WebService {
     public getUsersSearch(value, options){ //needs to also pass in current user, to see if a secret needs to be gotton
         return this.http.get<User[]>(`${this.serverUrl}api/users/search/`, {value, options});
     }
-    public getTitlesSearch(value, options){
-        return this.http.get<User[]>(`${this.serverUrl}api/titles/search/`, {value, options});
+    public updateLastTheme(currentUser, currentTheme){
+        //just use update user
+    }
+    public getThemes(){
+        return this.http.get<User[]>(`${this.serverUrl}api/themes/all/`);
+    }
+    public updateThemes(themes: Theme[]){
+        return this.http.post<User[]>(`${this.serverUrl}api/themes/`, themes );
     }
 
 

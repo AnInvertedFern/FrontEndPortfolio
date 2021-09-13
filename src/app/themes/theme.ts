@@ -8,5 +8,5 @@ export interface Theme{
     textColor: string;
     addUserColor: string;
     editUserColor: string;
-    confirmThemeCOlor: string;
+    confirmThemeColor: string;
 }

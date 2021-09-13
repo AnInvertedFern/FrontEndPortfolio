@@ -1,4 +1,4 @@
-Kanban
+Kanban Frontend
 
 Current Tasks
 -----------------------------------------
