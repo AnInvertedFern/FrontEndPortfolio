@@ -14,20 +14,34 @@ export class TitlesComponent implements OnInit{
   currentSelectedTitle: Title | undefined;
   leftTitle: Title | undefined;
   rightTitle: Title | undefined;
-  DisplayTitlesInSearch: Array<Title> = [];
+  DisplayTitlesInSearch: Title[] = [];
 
   constructor (private titlesservice: TitlesService, private searchService: SearchService){ 
     searchService.searchTitlesUpdate$.subscribe(
-      searchedTitles => {this.DisplayTitlesInSearch = searchedTitles;
+      searchedTitles => {
+        this.DisplayTitlesInSearch = searchedTitles;
     });
   }
 
   public ngOnInit() {
     this.getTitles();
-    if (this.titles.length > 0) this.setTitleTo(this.titles[0]);
+    if (this.titles.length > 0) {
+      this.setTitleTo(this.titles[0]);
+    }
+    let docUsers = document.querySelector("titles");
+    let newStyle = document.createElement("style");
+    newStyle.textContent = "\
+      .titles{ display:flex; }\
+      .title-column{ display:flex; justify-content: center; align-items: center; flex:1; }\
+      .title-column-main{}\
+      .title-column-left{}\
+      .title-column-right{}\
+      .titles-border{ height: 100%; width: 10px; background-color: black; }\
+    ";
+    docUsers?.appendChild(newStyle);
   }
   public getTitles() {
-    this.titlesservice.getTitles().subscribe( (titlesResponse:Array<Title>) => {
+    this.titlesservice.getTitles().subscribe( (titlesResponse:any) => {
       this.titles = titlesResponse;
       if (this.currentSelectedTitle !== undefined){
         if ( this.titles.indexOf(this.currentSelectedTitle) === -1 ){
@@ -49,7 +63,7 @@ export class TitlesComponent implements OnInit{
     }
   }
   public searchTitles( searchValue: string ) {
-    this.titlesservice.searchTitles(searchValue).subscribe( (titlesResponse:Array<Title>) => {this.DisplayTitlesInSearch = titlesResponse;});
+    this.titlesservice.searchTitles(searchValue).subscribe( (titlesResponse:any) => {this.DisplayTitlesInSearch = titlesResponse;});
   }
   
 }

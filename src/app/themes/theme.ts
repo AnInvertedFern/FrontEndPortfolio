@@ -1,4 +1,5 @@
 export interface Theme{
+    index: number;
     inactiveTabColor: string;
     activeTabColor: string;
     toolbarColor: string;

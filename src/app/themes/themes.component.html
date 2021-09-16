@@ -1,25 +1,25 @@
-<div>
-    Confirm
-</div>
+<div class="themes">
+    <style>
+        .tab-container{ background-color:"{{themes[0].inactiveTabColor}};" }
+    </style>
+    <div class="theme-confirm-button">
+        Confirm
+    </div>
 
-<div>
-    <div>
-        Theme 1
+    <div class="theme-container" *ngFor="let theme of themes">
+        <div class="theme" style="background-color: {{theme.backgroundColor}};">
+            <div class="theme-subcontainer">
+                <div class="theme-marker" style="background-color: {{theme.activeTabColor}};"></div>
+                <div class="theme-marker" style="background-color: {{theme.inactiveTabColor}};"></div>
+            </div>
+            <div class="theme-subcontainer">
+                <div class="theme-marker" style="background-color: {{theme.toolbarColor}};"></div>
+                <div class="theme-marker" style="background-color: {{theme.textColor}};"></div>
+            </div>
+        </div>
     </div>
-    <div>
-        Theme 2
-    </div>
-    <div>
-        Theme 3
-    </div>
-    <div>
-        Theme 4
-    </div>
-    <div>
-        Theme 5
-    </div>
-</div>
 
-<div>
-    Preview
+    <div class="preview-container">
+        Preview
+    </div>
 </div>

@@ -1,32 +1,50 @@
-<div class="main users">
+<div class="users">
 
-    <div class="card-container">
-      <div class="card" *ngFor="let user of users">
-        <div>
-          <div>
-            <div class="user-symbol"></div>
+  <div class="card-container">
+    <div class="card" *ngFor="let user of users"  style="background-color: {{user.cardColor}};">
+      <div class="inner-card">
+        <div class="card-top">
+          <div class="user-symbol-container">
+            <div class="user-symbol" style="background-color: {{user.symbolBackgroundColor}};">
+              <h2 style="color:{{user.symbolColor}};">
+                {{user.symbol}}
+              </h2>
+            </div>
+          </div>
+          <div class="user-bio">
             <div>
-              <h3> {{user.firstName}} {{user.lastName}} </h3>
-              <p> {{user.title}} </p>
+              <h3 style="color: {{user.textColor}};"> {{user.firstName}} {{user.lastName}} </h3>
+              <p style="color: {{user.textColor}};"> {{user.title}} </p>
               <span>
-                <p>{{user.contactsNum}}</p>
+                <p style="color: {{user.textColor}};">{{user.contactNum}}</p>
               </span>
             </div>
           </div>
+        </div>
+        <div class="user-about">
           <div>
-            <p>{{user.quote}}</p>
-            <p>{{user.secret}}</p>
+            <p style="color: {{user.textColor}};">{{user.quote}}</p>
+            <p style="color: {{user.textColor}};">{{user.secret}}</p>
           </div>
         </div>
       </div>
     </div>
-  
-    <div>
-      <div (click) = "addUser()">
+  </div>
+
+  <div class="new-user-button-container">
+    <div class="new-user-button" (click) = "toggleNewUserPopup()">
+    </div>
+    <div class="new-user-button-text-container" (click) = "toggleNewUserPopup()">
+      <div class="new-user-button-text" (click) = "toggleNewUserPopup()">
         Add A new user
+      </div>
     </div>
-    </div>
-  
-    <footer>
-        <div> Created by CT!&nbsp; </div>
-    </footer>
+  </div>
+
+</div>
+
+<div class="seperator"></div>
+
+<footer class="user-footer">
+    <div> Created by CT!&nbsp; </div>
+</footer>

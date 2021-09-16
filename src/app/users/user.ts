@@ -14,4 +14,6 @@ export interface User{
     symbolColor: string;
     cardColor: string;
     textColor: string;
+
+    symbolBackgroundColor:string;
 }
