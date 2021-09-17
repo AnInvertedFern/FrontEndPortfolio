@@ -9,6 +9,7 @@ import { ToolbarComponent } from './toolbarAndLogin/toolbar.component';
 import { UserComponent } from './users/users.component';
 import { TitlesComponent } from './titles/titles.component';
 import { ThemeComponent } from './themes/themes.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,13 @@ import { ThemeComponent } from './themes/themes.component';
     ToolbarComponent,
     UserComponent,
     TitlesComponent,
-    ThemeComponent
+    ThemeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

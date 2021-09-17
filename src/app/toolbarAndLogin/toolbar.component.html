@@ -18,22 +18,38 @@
   </div>
   <div class="search-container">
     <div class="search-container2">
-      <div>
-        Search
-      </div>
-      <div>
-        Q
-      </div>
+      <input id="search-input" type="text" [(ngModel)]="searchEntry" placeholder="Search">
+      <label for="search-container3"> 
+          <input id="search-enter" type="button" (click)="search()" value="Enter">
+    </label>
     </div>
   </div>
   <div class="login-container">
-    <div class="login-container2">
+    <div class="login-container2" (click)="loginPopupEvent()">
       <div class="login-adimn">Login</div>
       <div>
         E
       </div>
     </div>
   </div>
+
+  <div class="login-form" (focusout)="loginPopupCancel()" [class.login-form-visible]="loginPopup">
+    <div class="login-form-subcontainer">
+      <h4>Enter Credentials:</h4>
+      <label for="login-form-user-id">User ID: </label>
+      <input id="login-form-user-id" type="text" [(ngModel)]="popupLoginObject.userID">
+      
+      <label for="login-form-password">Last Name: </label>
+      <input id="login-form-password" type="text" [(ngModel)]="popupLoginObject.password">
+      
+
+      <div class="login-form-buttons">
+          <input id="login-form-enter" type="button" (click)="login()" value="Enter">
+          <input id="login-form-cancel" type="button" (click)="loginPopupCancel()" value="Cancel">
+      </div>
+    </div>
+  </div>
+
 </div>
   
   

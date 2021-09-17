@@ -9,62 +9,67 @@ import { ThemesService } from "./themes.service";
   selector: 'themes',
   templateUrl: './themes.component.html',
   styleUrls: ['./themes.component.css'],
-  providers: [ThemesService]
+  // providers: [ThemesService]
 })
 export class ThemeComponent implements OnInit{
   // LastUserUsedTheme: Theme | undefined;
-  selectedTheme: number = 0;
-  currentTheme: number = 0;
   themes: Theme[] = [];
 
   constructor( private themeService: ThemesService, private loginService: LoginService) { 
+    console.log("in themes component constructor");
     loginService.loginThemeUpdate$.subscribe(
       (lastTheme: Theme) => {
-        this.currentTheme = lastTheme.index; this.selectedTheme = lastTheme.index;
+        this.themeService.currentTheme = lastTheme.index; this.themeService.selectedTheme = lastTheme.index;
+        this.themeService.loadTheme();
     });
+    themeService.themeUpdate$.subscribe(
+      (themes: Theme[]) => {
+        this.themes = themes;
+        this.themeService.loadTheme();
+    });
+    this.themeService.themesChanged();
   }
   public ngOnInit() {
     // this.themeService.GetThemesfromBackend().subscribe(this.setThemes);
-    this.themes.push(
-      {
-        index: -1,
-        inactiveTabColor: "blue",
-        activeTabColor: "yellow",
-        toolbarColor: "red",
-        searchBarColor: "white",
-        logoutButtonColor: "purple",
-        backgroundColor: "black",
-        textColor: "white",
-        addUserColor: "white",
-        editUserColor: "green",
-        confirmThemeColor: "red",
-      }
-    );
     
-    let docUsers = document.querySelector("themes");
+    // this.copyThemesToService();
+    
+    let docThemes = document.querySelector(".themes");
+    console.log(docThemes);
     let newStyle = document.createElement("style");
-    newStyle.textContent = "\
-      .themes{ display:flex; flex-direction:column; }\
-      .theme-container{ display:flex; flex-direction:row; justify-content: space-around; margin: 10px 5px 10px 5px; }\
-      .theme{ height: 70px; width: 70px; border-radius: 70px; background-color: red; display:flex; flex-direction:column; }\
-      .theme-subcontainer{ display:flex; flex:1; flex-direction:row; justify-content: space-around; align-items: center; }\
-      .theme-marker{ height: 30px; width: 30px; border-radius: 30px; background-color: gold; }\
-      .preview-container{ display:flex; flex-direction:row; justify-content: center; }\
-      .theme-confirm-button{ background-color: gold; border-radius: 4px;  display:flex; align-items: center; justify-content: center; height: 30px; width: 70px; margin: 10px 30px 10px 30px; }\
-    ";
-    docUsers?.appendChild(newStyle);
+    newStyle.textContent = `
+      .themes{ display:flex; flex-direction:column; }
+      .theme-container{ display:flex; flex-direction:row; justify-content: space-around; margin: 10px 5px 10px 5px; }
+      .theme{ height: 70px; width: 70px; border-radius: 70px; background-color: red; display:flex; flex-direction:column; }
+      .theme-subcontainer{ display:flex; flex:1; flex-direction:row; justify-content: space-around; align-items: center; }
+      .theme-marker{ height: 30px; width: 30px; border-radius: 30px; background-color: gold; }
+      .preview-container{ display:flex; flex-direction:row; justify-content: center; }
+      .theme-confirm-button{ background-color: gold; border-radius: 4px;  display:flex; align-items: center; justify-content: center; height: 30px; width: 70px; margin: 10px 30px 10px 30px; }
+    `;
+    docThemes?.appendChild(newStyle);
+
+    this.themeService.loadTheme();
+  }
+  public copyThemesToService(){
+    this.themeService.themes = this.themes;
   }
   public setThemes(themes: any){
     this.themes = themes;
     //add code to add the themes into css
+    this.copyThemesToService();
   }
   selectTheme( selectedTheme: number ) {
-    this.selectedTheme = selectedTheme;
+    console.log(this.themeService.selectedTheme);
+    this.themeService.selectedTheme = selectedTheme;
+    console.log(this.themeService.selectedTheme);
   }
   confirmTheme() {
-    this.currentTheme = this.selectedTheme;
+    console.log("confirming theme")
+    this.themeService.currentTheme = this.themeService.selectedTheme;
+    console.log(this.themeService.currentTheme);
+    this.themeService.loadTheme();
     if (this.loginService.isLoggedin && this.loginService.currentUser !== undefined) {
-      this.themeService.SetUserLastLoggedInTheme(this.loginService.currentUser, this.themes[this.currentTheme]);
+      this.themeService.SetUserLastLoggedInTheme(this.loginService.currentUser, this.themes[this.themeService.currentTheme]);
     } 
   }
 

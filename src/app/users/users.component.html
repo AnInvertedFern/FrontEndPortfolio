@@ -1,7 +1,48 @@
 <div class="users">
 
+  <div class="edit-user-form" (focusout)="cancelUserPopup()" [class.user-form-visible]="EditUserPopup">
+    <div class="edit-user-form-subcontainer">
+      <h3>Edit User:</h3>
+      <label for="user-form-first-name">First Name: </label>
+      <input id="user-form-first-name" type="text" [(ngModel)]="popupUserObject.firstName">
+      
+      <label for="user-form-last-name">Last Name: </label>
+      <input id="user-form-last-name" type="text" [(ngModel)]="popupUserObject.lastName">
+      
+      <label for="user-form-title">Title: </label>
+      <input id="user-form-title" type="text" [(ngModel)]="popupUserObject.title">
+      
+      <label for="user-form-contacts">Number of Contacts: </label>
+      <input id="user-form-contacts" type="text" [(ngModel)]="popupUserObject.contactNum">
+      
+      <label for="user-form-rate">You Know Them?: </label>
+      <input id="user-form-rate" type="checkbox" [(ngModel)]="popupUserObject.rated">
+      
+      <label for="user-form-quote">Quote: </label>
+      <input id="user-form-quote" type="text" [(ngModel)]="popupUserObject.quote">
+      <label for="user-form-secret">Secret: </label>
+      <input id="user-form-secret" type="text" [(ngModel)]="popupUserObject.secret">
+      <label for="user-form-symbol">Symbol: </label>
+      <input id="user-form-symbol" type="text" [(ngModel)]="popupUserObject.symbol">
+      <label for="user-form-symbol-color">Symbol Color: </label>
+      <input id="user-form-symbol-color" type="text" [(ngModel)]="popupUserObject.symbolColor">
+      <label for="user-form-card-color">Card Color: </label>
+      <input id="user-form-card-color" type="text" [(ngModel)]="popupUserObject.cardColor">
+      <label for="user-form-text-color">Text Color: </label>
+      <input id="user-form-text-color" type="text" [(ngModel)]="popupUserObject.textColor">
+      <label for="user-form-symbol-background-color">Symbol Background Color: </label>
+      <input id="user-form-symbol-background-color" type="text" [(ngModel)]="popupUserObject.symbolBackgroundColor">
+
+      <div class="user-form-buttons">
+          <input id="user-form-delete" type="button" (click)="cancelUserPopup()" value="Delete">
+          <input id="user-form-enter" type="button" (click)="cancelUserPopup()" value="Enter">
+          <input id="user-form-cancel" type="button" (click)="cancelUserPopup()" value="Cancel">
+      </div>
+    </div>
+  </div>
+
   <div class="card-container">
-    <div class="card" *ngFor="let user of users"  style="background-color: {{user.cardColor}};">
+    <div class="card" *ngFor="let user of users" (click) = "toggleEditUserPopup()" style="background-color: {{user.cardColor}};">
       <div class="inner-card">
         <div class="card-top">
           <div class="user-symbol-container">
@@ -37,6 +78,51 @@
     <div class="new-user-button-text-container" (click) = "toggleNewUserPopup()">
       <div class="new-user-button-text" (click) = "toggleNewUserPopup()">
         Add A new user
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="new-user-form" (focusout)="cancelUserPopup();" [class.user-form-visible]="NewUserPopup">
+    <div class="new-user-form-subcontainer">
+      <h3>Create User:</h3>
+      <label for="user-form-first-name">First Name: </label>
+      <input id="user-form-first-name" type="text" [(ngModel)]="popupUserObject.firstName">
+      
+      <label for="user-form-last-name">Last Name: </label>
+      <input id="user-form-last-name" type="text" [(ngModel)]="popupUserObject.lastName">
+      
+      <label for="user-form-title">Title: </label>
+      <input id="user-form-title" type="text" [(ngModel)]="popupUserObject.title">
+      
+      <label for="user-form-contacts">Number of Contacts: </label>
+      <input id="user-form-contacts" type="text" [(ngModel)]="popupUserObject.contactNum">
+      
+      <label for="user-form-rate">You Know Them?: </label>
+      <input id="user-form-rate" type="checkbox" [(ngModel)]="popupUserObject.rated">
+      
+      <label for="user-form-quote">Quote: </label>
+      <input id="user-form-quote" type="text" [(ngModel)]="popupUserObject.quote">
+      <label for="user-form-secret">Secret: </label>
+      <input id="user-form-secret" type="text" [(ngModel)]="popupUserObject.secret">
+      <label for="user-form-symbol">Symbol: </label>
+      <input id="user-form-symbol" type="text" [(ngModel)]="popupUserObject.symbol">
+      <label for="user-form-symbol-color">Symbol Color: </label>
+      <input id="user-form-symbol-color" type="text" [(ngModel)]="popupUserObject.symbolColor">
+      <label for="user-form-card-color">Card Color: </label>
+      <input id="user-form-card-color" type="text" [(ngModel)]="popupUserObject.cardColor">
+      <label for="user-form-text-color">Text Color: </label>
+      <input id="user-form-text-color" type="text" [(ngModel)]="popupUserObject.textColor">
+      <label for="user-form-symbol-background-color">Symbol Background Color: </label>
+      <input id="user-form-symbol-background-color" type="text" [(ngModel)]="popupUserObject.symbolBackgroundColor">
+
+      <label for="user-form-password">Password: </label>
+      <input id="user-form-password" type="text" [(ngModel)]="popupUserObject.password">
+
+      <div class="user-form-buttons">
+          <input id="user-form-delete" type="button" (click)="cancelUserPopup()" value="Delete">
+          <input id="user-form-enter" type="button" (click)="cancelUserPopup()" value="Enter">
+          <input id="user-form-cancel" type="button" (click)="cancelUserPopup()" value="Cancel">
       </div>
     </div>
   </div>

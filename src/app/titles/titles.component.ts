@@ -11,9 +11,9 @@ import { TitlesService } from "./titles.service";
 })
 export class TitlesComponent implements OnInit{
   titles: Array<Title> = [];
-  currentSelectedTitle: Title | undefined;
-  leftTitle: Title | undefined;
-  rightTitle: Title | undefined;
+  currentSelectedTitle: number = 0;
+  leftTitle: number = -1;
+  rightTitle: number = -1;
   DisplayTitlesInSearch: Title[] = [];
 
   constructor (private titlesservice: TitlesService, private searchService: SearchService){ 
@@ -21,45 +21,220 @@ export class TitlesComponent implements OnInit{
       searchedTitles => {
         this.DisplayTitlesInSearch = searchedTitles;
     });
+    this.setLeftRightTitles();
   }
 
   public ngOnInit() {
+    this.titles.push(
+      {
+        id:-1,
+        title: "cook",
+        users: [
+          {
+            id: -1,
+            firstName: "Bob",
+            lastName: "Smith",
+            title: "Cook",
+            contacts: [-1,-1,-1],
+            contactNum: 3,
+            quote: "Hi, I am Bob",
+            secret: "This is a secret",
+            lastTheme: undefined,
+            symbol: "O",
+            symbolColor: "Green",
+            cardColor: "Black",
+            textColor: "White",
+            symbolBackgroundColor: "purple",
+          },
+          {
+            id: -1,
+            firstName: "Bob",
+            lastName: "Smith",
+            title: "Cook",
+            contacts: [-1,-1,-1],
+            contactNum: 3,
+            quote: "Hi, I am Bob",
+            secret: "This is a secret",
+            lastTheme: undefined,
+            symbol: "O",
+            symbolColor: "Green",
+            cardColor: "Black",
+            textColor: "White",
+            symbolBackgroundColor: "purple",
+          },
+          {
+            id: -1,
+            firstName: "Bob",
+            lastName: "Smith",
+            title: "Cook",
+            contacts: [-1,-1,-1],
+            contactNum: 3,
+            quote: "Hi, I am Bob",
+            secret: "This is a secret",
+            lastTheme: undefined,
+            symbol: "O",
+            symbolColor: "Green",
+            cardColor: "Black",
+            textColor: "White",
+            symbolBackgroundColor: "purple",
+          },
+        ]
+      }
+    );
+    this.titles.push(
+      {
+        id:-1,
+        title: "bus driver",
+        users: [
+          {
+            id: -1,
+            firstName: "Bob",
+            lastName: "Smith",
+            title: "Cook",
+            contacts: [-1,-1,-1],
+            contactNum: 3,
+            quote: "Hi, I am Bob",
+            secret: "This is a secret",
+            lastTheme: undefined,
+            symbol: "O",
+            symbolColor: "Green",
+            cardColor: "Black",
+            textColor: "White",
+            symbolBackgroundColor: "purple",
+          },
+          {
+            id: -1,
+            firstName: "Bob",
+            lastName: "Smith",
+            title: "Cook",
+            contacts: [-1,-1,-1],
+            contactNum: 3,
+            quote: "Hi, I am Bob",
+            secret: "This is a secret",
+            lastTheme: undefined,
+            symbol: "O",
+            symbolColor: "Green",
+            cardColor: "Black",
+            textColor: "White",
+            symbolBackgroundColor: "purple",
+          },
+          {
+            id: -1,
+            firstName: "Bob",
+            lastName: "Smith",
+            title: "Cook",
+            contacts: [-1,-1,-1],
+            contactNum: 3,
+            quote: "Hi, I am Bob",
+            secret: "This is a secret",
+            lastTheme: undefined,
+            symbol: "O",
+            symbolColor: "Green",
+            cardColor: "Black",
+            textColor: "White",
+            symbolBackgroundColor: "purple",
+          },
+        ]
+      }
+    );
+    this.titles.push(
+      {
+        id:-1,
+        title: "clock maker",
+        users: [
+          {
+            id: -1,
+            firstName: "Bob",
+            lastName: "Smith",
+            title: "Cook",
+            contacts: [-1,-1,-1],
+            contactNum: 3,
+            quote: "Hi, I am Bob",
+            secret: "This is a secret",
+            lastTheme: undefined,
+            symbol: "O",
+            symbolColor: "Green",
+            cardColor: "Black",
+            textColor: "White",
+            symbolBackgroundColor: "purple",
+          },
+          {
+            id: -1,
+            firstName: "Bob",
+            lastName: "Smith",
+            title: "Cook",
+            contacts: [-1,-1,-1],
+            contactNum: 3,
+            quote: "Hi, I am Bob",
+            secret: "This is a secret",
+            lastTheme: undefined,
+            symbol: "O",
+            symbolColor: "Green",
+            cardColor: "Black",
+            textColor: "White",
+            symbolBackgroundColor: "purple",
+          },
+          {
+            id: -1,
+            firstName: "Bob",
+            lastName: "Smith",
+            title: "Cook",
+            contacts: [-1,-1,-1],
+            contactNum: 3,
+            quote: "Hi, I am Bob",
+            secret: "This is a secret",
+            lastTheme: undefined,
+            symbol: "O",
+            symbolColor: "Green",
+            cardColor: "Black",
+            textColor: "White",
+            symbolBackgroundColor: "purple",
+          },
+        ]
+      }
+    );
+
+    this.setLeftRightTitles();
+
     this.getTitles();
     if (this.titles.length > 0) {
-      this.setTitleTo(this.titles[0]);
+      // this.setTitleTo(this.titles[0]);
+      this.setTitleTo(0);
     }
-    let docUsers = document.querySelector("titles");
+    let docTitles = document.querySelector(".titles");
     let newStyle = document.createElement("style");
-    newStyle.textContent = "\
-      .titles{ display:flex; }\
-      .title-column{ display:flex; justify-content: center; align-items: center; flex:1; }\
-      .title-column-main{}\
-      .title-column-left{}\
-      .title-column-right{}\
-      .titles-border{ height: 100%; width: 10px; background-color: black; }\
-    ";
-    docUsers?.appendChild(newStyle);
+    newStyle.textContent = `
+      .titles{ display:flex; }
+      .title-column{ overflow:auto; display:flex; flex:1; flex-direction:column; align-items:center; }
+      .title-column-main{}
+      .title-column-left{}
+      .title-column-right{}
+      .titles-border{ height: 100vh; width: 10px; background-color: black; }
+      .titles-user-detail-container{ display:flex; flex-direction:column; }
+    `;
+    docTitles?.appendChild(newStyle);
   }
   public getTitles() {
     this.titlesservice.getTitles().subscribe( (titlesResponse:any) => {
       this.titles = titlesResponse;
-      if (this.currentSelectedTitle !== undefined){
-        if ( this.titles.indexOf(this.currentSelectedTitle) === -1 ){
-          if (this.titles.length > 0) this.setTitleTo(this.titles[0]);
-        }
-      }
+      // if (this.currentSelectedTitle !== undefined){
+      //   if ( this.titles.indexOf(this.currentSelectedTitle) === -1 ){
+      //     if (this.titles.length > 0) this.setTitleTo(this.titles[0]);
+      //   }
+      // }
+      this.setTitleTo(0);
     });
   }
 
-  public setTitleTo( selectedTitle: Title ){
+  public setTitleTo( selectedTitle: number ){
     this.currentSelectedTitle = selectedTitle;
     this.setLeftRightTitles();
   }
   private setLeftRightTitles(){
     if (this.currentSelectedTitle != undefined){
-      let titleIndex = this.titles.indexOf(this.currentSelectedTitle);
-      this.leftTitle = (titleIndex-1 > 0) ? this.titles[titleIndex-1] : this.titles[this.titles.length];
-      this.rightTitle = (titleIndex+1 < this.titles.length) ? this.titles[titleIndex+1] : this.titles[0];
+      // let titleIndex = this.titles.indexOf(this.currentSelectedTitle);
+      this.leftTitle = (this.currentSelectedTitle-1 > 0) ? this.currentSelectedTitle-1 : this.titles.length-1;
+      this.rightTitle = (this.currentSelectedTitle+1 < this.titles.length) ? this.currentSelectedTitle+1 : 0;
     }
   }
   public searchTitles( searchValue: string ) {

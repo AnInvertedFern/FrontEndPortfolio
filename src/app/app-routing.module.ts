@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'users-component', component: UserComponent },
   { path: 'titles-component', component: TitlesComponent },
   { path: 'themes-component', component: ThemeComponent },
+  { path: '',   redirectTo: 'users-component', pathMatch: 'full' },
 ];
 
 // configures NgModule imports and exports

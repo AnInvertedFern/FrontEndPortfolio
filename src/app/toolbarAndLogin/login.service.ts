@@ -6,6 +6,8 @@ import { WebService } from "../web.service";
 
 @Injectable({providedIn:'root'})
 export class LoginService {
+
+
   userID: number | undefined;
   password: string | undefined;
   isAdmin: boolean = false;

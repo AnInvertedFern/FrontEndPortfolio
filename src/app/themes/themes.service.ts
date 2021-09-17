@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 import { User } from "../users/user";
 import { WebService } from "../web.service";
 import { Theme } from "./theme";
@@ -6,15 +7,95 @@ import { Theme } from "./theme";
 @Injectable({providedIn:'root'})
 export class ThemesService {
   
+  selectedTheme: number = 0;
+  currentTheme: number = 0;
   themes: Theme[] = [];
+
   
   constructor( private webService: WebService) { 
+    console.log("in themes service constructor");
+    this.themes.push(
+      {
+        index: -1,
+        inactiveTabColor: "blue",
+        activeTabColor: "yellow",
+        toolbarColor: "red",
+        searchBarColor: "navy",
+        logoutButtonColor: "purple",
+        backgroundColor: "grey",
+        textColor: "brown",
+        addUserColor: "brown",
+        editUserColor: "green",
+        confirmThemeColor: "red",
+      }
+    );
+    this.themes.push(
+      {
+        index: -1,
+        inactiveTabColor: "yellow",
+        activeTabColor: "blue",
+        toolbarColor: "navy",
+        searchBarColor: "red",
+        logoutButtonColor: "black",
+        backgroundColor: "purple",
+        textColor: "lime",
+        addUserColor: "brown",
+        editUserColor: "green",
+        confirmThemeColor: "red",
+      }
+    );
+    this.themes.push(
+      {
+        index: -1,
+        inactiveTabColor: "blue",
+        activeTabColor: "yellow",
+        toolbarColor: "red",
+        searchBarColor: "navy",
+        logoutButtonColor: "purple",
+        backgroundColor: "black",
+        textColor: "white",
+        addUserColor: "brown",
+        editUserColor: "green",
+        confirmThemeColor: "red",
+      }
+    );
+    this.themesChanged();
   }
   GetThemesfromBackend() {
     return this.webService.getThemes();
   }
   SetUserLastLoggedInTheme( currentUser:User, currentTheme: Theme ) {
     this.webService.updateLastTheme(currentUser, currentTheme);
+  }
+
+  
+  public loadTheme(){
+
+    let docGeneral = document.querySelector(".general-styles");
+    console.log(docGeneral);
+    console.log(document.getElementsByClassName("general-styles"));
+    console.log(document.querySelector("general-styles"));
+    let newStyle2 = document.createElement("style");   //${this.themes[0].searchBarColor}; }
+    newStyle2.textContent = `
+      *{ color: ${this.themes[this.currentTheme].textColor}; overflow:hidden; }
+      body{ margin: 0px 0px 0px 0px; }
+      .background-colorer{ background-color: ${this.themes[this.currentTheme].backgroundColor}; position: absolute; width:100vw; height:100vh; }
+      .tab-container{ background-color: ${this.themes[this.currentTheme].inactiveTabColor}; }
+      .active{ background-color: ${this.themes[this.currentTheme].activeTabColor}; }
+      .toolbar{ background-color: ${this.themes[this.currentTheme].toolbarColor}; }
+      .search-container{ background-color: white}
+      #search-input{ background-color: ${this.themes[this.currentTheme].searchBarColor}; }
+      .login-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
+      .new-user-button{ background-color: ${this.themes[this.currentTheme].addUserColor}; }
+      .theme-confirm-button{ background-color: ${this.themes[this.currentTheme].confirmThemeColor}; }
+    `;
+    docGeneral?.appendChild(newStyle2);
+  }
+  private themeUpdateSource = new Subject<Theme[]>();
+  themeUpdate$ = this.themeUpdateSource.asObservable();
+  public themesChanged(){
+    console.log("in theme changed");
+    this.themeUpdateSource.next( this.themes );
   }
 
 }
