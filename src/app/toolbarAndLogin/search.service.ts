@@ -27,7 +27,7 @@ export class SearchService {
   }
   
   private searchUsersUpdateSource = new Subject<User[]>();
-  private searchTitlesUpdateSource = new Subject<Title[]>();
+  private searchTitlesUpdateSource = new Subject<(Title[])[]>();
   searchUserUpdate$ = this.searchUsersUpdateSource.asObservable();
   searchTitlesUpdate$ = this.searchTitlesUpdateSource.asObservable();
   

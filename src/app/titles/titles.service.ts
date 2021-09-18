@@ -10,8 +10,8 @@ export class TitlesService {
     public getTitles() {
       return this.webService.getTitles();
     }
-    public searchTitles( searchValue: string ) {
-      return this.webService.searchTitles(searchValue);
-    }
+    // public searchTitles( searchValue: string ) {
+    //   return this.webService.searchTitles(searchValue);
+    // }
 
 }

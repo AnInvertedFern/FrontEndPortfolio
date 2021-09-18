@@ -27,19 +27,19 @@
   <div class="login-container">
     <div class="login-container2" (click)="loginPopupEvent()">
       <div class="login-adimn">Login</div>
-      <div>
+      <!-- <div>
         E
-      </div>
+      </div> -->
     </div>
   </div>
 
-  <div class="login-form" (focusout)="loginPopupCancel()" [class.login-form-visible]="loginPopup">
+  <div class="login-form popup" [class.login-form-visible]="loginPopup">
     <div class="login-form-subcontainer">
       <h4>Enter Credentials:</h4>
       <label for="login-form-user-id">User ID: </label>
       <input id="login-form-user-id" type="text" [(ngModel)]="popupLoginObject.userID">
       
-      <label for="login-form-password">Last Name: </label>
+      <label for="login-form-password">Password: </label>
       <input id="login-form-password" type="text" [(ngModel)]="popupLoginObject.password">
       
 
@@ -47,6 +47,17 @@
           <input id="login-form-enter" type="button" (click)="login()" value="Enter">
           <input id="login-form-cancel" type="button" (click)="loginPopupCancel()" value="Cancel">
       </div>
+    </div>
+  </div>
+
+  <div class="response-box-success" [class.response-box-success-visible]="responseBoxSuccessPopup">
+    <div class="response-box-success-subcontainer">
+      {{responseBoxSuccess}}
+    </div>
+  </div>
+  <div class="response-box-failure" [class.response-box-failure-visible]="responseBoxFailurePopup">
+    <div class="response-box-failure-subcontainer">
+      {{responseBoxFailure}}
     </div>
   </div>
 

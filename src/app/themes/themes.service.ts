@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
+import { LoginService } from "../toolbarAndLogin/login.service";
 import { User } from "../users/user";
 import { WebService } from "../web.service";
 import { Theme } from "./theme";
@@ -12,8 +13,16 @@ export class ThemesService {
   themes: Theme[] = [];
 
   
-  constructor( private webService: WebService) { 
+  constructor( private webService: WebService, private loginService: LoginService) { 
     console.log("in themes service constructor");
+    loginService.loginThemeUpdate$.subscribe(
+      (lastTheme: Theme) => {
+        this.currentTheme = lastTheme.index; this.selectedTheme = lastTheme.index;
+        this.loadTheme();
+    });
+
+    // this.GetThemesfromBackend();
+
     this.themes.push(
       {
         index: -1,
@@ -24,9 +33,10 @@ export class ThemesService {
         logoutButtonColor: "purple",
         backgroundColor: "grey",
         textColor: "brown",
-        addUserColor: "brown",
+        addUserColor: "gold",
         editUserColor: "green",
         confirmThemeColor: "red",
+        userCardOutlineColor: "green",
       }
     );
     this.themes.push(
@@ -42,6 +52,7 @@ export class ThemesService {
         addUserColor: "brown",
         editUserColor: "green",
         confirmThemeColor: "red",
+        userCardOutlineColor: "green",
       }
     );
     this.themes.push(
@@ -57,12 +68,16 @@ export class ThemesService {
         addUserColor: "brown",
         editUserColor: "green",
         confirmThemeColor: "red",
+        userCardOutlineColor: "green",
       }
     );
     this.themesChanged();
   }
   GetThemesfromBackend() {
-    return this.webService.getThemes();
+    this.webService.getThemes().subscribe( (res:any) => {
+      this.themes = res;
+      this.themesChanged();
+    });
   }
   SetUserLastLoggedInTheme( currentUser:User, currentTheme: Theme ) {
     this.webService.updateLastTheme(currentUser, currentTheme);
@@ -80,6 +95,7 @@ export class ThemesService {
       *{ color: ${this.themes[this.currentTheme].textColor}; overflow:hidden; }
       body{ margin: 0px 0px 0px 0px; }
       .background-colorer{ background-color: ${this.themes[this.currentTheme].backgroundColor}; position: absolute; width:100vw; height:100vh; }
+      .popup{ background-color: ${this.themes[this.currentTheme].backgroundColor}; }
       .tab-container{ background-color: ${this.themes[this.currentTheme].inactiveTabColor}; }
       .active{ background-color: ${this.themes[this.currentTheme].activeTabColor}; }
       .toolbar{ background-color: ${this.themes[this.currentTheme].toolbarColor}; }

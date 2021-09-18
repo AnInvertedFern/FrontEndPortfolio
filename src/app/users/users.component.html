@@ -1,6 +1,6 @@
 <div class="users">
 
-  <div class="edit-user-form" (focusout)="cancelUserPopup()" [class.user-form-visible]="EditUserPopup">
+  <div class="edit-user-form popup" [class.user-form-visible]="EditUserPopup">
     <div class="edit-user-form-subcontainer">
       <h3>Edit User:</h3>
       <label for="user-form-first-name">First Name: </label>
@@ -34,15 +34,15 @@
       <input id="user-form-symbol-background-color" type="text" [(ngModel)]="popupUserObject.symbolBackgroundColor">
 
       <div class="user-form-buttons">
-          <input id="user-form-delete" type="button" (click)="cancelUserPopup()" value="Delete">
-          <input id="user-form-enter" type="button" (click)="cancelUserPopup()" value="Enter">
+          <input id="user-form-delete" type="button" (click)="deleteUser(popupUserObject.sourceUser.id)" value="Delete">
+          <input id="user-form-enter" type="button" (click)="updateUsers(popupUserObject)" value="Enter">
           <input id="user-form-cancel" type="button" (click)="cancelUserPopup()" value="Cancel">
       </div>
     </div>
   </div>
 
   <div class="card-container">
-    <div class="card" *ngFor="let user of users" (click) = "toggleEditUserPopup()" style="background-color: {{user.cardColor}};">
+    <div class="card" *ngFor="let user of users" (click) = "toggleEditUserPopup(user)" style="background-color: {{user.cardColor}};">
       <div class="inner-card">
         <div class="card-top">
           <div class="user-symbol-container">
@@ -72,6 +72,16 @@
     </div>
   </div>
 
+  <div class="refresh-users-button-container">
+    <div class="refresh-users-button" (click) = "getUsers()">
+    </div>
+    <div class="refresh-users-button-text-container" (click) = "getUsers()">
+      <div class="refresh-users-button-text" (click) = "getUsers()">
+        Refresh Users
+      </div>
+    </div>
+  </div>
+
   <div class="new-user-button-container">
     <div class="new-user-button" (click) = "toggleNewUserPopup()">
     </div>
@@ -83,7 +93,7 @@
   </div>
 
   
-  <div class="new-user-form" (focusout)="cancelUserPopup();" [class.user-form-visible]="NewUserPopup">
+  <div class="new-user-form popup" [class.user-form-visible]="NewUserPopup">
     <div class="new-user-form-subcontainer">
       <h3>Create User:</h3>
       <label for="user-form-first-name">First Name: </label>
@@ -95,11 +105,11 @@
       <label for="user-form-title">Title: </label>
       <input id="user-form-title" type="text" [(ngModel)]="popupUserObject.title">
       
-      <label for="user-form-contacts">Number of Contacts: </label>
-      <input id="user-form-contacts" type="text" [(ngModel)]="popupUserObject.contactNum">
+      <!-- <label for="user-form-contacts">Number of Contacts: </label>
+      <input id="user-form-contacts" type="text" [(ngModel)]="popupUserObject.contactNum"> -->
       
-      <label for="user-form-rate">You Know Them?: </label>
-      <input id="user-form-rate" type="checkbox" [(ngModel)]="popupUserObject.rated">
+      <!-- <label for="user-form-rate">You Know Them?: </label>
+      <input id="user-form-rate" type="checkbox" [(ngModel)]="popupUserObject.rated"> -->
       
       <label for="user-form-quote">Quote: </label>
       <input id="user-form-quote" type="text" [(ngModel)]="popupUserObject.quote">
@@ -120,8 +130,7 @@
       <input id="user-form-password" type="text" [(ngModel)]="popupUserObject.password">
 
       <div class="user-form-buttons">
-          <input id="user-form-delete" type="button" (click)="cancelUserPopup()" value="Delete">
-          <input id="user-form-enter" type="button" (click)="cancelUserPopup()" value="Enter">
+          <input id="user-form-enter" type="button" (click)="addUser(popupUserObject)" value="Enter">
           <input id="user-form-cancel" type="button" (click)="cancelUserPopup()" value="Cancel">
       </div>
     </div>

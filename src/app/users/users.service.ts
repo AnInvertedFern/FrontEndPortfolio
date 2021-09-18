@@ -12,7 +12,7 @@ export class UserService {
     public getUsers() : Observable<User[]> {
         return this.webService.getUsers();
     }
-    public addContact(userAddTo: User, userToAdd: User) : Observable<User[]> {
+    public addContact(userAddTo: number, userToAdd: number) : Observable<User[]> {
         return this.webService.addContact(userAddTo, userToAdd);
     }
     
@@ -20,16 +20,16 @@ export class UserService {
         return this.webService.updateUsers(user);
     }
 
-    public addUser(user: User ) {
+    public addUser(user: User | any ) {
         return this.webService.addUser(user);
     }
  
-    public deleteUser(user: User , callback: Function) {
-        return this.webService.deleteUser(user, callback);
+    public deleteUser(userID: number ) {
+        return this.webService.deleteUser(userID);
     }
   
-    public searchUsers( searchValue: string, orderBy: string ) {
-      return this.webService.searchUser(searchValue, orderBy);
-    }
+    // public searchUsers( searchValue: string, orderBy: string ) {
+    //   return this.webService.searchUser(searchValue, orderBy);
+    // }
 
 }

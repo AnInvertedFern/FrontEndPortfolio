@@ -7,7 +7,7 @@ General Tests
 Test #1: Ensure Login Works
 Expected Result: 
 Should allow the editing of own user's first name, symbol, secrets, and quote
-Should be able to see own quote
+Should be able to see own secret
 Nothing else should be changable
 Users should not be able to change themes, only select them
 Themes should be remembered upon next login

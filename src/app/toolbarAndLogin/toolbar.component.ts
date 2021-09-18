@@ -17,8 +17,23 @@ export class ToolbarComponent implements OnInit {
     password:"",
   }
 
+  responseBoxSuccess: string = "a much longer test";
+  responseBoxFailure: string = "a much longer test";
+  responseBoxSuccessPopup: boolean = false;
+  responseBoxFailurePopup: boolean = false;
+  
+
   constructor (private route: ActivatedRoute, private searchService: SearchService, private loginService: LoginService) {
-    
+    loginService.responseBoxSuccessUpdate$.subscribe(
+      toPublish => {
+        this.responseBoxSuccess = toPublish;
+        this.responseBoxSuccessPopup = true;
+    });
+    loginService.responseBoxFailureUpdate$.subscribe(
+      toPublish => {
+        this.responseBoxFailure = toPublish;
+        this.responseBoxFailurePopup = true;
+    });
   }
   public ngOnInit() {
     let docToolbar = document.querySelector(".toolbar"); //background-color: blue;
@@ -35,9 +50,18 @@ export class ToolbarComponent implements OnInit {
       #search-enter{ box-sizing: border-box; height: 30px; }
       .login-container{ height: 30px; border-radius: 4px; display:flex; justify-items: center; align-items: center; flex:1; flex-direction: row-reverse; }
       .login-container2{ height: 30px; width: 120px; border-radius: 4px; margin: auto 30px auto 30px; margin: auto 30px auto 30px; display:flex; align-items: center; justify-content: center; }
-      .login-form{ border: 2px solid black; background-color: white; position:fixed; top: 50px; right: 50px; display:none; }
+      .login-form{ border: 2px solid black; position:fixed; top: 50px; right: 50px; display:none; }
       .login-form-subcontainer{ margin: 10px 10px 10px 10px; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
       .login-form-visible{ display:flex; }
+
+      
+      .response-box-success{ height:15%; width:35%; overflow:auto; border: 2px solid darkgreen; position:fixed; top: 100px; left: 70px; display:none; }
+      .response-box-success-subcontainer{ height:100%; width:100%; background-color:green; color:darkgreen; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
+      .response-box-failure{ height:15%; width:35%; overflow:auto; border: 2px solid darkred; position:fixed; top: 100px; left: 70px; display:none; }
+      .response-box-failure-subcontainer{ height:100%; width:100%; background-color:red; color:darkred; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
+      .response-box-success-visible{ display:flex; }
+      .response-box-failure-visible{ display:flex; }
+
     `;
     docToolbar?.appendChild(newStyle);
     
@@ -48,10 +72,11 @@ export class ToolbarComponent implements OnInit {
   public search(  ) {
     console.log(this.route.snapshot.children[0].url[0].path);
     if (this.getCurrentTab() === "users-component") {
-      this.searchService.usersSearch("value", {});
+      this.searchService.usersSearch(this.searchEntry, {});
     } if (this.getCurrentTab() === "titles-component") {
-      this.searchService.titlesSearch("value", {});
+      this.searchService.titlesSearch(this.searchEntry, {});
     }
+    this.searchEntry = "";
   }
   
   public loginPopupEvent() {
@@ -68,13 +93,20 @@ export class ToolbarComponent implements OnInit {
       password:"",
     }
   }
+  public logout(){
+
+  }
+
+
+  
   public searchPopupEvent() {
     this.searchPopup = !this.searchPopup;
   }
   public login(  ) {
-    this.resetPopupLogin();
-    this.loginPopupCancel();
     this.loginService.login(this.popupLoginObject);
+    console.log(this.popupLoginObject);
+    // this.resetPopupLogin();
+    this.loginPopupCancel();
   }
 
 }

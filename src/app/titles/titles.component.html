@@ -1,8 +1,26 @@
 <div class = "titles">
-    <div class="title-column-left title-column" (click) = "setTitleTo(leftTitle)">
-        <div>
-            {{titles[leftTitle].title}}
+
+    
+  <div class="search-results popup" [class.search-results-visible]="searchPopup">
+    <div class="search-results-subcontainer">
+      <h4>Search Results:</h4>
+      <div *ngFor="let searchTitle of DisplayTitlesInSearch">
+        <div (click) = "setTitleTo(titles.indexOf(searchTitle))">
+            {{searchTitle.title}}
         </div>
+
+      </div>
+
+      <div class="search-results-buttons">
+          <input id="search-results-cancel" type="button" (click)="searchPopupEvent()" value="Close">
+      </div>
+    </div>
+  </div>
+
+    <div class="title-column-left title-column" (click) = "setTitleTo(leftTitle)">
+        <h2>
+            {{titles[leftTitle].title}}
+        </h2>
         <div class="titles-user-detail-container" *ngFor="let user of titles[leftTitle].users">
             <div>
                 <h3> {{user.firstName}} {{user.lastName}} </h3>
@@ -13,9 +31,9 @@
     </div>
     <div class="titles-border"></div>
     <div class="title-column-main title-column">
-        <div>
+        <h2>
             {{titles[currentSelectedTitle].title}}
-        </div>
+        </h2>
         <div class="titles-user-detail-container" *ngFor="let user of titles[currentSelectedTitle].users">
             <div>
                 <h3> {{user.firstName}} {{user.lastName}} </h3>
@@ -26,9 +44,9 @@
     </div>
     <div class="titles-border"></div>
     <div class="title-column-right title-column" (click) = "setTitleTo(rightTitle)">
-        <div>
+        <h2>
             {{titles[rightTitle].title}}
-        </div>
+        </h2>
         <div class="titles-user-detail-container" *ngFor="let user of titles[rightTitle].users">
             <div>
                 <h3> {{user.firstName}} {{user.lastName}} </h3>

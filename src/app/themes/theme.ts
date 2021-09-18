@@ -10,4 +10,6 @@ export interface Theme{
     addUserColor: string;
     editUserColor: string;
     confirmThemeColor: string;
+
+    userCardOutlineColor: string;
 }

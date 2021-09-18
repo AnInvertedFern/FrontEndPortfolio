@@ -4,14 +4,14 @@
     </div>
 
     <div class="theme-container">
-        <div *ngFor="let theme of themes; let i=index">
+        <div class="theme-border-container" *ngFor="let theme of themes; let i=index"  style="background-color: {{theme.toolbarColor}};">
             <div class="theme" (click)="selectTheme(i)" style="background-color: {{theme.backgroundColor}};">
                 <div class="theme-subcontainer">
                     <div class="theme-marker" style="background-color: {{theme.activeTabColor}};"></div>
                     <div class="theme-marker" style="background-color: {{theme.inactiveTabColor}};"></div>
                 </div>
                 <div class="theme-subcontainer">
-                    <div class="theme-marker" style="background-color: {{theme.toolbarColor}};"></div>
+                    <div class="theme-marker" style="background-color: {{theme.searchBarColor}};"></div>
                     <div class="theme-marker" style="background-color: {{theme.textColor}};"></div>
                 </div>
             </div>

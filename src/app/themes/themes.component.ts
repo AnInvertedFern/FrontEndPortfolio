@@ -17,16 +17,12 @@ export class ThemeComponent implements OnInit{
 
   constructor( private themeService: ThemesService, private loginService: LoginService) { 
     console.log("in themes component constructor");
-    loginService.loginThemeUpdate$.subscribe(
-      (lastTheme: Theme) => {
-        this.themeService.currentTheme = lastTheme.index; this.themeService.selectedTheme = lastTheme.index;
-        this.themeService.loadTheme();
-    });
     themeService.themeUpdate$.subscribe(
       (themes: Theme[]) => {
         this.themes = themes;
         this.themeService.loadTheme();
     });
+    this.themeService.GetThemesfromBackend();
     this.themeService.themesChanged();
   }
   public ngOnInit() {
@@ -40,6 +36,7 @@ export class ThemeComponent implements OnInit{
     newStyle.textContent = `
       .themes{ display:flex; flex-direction:column; }
       .theme-container{ display:flex; flex-direction:row; justify-content: space-around; margin: 10px 5px 10px 5px; }
+      .theme-border-container{ display:flex; align-items: center; justify-content: center;  margin: 20px 5px 20px 5px; height: 80px; width: 80px; border-radius: 30px; box-shadow: 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray; }
       .theme{ height: 70px; width: 70px; border-radius: 70px; background-color: red; display:flex; flex-direction:column; }
       .theme-subcontainer{ display:flex; flex:1; flex-direction:row; justify-content: space-around; align-items: center; }
       .theme-marker{ height: 30px; width: 30px; border-radius: 30px; background-color: gold; }
@@ -50,13 +47,13 @@ export class ThemeComponent implements OnInit{
 
     this.themeService.loadTheme();
   }
-  public copyThemesToService(){
-    this.themeService.themes = this.themes;
-  }
+  // public copyThemesToService(){
+  //   this.themeService.themes = this.themes;
+  // }
   public setThemes(themes: any){
     this.themes = themes;
     //add code to add the themes into css
-    this.copyThemesToService();
+    // this.copyThemesToService();
   }
   selectTheme( selectedTheme: number ) {
     console.log(this.themeService.selectedTheme);
