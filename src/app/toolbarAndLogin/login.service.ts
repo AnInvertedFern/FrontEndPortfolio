@@ -29,8 +29,10 @@ export class LoginService {
   // }
   public login(credentials: any) {
     this.unCheckedCredentials = credentials;
-    this.webService.attemptLogin_GetRole(credentials).subscribe(this.loginHelper1);
-    this.loginHelper2();
+    this.webService.attemptLogin_GetRole(credentials).subscribe( (res:any) => {
+      this.loginHelper1(res);
+      this.loginHelper2();
+    });
   }
   public loginHelper1(res:any){
     // this.setCredentials( credentials.userID, credentials.password);

@@ -4,32 +4,38 @@ Current Tasks
 -----------------------------------------
 
 #========================================
+Task #14: Switch API to Match Backend
+Resolution: Not Started
+SubTasks: None
+#========================================
+
+#========================================
+Task #11: Implement Login Logic
+Resolution: Not Started
+SubTasks: None
+#========================================
+
+#========================================
+Task #12: Implement Admin Pages
+Resolution: Not Started
+SubTasks: None
+#========================================
+
+#========================================
+Task #13: Implement Logout
+Resolution: Not Started
+SubTasks: None
+#========================================
+
+#========================================
 Task #6: Design Unit and Intergration Tests
 Resolution: Not Started
 SubTasks: None
 #========================================
 
 #========================================
-Task #5: Implement Basic Structure of Code (HTML, CSS, and TS)
-Resolution: Basic Frame Finished, Full Implementation not yet Started
-SubTasks: Task #6, Task #7, Task #8
-#========================================
-
-#========================================
-Task #8: Implement the TS of the Three Main Tabs
-Resolution: Rough Implementation of all Tabs Implemented
-SubTasks: Task #9
-#========================================
-
-#========================================
-Task #9: Hook the Login and Web Services into the Main Components for the Site
-Resolution: In Progress
-SubTasks: Task #10
-#========================================
-
-#========================================
 Task #7: Implement HTML and CSS
-Resolution: Rough HTML Basic Structure Implemented, CSS Not Started
+Resolution: Animiations and Polish Still Needed
 SubTasks: None
 #========================================
 
@@ -44,6 +50,24 @@ SubTasks: None
 
 Finished Tasks
 -----------------------------------------
+
+#========================================
+Task #5: Implement Basic Structure of Code (HTML, CSS, and TS)
+Resolution: Finished
+SubTasks: Task #6, Task #7, Task #8
+#========================================
+
+#========================================
+Task #8: Implement the TS of the Three Main Tabs
+Resolution: Finished
+SubTasks: Task #9
+#========================================
+
+#========================================
+Task #9: Hook the Login and Web Services into the Main Components for the Site
+Resolution: Finished
+SubTasks: Task #10
+#========================================
 
 #========================================
 Task #10: Mark and Design the Flow of information in and out of the search and login services: Flags, Subscriptions, and Get Calls
