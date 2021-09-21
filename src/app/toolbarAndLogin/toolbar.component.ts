@@ -26,6 +26,7 @@ export class ToolbarComponent implements OnInit {
   constructor (private route: ActivatedRoute, private searchService: SearchService, private loginService: LoginService) {
     loginService.responseBoxSuccessUpdate$.subscribe(
       toPublish => {
+        console.log("in response success");
         this.responseBoxSuccess = toPublish;
         this.responseBoxSuccessPopup = true;
     });
@@ -59,6 +60,9 @@ export class ToolbarComponent implements OnInit {
       .response-box-success-subcontainer{ height:100%; width:100%; background-color:green; color:darkgreen; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
       .response-box-failure{ height:15%; width:35%; overflow:auto; border: 2px solid darkred; position:fixed; top: 100px; left: 70px; display:none; }
       .response-box-failure-subcontainer{ height:100%; width:100%; background-color:red; color:darkred; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
+
+      .response-box-close{ position:absolute; bottom:2px; right:2px; color:midnightblue;}
+
       .response-box-success-visible{ display:flex; }
       .response-box-failure-visible{ display:flex; }
 
@@ -96,7 +100,10 @@ export class ToolbarComponent implements OnInit {
   public logout(){
 
   }
-
+  public responseBoxCancel() {
+    this.responseBoxSuccessPopup = false;
+    this.responseBoxSuccessPopup = false;
+  }
 
   
   public searchPopupEvent() {

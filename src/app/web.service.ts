@@ -28,6 +28,7 @@ export class WebService {
         return this.http.post<User[]>(`${this.serverUrl}api/users/`, user );
     }
     public addUser(user:User){
+        console.log(user);
         return this.http.put<User[]>( `${this.serverUrl}api/users/`, user);
     }
     // public deleteUser(user:User, callback:any){ //needs to also pass in current user, to see if the non-admin user can delete that user
@@ -50,7 +51,8 @@ export class WebService {
     // }
     //Wants back an array of an array of titles: first index being all titles, second index being searched filtered titled
     public getTitlesSearch(value: string, options: Object){
-        return this.http.post<Title[]>(`${this.serverUrl}api/titles/search/`, {value, options});
+        console.log(value);
+        return this.http.post<Title[]>(`${this.serverUrl}api/titles/search/`, {value, options}, {params: {searchValue: value} } );
     }
     // Wants back loginSucess:boolean, isAdmin:boolean, currentUser:User
     public attemptLogin_GetRole(credentials: any){
@@ -62,7 +64,7 @@ export class WebService {
     }
     //Wants a array of Users
     public getUsersSearch(value: string, options: Object){ //needs to also pass in current user, to see if a secret needs to be gotton
-        return this.http.post<User[]>(`${this.serverUrl}api/users/search/`, {value, options});
+        return this.http.post<User[]>(`${this.serverUrl}api/users/search/`, {value, options}, {params: {searchValue: value} } );
     }
     public updateLastTheme(currentUser: User, currentTheme: Theme){
         //just use update user

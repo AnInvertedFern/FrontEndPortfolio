@@ -13,7 +13,24 @@ import { ThemesService } from "./themes.service";
 })
 export class ThemeComponent implements OnInit{
   // LastUserUsedTheme: Theme | undefined;
+  
+  dummyTheme:Theme = {
+    index: -1,
+    inactiveTabColor: "",
+    activeTabColor: "",
+    toolbarColor: "",
+    searchBarColor: "",
+    logoutButtonColor: "",
+    backgroundColor: "",
+    textColor: "",
+    addUserColor: "",
+    editUserColor: "",
+    confirmThemeColor: "",
+  }
   themes: Theme[] = [];
+  
+  selectedTheme: number = 0;
+  selectedThemeEntries:[string,any][] = [];
 
   constructor( private themeService: ThemesService, private loginService: LoginService) { 
     console.log("in themes component constructor");
@@ -41,7 +58,9 @@ export class ThemeComponent implements OnInit{
       .theme-subcontainer{ display:flex; flex:1; flex-direction:row; justify-content: space-around; align-items: center; }
       .theme-marker{ height: 30px; width: 30px; border-radius: 30px; background-color: gold; }
       .preview-container{ display:flex; flex-direction:row; justify-content: center; }
-      .theme-confirm-button{ background-color: gold; border-radius: 4px;  display:flex; align-items: center; justify-content: center; height: 30px; width: 70px; margin: 10px 30px 10px 30px; }
+      .theme-confirm-button{ background-color: gold; border-radius: 4px; display:flex; align-items: center; justify-content: center; height: 30px; width: 70px; margin: 10px 30px 10px 30px; }
+      .theme-details-container{ display:flex; align-items:center; justify-content: center; height: 30em; width: 100%; margin: 10px 30px 10px 30px; }
+      .theme-details-subcontainer{ border: 2px solid black; height: 50%; width: 30%; }
     `;
     docThemes?.appendChild(newStyle);
 
@@ -58,6 +77,9 @@ export class ThemeComponent implements OnInit{
   selectTheme( selectedTheme: number ) {
     console.log(this.themeService.selectedTheme);
     this.themeService.selectedTheme = selectedTheme;
+    this.selectedTheme = selectedTheme;
+    this.selectedThemeEntries = Object.entries(this.themes[this.selectedTheme]);
+    console.log(this.selectedThemeEntries);
     console.log(this.themeService.selectedTheme);
   }
   confirmTheme() {

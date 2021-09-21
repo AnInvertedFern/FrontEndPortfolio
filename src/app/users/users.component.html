@@ -73,10 +73,10 @@
   </div>
 
   <div class="refresh-users-button-container">
-    <div class="refresh-users-button" (click) = "getUsers()">
+    <div class="refresh-users-button" (click) = "cancelUserPopup();getUsers();">
     </div>
-    <div class="refresh-users-button-text-container" (click) = "getUsers()">
-      <div class="refresh-users-button-text" (click) = "getUsers()">
+    <div class="refresh-users-button-text-container" (click) = "cancelUserPopup();getUsers();">
+      <div class="refresh-users-button-text" (click) = "cancelUserPopup();getUsers();">
         Refresh Users
       </div>
     </div>

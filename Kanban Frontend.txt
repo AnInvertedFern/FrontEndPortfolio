@@ -4,7 +4,7 @@ Current Tasks
 -----------------------------------------
 
 #========================================
-Task #14: Switch API to Match Backend
+Task #15: Polish CSS and HTML
 Resolution: Not Started
 SubTasks: None
 #========================================
@@ -50,6 +50,12 @@ SubTasks: None
 
 Finished Tasks
 -----------------------------------------
+
+#========================================
+Task #14: Switch API to Match Backend
+Resolution: Finished
+SubTasks: None
+#========================================
 
 #========================================
 Task #5: Implement Basic Structure of Code (HTML, CSS, and TS)

@@ -11,5 +11,5 @@ export interface Theme{
     editUserColor: string;
     confirmThemeColor: string;
 
-    userCardOutlineColor: string;
+    // userCardOutlineColor: string;
 }

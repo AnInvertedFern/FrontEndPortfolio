@@ -50,14 +50,20 @@
     </div>
   </div>
 
-  <div class="response-box-success" [class.response-box-success-visible]="responseBoxSuccessPopup">
+  <div class="response-box-success" (click)="responseBoxCancel();" [class.response-box-success-visible]="responseBoxSuccessPopup">
     <div class="response-box-success-subcontainer">
       {{responseBoxSuccess}}
     </div>
+    <div class="response-box-close">
+      click to close
+    </div>
   </div>
-  <div class="response-box-failure" [class.response-box-failure-visible]="responseBoxFailurePopup">
+  <div class="response-box-failure" (click)="responseBoxCancel();" [class.response-box-failure-visible]="responseBoxFailurePopup">
     <div class="response-box-failure-subcontainer">
       {{responseBoxFailure}}
+    </div>
+    <div class="response-box-close">
+      click to close
     </div>
   </div>
 

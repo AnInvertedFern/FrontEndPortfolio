@@ -10,19 +10,26 @@ import { WebService } from "../web.service";
 export class SearchService {
 
   constructor( private webService: WebService ) { 
+    console.log(this.searchUsersUpdateSource);
   }
   usersSearch( value: string, options: Object ) {
-    this.webService.getUsersSearch(value, options).subscribe(this.usersSearchHelper);
+    console.log(this.searchUsersUpdateSource);
+    console.log(value);
+    this.webService.getUsersSearch(value, options).subscribe((res: any) => {console.log(this.searchUsersUpdateSource);this.usersSearchHelper(res)});
 
   }
   usersSearchHelper(res: any) {
+    console.log(this.searchUsersUpdateSource);
+    console.log(res);
     this.searchUsersUpdateSource.next(res);
   }
   titlesSearch( value: string, options: Object ) {
-    this.webService.getTitlesSearch(value, options).subscribe(this.titlesSearchHelper);
+    console.log(value);
+    this.webService.getTitlesSearch(value, options).subscribe( (res: any) => {console.log(this.searchTitlesUpdateSource);this.titlesSearchHelper(res)});
 
   }
   titlesSearchHelper(res:any) {
+    console.log(res);
     this.searchTitlesUpdateSource.next(res);
   }
   

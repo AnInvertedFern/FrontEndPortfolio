@@ -39,125 +39,125 @@ export class UserComponent implements OnInit{
 
 
   constructor (private userservice: UserService, private searchService: SearchService, private loginService: LoginService, private themeService: ThemesService){ 
-    console.log("in user componenet constructor");
+    console.log("in user component constructor");
     loginService.currentUserUpdate$.subscribe(
       newCurrentUser => {this.currentUser = newCurrentUser;
     });
     searchService.searchUserUpdate$.subscribe(
-      newUsers => {this.users = newUsers;
+      (response:any) => {this.users = response.users;
     });
   }
 
   public ngOnInit() {
-    // this.getUsers();
-    this.users.push(
-      {
-        id: 1,
-        firstName: "Bob",
-        lastName: "Smith",
-        title: "Cook",
-        contacts: [-1,-1,-1],
-        contactNum: 3,
-        quote: "Hi, I am Bob",
-        secret: "This is a secret",
-        lastTheme: undefined,
-        symbol: "O",
-        symbolColor: "Green",
-        cardColor: "Black",
-        textColor: "White",
-        symbolBackgroundColor: "purple",
-      }
-    );
-    this.users.push(
-      {
-        id: 2,
-        firstName: "Bob",
-        lastName: "Smith",
-        title: "Cook",
-        contacts: [-1,-1,-1],
-        contactNum: 3,
-        quote: "Hi, I am Bob",
-        secret: "This is a secret",
-        lastTheme: undefined,
-        symbol: "O",
-        symbolColor: "Green",
-        cardColor: "Black",
-        textColor: "White",
-        symbolBackgroundColor: "purple",
-      }
-    );
-    this.users.push(
-      {
-        id: 3,
-        firstName: "Bob",
-        lastName: "Smith",
-        title: "Cook",
-        contacts: [-1,-1,-1],
-        contactNum: 3,
-        quote: "Hi, I am Bob",
-        secret: "This is a secret",
-        lastTheme: undefined,
-        symbol: "O",
-        symbolColor: "Green",
-        cardColor: "Black",
-        textColor: "White",
-        symbolBackgroundColor: "purple",
-      }
-    );
-    this.users.push(
-      {
-        id: 5,
-        firstName: "Bob",
-        lastName: "Smith",
-        title: "Cook",
-        contacts: [-1,-1,-1],
-        contactNum: 3,
-        quote: "Hi, I am Bob",
-        secret: "This is a secret",
-        lastTheme: undefined,
-        symbol: "O",
-        symbolColor: "Green",
-        cardColor: "Black",
-        textColor: "White",
-        symbolBackgroundColor: "purple",
-      }
-    );
-    this.users.push(
-      {
-        id: 6,
-        firstName: "Bob",
-        lastName: "Smith",
-        title: "Cook",
-        contacts: [-1,-1,-1],
-        contactNum: 3,
-        quote: "Hi, I am Bob",
-        secret: "This is a secret",
-        lastTheme: undefined,
-        symbol: "O",
-        symbolColor: "Green",
-        cardColor: "Black",
-        textColor: "White",
-        symbolBackgroundColor: "purple",
-      }
-    );
-    this.users.push(
-      {
-        id: 7,
-        firstName: "Bob",
-        lastName: "Smith",
-        title: "Cook",
-        contacts: [-1,-1,-1],
-        contactNum: 3,
-        quote: "Hi, I am Bob",
-        secret: "This is a secret",
-        lastTheme: undefined,
-        symbol: "O",
-        symbolColor: "Green",
-        cardColor: "Black",
-        textColor: "White",
-        symbolBackgroundColor: "purple",
-      }
-    );
+    this.getUsers();
+    // this.users.push(
+    //   {
+    //     id: 1,
+    //     firstName: "Bob",
+    //     lastName: "Smith",
+    //     title: "Cook",
+    //     contacts: [-1,-1,-1],
+    //     contactNum: 3,
+    //     quote: "Hi, I am Bob",
+    //     secret: "This is a secret",
+    //     lastTheme: undefined,
+    //     symbol: "O",
+    //     symbolColor: "Green",
+    //     cardColor: "Black",
+    //     textColor: "White",
+    //     symbolBackgroundColor: "purple",
+    //   }
+    // );
+    // this.users.push(
+    //   {
+    //     id: 2,
+    //     firstName: "Bob",
+    //     lastName: "Smith",
+    //     title: "Cook",
+    //     contacts: [-1,-1,-1],
+    //     contactNum: 3,
+    //     quote: "Hi, I am Bob",
+    //     secret: "This is a secret",
+    //     lastTheme: undefined,
+    //     symbol: "O",
+    //     symbolColor: "Green",
+    //     cardColor: "Black",
+    //     textColor: "White",
+    //     symbolBackgroundColor: "purple",
+    //   }
+    // );
+    // this.users.push(
+    //   {
+    //     id: 3,
+    //     firstName: "Bob",
+    //     lastName: "Smith",
+    //     title: "Cook",
+    //     contacts: [-1,-1,-1],
+    //     contactNum: 3,
+    //     quote: "Hi, I am Bob",
+    //     secret: "This is a secret",
+    //     lastTheme: undefined,
+    //     symbol: "O",
+    //     symbolColor: "Green",
+    //     cardColor: "Black",
+    //     textColor: "White",
+    //     symbolBackgroundColor: "purple",
+    //   }
+    // );
+    // this.users.push(
+    //   {
+    //     id: 5,
+    //     firstName: "Bob",
+    //     lastName: "Smith",
+    //     title: "Cook",
+    //     contacts: [-1,-1,-1],
+    //     contactNum: 3,
+    //     quote: "Hi, I am Bob",
+    //     secret: "This is a secret",
+    //     lastTheme: undefined,
+    //     symbol: "O",
+    //     symbolColor: "Green",
+    //     cardColor: "Black",
+    //     textColor: "White",
+    //     symbolBackgroundColor: "purple",
+    //   }
+    // );
+    // this.users.push(
+    //   {
+    //     id: 6,
+    //     firstName: "Bob",
+    //     lastName: "Smith",
+    //     title: "Cook",
+    //     contacts: [-1,-1,-1],
+    //     contactNum: 3,
+    //     quote: "Hi, I am Bob",
+    //     secret: "This is a secret",
+    //     lastTheme: undefined,
+    //     symbol: "O",
+    //     symbolColor: "Green",
+    //     cardColor: "Black",
+    //     textColor: "White",
+    //     symbolBackgroundColor: "purple",
+    //   }
+    // );
+    // this.users.push(
+    //   {
+    //     id: 7,
+    //     firstName: "Bob",
+    //     lastName: "Smith",
+    //     title: "Cook",
+    //     contacts: [-1,-1,-1],
+    //     contactNum: 3,
+    //     quote: "Hi, I am Bob",
+    //     secret: "This is a secret",
+    //     lastTheme: undefined,
+    //     symbol: "O",
+    //     symbolColor: "Green",
+    //     cardColor: "Black",
+    //     textColor: "White",
+    //     symbolBackgroundColor: "purple",
+    //   }
+    // );
     
     let docUsers = document.querySelector(".users");
     let newStyle = document.createElement("style");
@@ -206,8 +206,8 @@ export class UserComponent implements OnInit{
     //get it from login service
   }
 
-  public getUsers() {
-    this.userservice.getUsers().subscribe( (usersResponse:Array<User>) => {this.users = usersResponse;});
+  public getUsers() {//(usersResponse:Array<User>)
+    this.userservice.getUsers().subscribe( (usersResponse:any) => {this.users = usersResponse.allUsers; console.log(this.users);});
     console.log("Getting Users");
   }
 
@@ -220,17 +220,59 @@ export class UserComponent implements OnInit{
     }
     console.log(popupUser.sourceUser);
     console.log(tempUser);
-    if(popupUser.rated && this.loginService.isLoggedin && this.loginService.currentUser) { this.addContact(tempUser.id, this.loginService.currentUser.id); }
-    this.userservice.updateUsers(tempUser).subscribe( (res: any) => { console.log(res); this.loginService.pushToResponseBoxSuccess(`Updated User: ${res.userID}`); this.getUsers();});
+    if(popupUser.rated && this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id!==popupUser.sourceUser.id) { this.addContact(tempUser.id, this.loginService.currentUser.id); }
+    this.userservice.updateUsers(tempUser).subscribe( (res: any) => { 
+      console.log(res); 
+      this.loginService.pushToResponseBoxSuccess(`Updated User: ${res.users[0].id}`); 
+      this.getUsers();
+    });
     this.cancelUserPopup();
   }
   public deleteUser(userID:number){
     console.log(userID);
     this.userservice.deleteUser(userID).subscribe( (res: any) => { 
       console.log(res); 
-      this.loginService.pushToResponseBoxSuccess(`Deleted User: ${res.userID}`);
+      this.loginService.pushToResponseBoxSuccess(`Deleted User: ${res.message}`);
       this.getUsers();});
     this.cancelUserPopup();
+  }
+  
+  //needs to somehow return the user id
+  public addUser(popupUser: any){
+    console.log("Adding User");
+    console.log(popupUser);
+    let newUser = {
+      // id: number;
+      firstName: popupUser.firstName,
+      lastName: popupUser.lastName,
+      title: popupUser.title,
+      contacts: [],
+      contactNum: 0,
+      quote: popupUser.quote,
+      secret: popupUser.secret,
+      lastTheme: this.themeService.currentTheme,
+      symbol: popupUser.symbol,
+      symbolColor: popupUser.symbolColor,
+      cardColor: popupUser.cardColor,
+      textColor: popupUser.textColor,
+
+      symbolBackgroundColor:popupUser.symbolBackgroundColor,
+    }
+    let tempPassword = popupUser.password; 
+    this.userservice.addUser({ message: tempPassword, primaryUser: newUser }).subscribe( (res: any) => { 
+      console.log(res); 
+      this.loginService.pushToResponseBoxSuccess(`Added User: ${res.users[0].id}`);
+      this.getUsers();
+    });
+    // this.cancelUserPopup();
+  }
+  public addContact(userAddTo: number, userToAdd: number){
+    console.log("Adding Contact");
+    this.userservice.addContact(userAddTo, userToAdd).subscribe( (res: any) => { console.log(res); this.getUsers();});
+  }
+
+  public selectUser(user:User) {
+    this.selectedUser = user;
   }
   public toggleNewUserPopup(){
     console.log("Opening new User Popup");
@@ -244,58 +286,58 @@ export class UserComponent implements OnInit{
     this.popupUserObject = Object.assign(this.popupUserObject, user);
     this.popupUserObject.sourceUser = user;
 
-    let docUsersFormContacts = document.querySelector("#user-form-contacts");
-    docUsersFormContacts?.setAttribute("disabled", "");
-    let docUsersFormLastName = document.querySelector("#user-form-last-name");
-    docUsersFormLastName?.setAttribute("disabled", "");
+    // let docUsersFormContacts = document.querySelector("#user-form-contacts");
+    // docUsersFormContacts?.setAttribute("disabled", "");
+    // let docUsersFormLastName = document.querySelector("#user-form-last-name");
+    // docUsersFormLastName?.setAttribute("disabled", "");
 
-    let docUsersFormRate = document.querySelector("#user-form-rate");
-    if (this.loginService.isLoggedin) {
-      docUsersFormRate?.removeAttribute("disabled");
-    } else {
-      docUsersFormRate?.setAttribute("disabled", "");
-    }
+    // let docUsersFormRate = document.querySelector("#user-form-rate");
+    // if (this.loginService.isLoggedin) {
+    //   docUsersFormRate?.removeAttribute("disabled");
+    // } else {
+    //   docUsersFormRate?.setAttribute("disabled", "");
+    // }
 
-    let docUsersFormFirstName = document.querySelector("#user-form-first-name");
-    let docUsersFormTitle = document.querySelector("#user-form-title");
-    let docUsersFormQuote = document.querySelector("#user-form-quote");
-    let docUsersFormSecret = document.querySelector("#user-form-secret");
-    let docUsersFormSymbol = document.querySelector("#user-form-symbol");
-    let docUsersFormSymbolColor = document.querySelector("#user-form-symbol-color");
-    let docUsersFormCardColor = document.querySelector("#user-form-card-color");
-    let docUsersFormTextColor = document.querySelector("#user-form-text-color");
-    let docUsersFormBackgroundColor = document.querySelector("#user-form-symbol-background-color");
-    if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id === user.id) {
-      docUsersFormFirstName?.removeAttribute("disabled");
-      docUsersFormTitle?.removeAttribute("disabled");
-      docUsersFormQuote?.removeAttribute("disabled");
-      docUsersFormSecret?.removeAttribute("disabled");
-      docUsersFormSymbol?.removeAttribute("disabled");
-      docUsersFormSymbolColor?.removeAttribute("disabled");
-      docUsersFormCardColor?.removeAttribute("disabled");
-      docUsersFormTextColor?.removeAttribute("disabled");
-      docUsersFormBackgroundColor?.removeAttribute("disabled");
-    } else {
-      docUsersFormFirstName?.setAttribute("disabled", "");
-      docUsersFormTitle?.setAttribute("disabled", "");
-      docUsersFormQuote?.setAttribute("disabled", "");
-      docUsersFormSecret?.setAttribute("disabled", "");
-      docUsersFormSymbol?.setAttribute("disabled", "");
-      docUsersFormSymbolColor?.setAttribute("disabled", "");
-      docUsersFormCardColor?.setAttribute("disabled", "");
-      docUsersFormTextColor?.setAttribute("disabled", "");
-      docUsersFormBackgroundColor?.setAttribute("disabled", "");
-    }
+    // let docUsersFormFirstName = document.querySelector("#user-form-first-name");
+    // let docUsersFormTitle = document.querySelector("#user-form-title");
+    // let docUsersFormQuote = document.querySelector("#user-form-quote");
+    // let docUsersFormSecret = document.querySelector("#user-form-secret");
+    // let docUsersFormSymbol = document.querySelector("#user-form-symbol");
+    // let docUsersFormSymbolColor = document.querySelector("#user-form-symbol-color");
+    // let docUsersFormCardColor = document.querySelector("#user-form-card-color");
+    // let docUsersFormTextColor = document.querySelector("#user-form-text-color");
+    // let docUsersFormBackgroundColor = document.querySelector("#user-form-symbol-background-color");
+    // if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id === user.id) {
+    //   docUsersFormFirstName?.removeAttribute("disabled");
+    //   docUsersFormTitle?.removeAttribute("disabled");
+    //   docUsersFormQuote?.removeAttribute("disabled");
+    //   docUsersFormSecret?.removeAttribute("disabled");
+    //   docUsersFormSymbol?.removeAttribute("disabled");
+    //   docUsersFormSymbolColor?.removeAttribute("disabled");
+    //   docUsersFormCardColor?.removeAttribute("disabled");
+    //   docUsersFormTextColor?.removeAttribute("disabled");
+    //   docUsersFormBackgroundColor?.removeAttribute("disabled");
+    // } else {
+    //   docUsersFormFirstName?.setAttribute("disabled", "");
+    //   docUsersFormTitle?.setAttribute("disabled", "");
+    //   docUsersFormQuote?.setAttribute("disabled", "");
+    //   docUsersFormSecret?.setAttribute("disabled", "");
+    //   docUsersFormSymbol?.setAttribute("disabled", "");
+    //   docUsersFormSymbolColor?.setAttribute("disabled", "");
+    //   docUsersFormCardColor?.setAttribute("disabled", "");
+    //   docUsersFormTextColor?.setAttribute("disabled", "");
+    //   docUsersFormBackgroundColor?.setAttribute("disabled", "");
+    // }
 
     
-    let docUsersFormDelete = document.querySelector("#user-form-delete");
-    if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id === user.id) {
-      docUsersFormDelete?.removeAttribute("disabled");
-      docUsersFormDelete?.setAttribute("class", "");
-    } else {
-      docUsersFormDelete?.setAttribute("disabled", "");
-      docUsersFormDelete?.setAttribute("class", "disable-button");
-    }
+    // let docUsersFormDelete = document.querySelector("#user-form-delete");
+    // if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id === user.id) {
+    //   docUsersFormDelete?.removeAttribute("disabled");
+    //   docUsersFormDelete?.setAttribute("class", "");
+    // } else {
+    //   docUsersFormDelete?.setAttribute("disabled", "");
+    //   docUsersFormDelete?.setAttribute("class", "disable-button");
+    // }
 
 
 
@@ -325,44 +367,6 @@ export class UserComponent implements OnInit{
       password:"",
       sourceUser:undefined,
     }
-  }
-  
-  //needs to somehow return the user id
-  public addUser(popupUser: any){
-    console.log("Adding User");
-    console.log(popupUser);
-    let newUser = {
-      // id: number;
-      firstName: popupUser.firstName,
-      lastName: popupUser.lastName,
-      title: popupUser.title,
-      contacts: [],
-      contactNum: 0,
-      quote: popupUser.quote,
-      secret: popupUser.secret,
-      lastTheme: this.themeService.currentTheme,
-      symbol: popupUser.symbol,
-      symbolColor: popupUser.symbolColor,
-      cardColor: popupUser.cardColor,
-      textColor: popupUser.textColor,
-
-      symbolBackgroundColor:popupUser.symbolBackgroundColor,
-    }
-    let tempPassword = popupUser.password; 
-    this.userservice.addUser({ password: tempPassword, user: newUser }).subscribe( (res: any) => { 
-      console.log(res); 
-      this.loginService.pushToResponseBoxSuccess(`Added User: ${res.userID}`);
-      this.getUsers();
-    });
-    this.cancelUserPopup();
-  }
-  public addContact(userAddTo: number, userToAdd: number){
-    console.log("Adding Contact");
-    this.userservice.addContact(userAddTo, userToAdd).subscribe( (res: any) => { console.log(res); this.getUsers();});
-  }
-
-  public selectUser(user:User) {
-    this.selectedUser = user;
   }
 
 }

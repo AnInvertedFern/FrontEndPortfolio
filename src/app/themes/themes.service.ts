@@ -10,7 +10,22 @@ export class ThemesService {
   
   selectedTheme: number = 0;
   currentTheme: number = 0;
-  themes: Theme[] = [];
+
+  
+  dummyTheme:Theme = {
+    index: -1,
+    inactiveTabColor: "",
+    activeTabColor: "",
+    toolbarColor: "",
+    searchBarColor: "",
+    logoutButtonColor: "",
+    backgroundColor: "",
+    textColor: "",
+    addUserColor: "",
+    editUserColor: "",
+    confirmThemeColor: "",
+  }
+  themes: Theme[] = [this.dummyTheme];
 
   
   constructor( private webService: WebService, private loginService: LoginService) { 
@@ -23,55 +38,58 @@ export class ThemesService {
 
     // this.GetThemesfromBackend();
 
-    this.themes.push(
-      {
-        index: -1,
-        inactiveTabColor: "blue",
-        activeTabColor: "yellow",
-        toolbarColor: "red",
-        searchBarColor: "navy",
-        logoutButtonColor: "purple",
-        backgroundColor: "grey",
-        textColor: "brown",
-        addUserColor: "gold",
-        editUserColor: "green",
-        confirmThemeColor: "red",
-        userCardOutlineColor: "green",
-      }
-    );
-    this.themes.push(
-      {
-        index: -1,
-        inactiveTabColor: "yellow",
-        activeTabColor: "blue",
-        toolbarColor: "navy",
-        searchBarColor: "red",
-        logoutButtonColor: "black",
-        backgroundColor: "purple",
-        textColor: "lime",
-        addUserColor: "brown",
-        editUserColor: "green",
-        confirmThemeColor: "red",
-        userCardOutlineColor: "green",
-      }
-    );
-    this.themes.push(
-      {
-        index: -1,
-        inactiveTabColor: "blue",
-        activeTabColor: "yellow",
-        toolbarColor: "red",
-        searchBarColor: "navy",
-        logoutButtonColor: "purple",
-        backgroundColor: "black",
-        textColor: "white",
-        addUserColor: "brown",
-        editUserColor: "green",
-        confirmThemeColor: "red",
-        userCardOutlineColor: "green",
-      }
-    );
-    this.themesChanged();
+    // this.themes.push(
+    //   {
+    //     index: -1,
+    //     inactiveTabColor: "blue",
+    //     activeTabColor: "yellow",
+    //     toolbarColor: "red",
+    //     searchBarColor: "navy",
+    //     logoutButtonColor: "purple",
+    //     backgroundColor: "grey",
+    //     textColor: "brown",
+    //     addUserColor: "gold",
+    //     editUserColor: "green",
+    //     confirmThemeColor: "red",
+    //     userCardOutlineColor: "green",
+    //   }
+    // );
+    // this.themes.push(
+    //   {
+    //     index: -1,
+    //     inactiveTabColor: "yellow",
+    //     activeTabColor: "blue",
+    //     toolbarColor: "navy",
+    //     searchBarColor: "red",
+    //     logoutButtonColor: "black",
+    //     backgroundColor: "purple",
+    //     textColor: "lime",
+    //     addUserColor: "brown",
+    //     editUserColor: "green",
+    //     confirmThemeColor: "red",
+    //     userCardOutlineColor: "green",
+    //   }
+    // );
+    // this.themes.push(
+    //   {
+    //     index: -1,
+    //     inactiveTabColor: "blue",
+    //     activeTabColor: "yellow",
+    //     toolbarColor: "red",
+    //     searchBarColor: "navy",
+    //     logoutButtonColor: "purple",
+    //     backgroundColor: "black",
+    //     textColor: "white",
+    //     addUserColor: "brown",
+    //     editUserColor: "green",
+    //     confirmThemeColor: "red",
+    //     userCardOutlineColor: "green",
+    //   }
+    // );
+
+    // this.themesChanged();
+
+    this.GetThemesfromBackend();
   }
   GetThemesfromBackend() {
     this.webService.getThemes().subscribe( (res:any) => {
