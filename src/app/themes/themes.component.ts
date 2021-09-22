@@ -88,7 +88,10 @@ export class ThemeComponent implements OnInit{
     console.log(this.themeService.currentTheme);
     this.themeService.loadTheme();
     if (this.loginService.isLoggedin && this.loginService.currentUser !== undefined) {
-      this.themeService.SetUserLastLoggedInTheme(this.loginService.currentUser, this.themes[this.themeService.currentTheme]);
+      this.themeService.SetUserLastLoggedInTheme(this.loginService.currentUser, this.themeService.currentTheme).subscribe( (res:any) => {
+        console.log("updated current use last theme");
+        console.log(res);
+      });
     } 
   }
 

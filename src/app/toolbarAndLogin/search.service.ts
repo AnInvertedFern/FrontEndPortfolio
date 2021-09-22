@@ -5,17 +5,18 @@ import { TitlesComponent } from "../titles/titles.component";
 import { User } from "../users/user";
 import { UserComponent } from "../users/users.component";
 import { WebService } from "../web.service";
+import { LoginService } from "./login.service";
 
 @Injectable({providedIn:'root'})
 export class SearchService {
 
-  constructor( private webService: WebService ) { 
+  constructor( private webService: WebService, private loginService: LoginService ) { 
     console.log(this.searchUsersUpdateSource);
   }
   usersSearch( value: string, options: Object ) {
     console.log(this.searchUsersUpdateSource);
     console.log(value);
-    this.webService.getUsersSearch(value, options).subscribe((res: any) => {console.log(this.searchUsersUpdateSource);this.usersSearchHelper(res)});
+    this.webService.getUsersSearch(value, options, this.loginService.checkedCredentials).subscribe((res: any) => {console.log(this.searchUsersUpdateSource);this.usersSearchHelper(res)});
 
   }
   usersSearchHelper(res: any) {
@@ -25,7 +26,7 @@ export class SearchService {
   }
   titlesSearch( value: string, options: Object ) {
     console.log(value);
-    this.webService.getTitlesSearch(value, options).subscribe( (res: any) => {console.log(this.searchTitlesUpdateSource);this.titlesSearchHelper(res)});
+    this.webService.getTitlesSearch(value, options, this.loginService.checkedCredentials).subscribe( (res: any) => {console.log(this.searchTitlesUpdateSource);this.titlesSearchHelper(res)});
 
   }
   titlesSearchHelper(res:any) {

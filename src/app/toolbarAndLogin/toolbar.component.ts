@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit {
   responseBoxFailurePopup: boolean = false;
   
 
-  constructor (private route: ActivatedRoute, private searchService: SearchService, private loginService: LoginService) {
+  constructor (private route: ActivatedRoute, private searchService: SearchService, public loginService: LoginService) {
     loginService.responseBoxSuccessUpdate$.subscribe(
       toPublish => {
         console.log("in response success");
@@ -49,8 +49,16 @@ export class ToolbarComponent implements OnInit {
       #search-input{ box-sizing: border-box; height: 100%; width:100%; flex: 1; }
       .search-container3{ height: 30px; height: 20px; background-color: grey; border-radius: 3px; margin: auto 10px auto 10px; display:flex; flex-direction: row; align-items: center; }
       #search-enter{ box-sizing: border-box; height: 30px; }
-      .login-container{ height: 30px; border-radius: 4px; display:flex; justify-items: center; align-items: center; flex:1; flex-direction: row-reverse; }
+      
+      .login-container{ height: 30px; border-radius: 4px; display:none; justify-items: center; align-items: center; flex:1; flex-direction: row-reverse; }
       .login-container2{ height: 30px; width: 120px; border-radius: 4px; margin: auto 30px auto 30px; margin: auto 30px auto 30px; display:flex; align-items: center; justify-content: center; }
+
+      .logout-container{ height: 30px; border-radius: 4px; display:none; justify-items: center; align-items: center; flex:1; flex-direction: row-reverse; }
+      .logout-container2{ height: 30px; width: 120px; border-radius: 4px; margin: auto 30px auto 30px; margin: auto 30px auto 30px; display:flex; align-items: center; justify-content: center; }
+
+      .login-button-visible{ display:flex; }
+      .logout-button-visible{ display:flex; }
+
       .login-form{ border: 2px solid black; position:fixed; top: 50px; right: 50px; display:none; }
       .login-form-subcontainer{ margin: 10px 10px 10px 10px; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
       .login-form-visible{ display:flex; }
@@ -98,6 +106,7 @@ export class ToolbarComponent implements OnInit {
     }
   }
   public logout(){
+    this.loginService.logout();
 
   }
   public responseBoxCancel() {
@@ -112,7 +121,7 @@ export class ToolbarComponent implements OnInit {
   public login(  ) {
     this.loginService.login(this.popupLoginObject);
     console.log(this.popupLoginObject);
-    // this.resetPopupLogin();
+    this.resetPopupLogin();
     this.loginPopupCancel();
   }
 

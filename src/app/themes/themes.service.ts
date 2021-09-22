@@ -31,8 +31,9 @@ export class ThemesService {
   constructor( private webService: WebService, private loginService: LoginService) { 
     console.log("in themes service constructor");
     loginService.loginThemeUpdate$.subscribe(
-      (lastTheme: Theme) => {
-        this.currentTheme = lastTheme.index; this.selectedTheme = lastTheme.index;
+      (lastTheme: number) => {
+        console.log(lastTheme);
+        this.currentTheme = lastTheme; this.selectedTheme = lastTheme;
         this.loadTheme();
     });
 
@@ -93,12 +94,13 @@ export class ThemesService {
   }
   GetThemesfromBackend() {
     this.webService.getThemes().subscribe( (res:any) => {
-      this.themes = res;
+      this.themes = res.body;
+      this.loadTheme();
       this.themesChanged();
     });
   }
-  SetUserLastLoggedInTheme( currentUser:User, currentTheme: Theme ) {
-    this.webService.updateLastTheme(currentUser, currentTheme);
+  SetUserLastLoggedInTheme( currentUser:User, currentTheme: number ) {
+    return this.webService.updateLastTheme(currentUser, currentTheme, this.loginService.checkedCredentials);
   }
 
   
@@ -120,6 +122,7 @@ export class ThemesService {
       .search-container{ background-color: white}
       #search-input{ background-color: ${this.themes[this.currentTheme].searchBarColor}; }
       .login-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
+      .logout-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
       .new-user-button{ background-color: ${this.themes[this.currentTheme].addUserColor}; }
       .theme-confirm-button{ background-color: ${this.themes[this.currentTheme].confirmThemeColor}; }
     `;

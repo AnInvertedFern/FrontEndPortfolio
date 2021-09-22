@@ -10,20 +10,8 @@ SubTasks: None
 #========================================
 
 #========================================
-Task #11: Implement Login Logic
-Resolution: Not Started
-SubTasks: None
-#========================================
-
-#========================================
 Task #12: Implement Admin Pages
-Resolution: Not Started
-SubTasks: None
-#========================================
-
-#========================================
-Task #13: Implement Logout
-Resolution: Not Started
+Resolution: Finished Other Than Admin Editing Themes
 SubTasks: None
 #========================================
 
@@ -50,6 +38,18 @@ SubTasks: None
 
 Finished Tasks
 -----------------------------------------
+
+#========================================
+Task #13: Implement Logout
+Resolution: Finished
+SubTasks: None
+#========================================
+
+#========================================
+Task #11: Implement Login Logic
+Resolution: Finished
+SubTasks: None
+#========================================
 
 #========================================
 Task #14: Switch API to Match Backend

@@ -11,7 +11,7 @@ import { UserService } from "./users.service";
   selector: 'users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  providers: [UserService]
+  // providers: [UserService]
 })
 export class UserComponent implements OnInit{
   users: Array<User> = [];
@@ -44,7 +44,7 @@ export class UserComponent implements OnInit{
       newCurrentUser => {this.currentUser = newCurrentUser;
     });
     searchService.searchUserUpdate$.subscribe(
-      (response:any) => {this.users = response.users;
+      (response:any) => {this.users = response.body.users;
     });
   }
 
@@ -207,23 +207,48 @@ export class UserComponent implements OnInit{
   }
 
   public getUsers() {//(usersResponse:Array<User>)
-    this.userservice.getUsers().subscribe( (usersResponse:any) => {this.users = usersResponse.allUsers; console.log(this.users);});
+    this.userservice.getUsers().subscribe( (usersResponse:any) => {
+      this.users = usersResponse.body.allUsers; 
+      console.log(this.users);
+      console.log(usersResponse);
+    });
     console.log("Getting Users");
   }
 
   public updateUsers(popupUser: any){
     console.log("Updating User");
-    let tempUser: any = popupUser.sourceUser;
+    
+    let tempUser: any = {
+      id:-1,
+      firstName: "",
+      lastName: "",
+      title: "",
+      contacts: [],
+      contactNum: -1,
+      quote: "",
+      secret: "",
+      lastTheme: -1,
+      symbol: "",
+      symbolColor: "",
+      cardColor: "",
+      textColor: "",
+  
+      symbolBackgroundColor:"",
+    };
+    // let tempUser: any = popupUser.sourceUser;
     // tempUser = Object.assign(tempUser, user);
     for (let key in tempUser){
       tempUser[key] = popupUser[key];
     }
     console.log(popupUser.sourceUser);
     console.log(tempUser);
-    if(popupUser.rated && this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id!==popupUser.sourceUser.id) { this.addContact(tempUser.id, this.loginService.currentUser.id); }
+    if(popupUser.rated && this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id!==popupUser.sourceUser.id && popupUser.sourceUser.contacts.indexOf(this.loginService.currentUser.id)===-1 ) { 
+      console.log( !(this.loginService.currentUser.id in popupUser.sourceUser.contacts) );
+      this.addContact(tempUser, this.loginService.currentUser); 
+    }
     this.userservice.updateUsers(tempUser).subscribe( (res: any) => { 
       console.log(res); 
-      this.loginService.pushToResponseBoxSuccess(`Updated User: ${res.users[0].id}`); 
+      this.loginService.pushToResponseBoxSuccess(`Updated User: ${res.body.users[0].id}`); 
       this.getUsers();
     });
     this.cancelUserPopup();
@@ -232,8 +257,10 @@ export class UserComponent implements OnInit{
     console.log(userID);
     this.userservice.deleteUser(userID).subscribe( (res: any) => { 
       console.log(res); 
-      this.loginService.pushToResponseBoxSuccess(`Deleted User: ${res.message}`);
-      this.getUsers();});
+      this.loginService.pushToResponseBoxSuccess(`Deleted User: ${res.body.message}`);
+      this.getUsers();
+      this.loginService.cancelLogin();
+    });
     this.cancelUserPopup();
   }
   
@@ -261,12 +288,12 @@ export class UserComponent implements OnInit{
     let tempPassword = popupUser.password; 
     this.userservice.addUser({ message: tempPassword, primaryUser: newUser }).subscribe( (res: any) => { 
       console.log(res); 
-      this.loginService.pushToResponseBoxSuccess(`Added User: ${res.users[0].id}`);
+      this.loginService.pushToResponseBoxSuccess(`Added User: ${res.body.users[0].id}`);
       this.getUsers();
     });
-    // this.cancelUserPopup();
+    this.cancelUserPopup();
   }
-  public addContact(userAddTo: number, userToAdd: number){
+  public addContact(userAddTo: User, userToAdd: User){
     console.log("Adding Contact");
     this.userservice.addContact(userAddTo, userToAdd).subscribe( (res: any) => { console.log(res); this.getUsers();});
   }
@@ -286,58 +313,64 @@ export class UserComponent implements OnInit{
     this.popupUserObject = Object.assign(this.popupUserObject, user);
     this.popupUserObject.sourceUser = user;
 
-    // let docUsersFormContacts = document.querySelector("#user-form-contacts");
-    // docUsersFormContacts?.setAttribute("disabled", "");
-    // let docUsersFormLastName = document.querySelector("#user-form-last-name");
-    // docUsersFormLastName?.setAttribute("disabled", "");
+    let docUsersFormContacts = document.querySelector("#user-form-contacts");
+    docUsersFormContacts?.setAttribute("disabled", "");
+    let docUsersFormLastName = document.querySelector("#user-form-last-name");
+    docUsersFormLastName?.setAttribute("disabled", "");
 
-    // let docUsersFormRate = document.querySelector("#user-form-rate");
-    // if (this.loginService.isLoggedin) {
-    //   docUsersFormRate?.removeAttribute("disabled");
-    // } else {
-    //   docUsersFormRate?.setAttribute("disabled", "");
-    // }
+    let docUsersFormRate = document.querySelector("#user-form-rate");
+    if (this.loginService.currentUser) {
+      console.log(user.contacts.indexOf(this.loginService.currentUser.id)!==-1);
+      console.log(this.loginService.currentUser.id);
+      console.log(user.contacts);
+      console.log(this.loginService.currentUser.id === user.contacts[0]);
+    }
+    if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id !== user.id && this.loginService.currentUser && user.contacts.indexOf(this.loginService.currentUser.id)===-1) {
+      docUsersFormRate?.removeAttribute("disabled");
+    } else {
+      docUsersFormRate?.setAttribute("disabled", "");
+    }
 
-    // let docUsersFormFirstName = document.querySelector("#user-form-first-name");
-    // let docUsersFormTitle = document.querySelector("#user-form-title");
-    // let docUsersFormQuote = document.querySelector("#user-form-quote");
-    // let docUsersFormSecret = document.querySelector("#user-form-secret");
-    // let docUsersFormSymbol = document.querySelector("#user-form-symbol");
-    // let docUsersFormSymbolColor = document.querySelector("#user-form-symbol-color");
-    // let docUsersFormCardColor = document.querySelector("#user-form-card-color");
-    // let docUsersFormTextColor = document.querySelector("#user-form-text-color");
-    // let docUsersFormBackgroundColor = document.querySelector("#user-form-symbol-background-color");
-    // if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id === user.id) {
-    //   docUsersFormFirstName?.removeAttribute("disabled");
-    //   docUsersFormTitle?.removeAttribute("disabled");
-    //   docUsersFormQuote?.removeAttribute("disabled");
-    //   docUsersFormSecret?.removeAttribute("disabled");
-    //   docUsersFormSymbol?.removeAttribute("disabled");
-    //   docUsersFormSymbolColor?.removeAttribute("disabled");
-    //   docUsersFormCardColor?.removeAttribute("disabled");
-    //   docUsersFormTextColor?.removeAttribute("disabled");
-    //   docUsersFormBackgroundColor?.removeAttribute("disabled");
-    // } else {
-    //   docUsersFormFirstName?.setAttribute("disabled", "");
-    //   docUsersFormTitle?.setAttribute("disabled", "");
-    //   docUsersFormQuote?.setAttribute("disabled", "");
-    //   docUsersFormSecret?.setAttribute("disabled", "");
-    //   docUsersFormSymbol?.setAttribute("disabled", "");
-    //   docUsersFormSymbolColor?.setAttribute("disabled", "");
-    //   docUsersFormCardColor?.setAttribute("disabled", "");
-    //   docUsersFormTextColor?.setAttribute("disabled", "");
-    //   docUsersFormBackgroundColor?.setAttribute("disabled", "");
-    // }
+    let docUsersFormFirstName = document.querySelector("#user-form-first-name");
+    let docUsersFormTitle = document.querySelector("#user-form-title");
+    let docUsersFormQuote = document.querySelector("#user-form-quote");
+    let docUsersFormSymbol = document.querySelector("#user-form-symbol");
+    let docUsersFormSymbolColor = document.querySelector("#user-form-symbol-color");
+    let docUsersFormCardColor = document.querySelector("#user-form-card-color");
+    let docUsersFormTextColor = document.querySelector("#user-form-text-color");
+    let docUsersFormBackgroundColor = document.querySelector("#user-form-symbol-background-color");
+    let docUsersFormDelete = document.querySelector("#user-form-delete");
+    if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id === user.id || this.loginService.isAdmin) {
+      docUsersFormFirstName?.removeAttribute("disabled");
+      docUsersFormTitle?.removeAttribute("disabled");
+      docUsersFormQuote?.removeAttribute("disabled");
+      docUsersFormSymbol?.removeAttribute("disabled");
+      docUsersFormSymbolColor?.removeAttribute("disabled");
+      docUsersFormCardColor?.removeAttribute("disabled");
+      docUsersFormTextColor?.removeAttribute("disabled");
+      docUsersFormBackgroundColor?.removeAttribute("disabled");
+      docUsersFormDelete?.removeAttribute("disabled");
+      docUsersFormDelete?.setAttribute("class", "");
+    } else {
+      docUsersFormFirstName?.setAttribute("disabled", "");
+      docUsersFormTitle?.setAttribute("disabled", "");
+      docUsersFormQuote?.setAttribute("disabled", "");
+      docUsersFormSymbol?.setAttribute("disabled", "");
+      docUsersFormSymbolColor?.setAttribute("disabled", "");
+      docUsersFormCardColor?.setAttribute("disabled", "");
+      docUsersFormTextColor?.setAttribute("disabled", "");
+      docUsersFormBackgroundColor?.setAttribute("disabled", "");
+      docUsersFormDelete?.setAttribute("disabled", "");
+      docUsersFormDelete?.setAttribute("class", "disable-button");
+    }
 
     
-    // let docUsersFormDelete = document.querySelector("#user-form-delete");
-    // if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id === user.id) {
-    //   docUsersFormDelete?.removeAttribute("disabled");
-    //   docUsersFormDelete?.setAttribute("class", "");
-    // } else {
-    //   docUsersFormDelete?.setAttribute("disabled", "");
-    //   docUsersFormDelete?.setAttribute("class", "disable-button");
-    // }
+    let docUsersFormSecret = document.querySelector("#user-form-secret");
+    if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id === user.id) {
+      docUsersFormSecret?.removeAttribute("disabled");
+    } else {
+      docUsersFormSecret?.setAttribute("disabled", "");
+    }
 
 
 

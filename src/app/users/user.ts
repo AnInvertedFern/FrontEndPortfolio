@@ -5,11 +5,11 @@ export interface User{
     firstName: string;
     lastName: string;
     title: string;
-    contacts: Array<number> | undefined;
+    contacts: Array<number>;
     contactNum: number;
     quote: string;
     secret: string;
-    lastTheme: Theme | undefined;
+    lastTheme: number;
     symbol: string;
     symbolColor: string;
     cardColor: string;

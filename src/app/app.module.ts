@@ -10,6 +10,7 @@ import { UserComponent } from './users/users.component';
 import { TitlesComponent } from './titles/titles.component';
 import { ThemeComponent } from './themes/themes.component';
 import { FormsModule } from '@angular/forms';
+import { DummyComponent } from './dummy.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     UserComponent,
     TitlesComponent,
     ThemeComponent,
+    DummyComponent,
   ],
   imports: [
     BrowserModule,

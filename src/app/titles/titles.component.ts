@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ThemesService } from "../themes/themes.service";
 import { SearchService } from "../toolbarAndLogin/search.service";
 import { Title } from "./titles";
 import { TitlesService } from "./titles.service";
@@ -7,7 +8,7 @@ import { TitlesService } from "./titles.service";
   selector: 'titles',
   templateUrl: './titles.component.html',
   styleUrls: ['./titles.component.css'],
-  providers: [TitlesService]
+  // providers: [TitlesService]
 })
 export class TitlesComponent implements OnInit{
   titles: Array<Title> = [];
@@ -23,13 +24,13 @@ export class TitlesComponent implements OnInit{
   
   searchPopup: boolean = false;
 
-  constructor (private titlesservice: TitlesService, private searchService: SearchService){ 
+  constructor (private titlesservice: TitlesService, private searchService: SearchService, private themeService: ThemesService){ 
     searchService.searchTitlesUpdate$.subscribe(
       (searchedTitles:any) => {
         console.log("recevied Search");
         console.log(searchedTitles);
-        this.titles = searchedTitles.allTitles;
-        this.DisplayTitlesInSearch = searchedTitles.titles;
+        this.titles = searchedTitles.body.allTitles;
+        this.DisplayTitlesInSearch = searchedTitles.body.titles;
         
         if (!this.titles || this.titles.length ===0){
           console.log("setting titles to blank");
@@ -299,7 +300,7 @@ export class TitlesComponent implements OnInit{
   }
   public getTitles() {
     this.titlesservice.getTitles().subscribe( (titlesResponse:any) => {
-      this.titles = titlesResponse.allTitles;
+      this.titles = titlesResponse.body.allTitles;
       // if (this.currentSelectedTitle !== undefined){
       //   if ( this.titles.indexOf(this.currentSelectedTitle) === -1 ){
       //     if (this.titles.length > 0) this.setTitleTo(this.titles[0]);
