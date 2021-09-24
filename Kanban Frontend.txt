@@ -5,25 +5,13 @@ Current Tasks
 
 #========================================
 Task #15: Polish CSS and HTML
-Resolution: Not Started
-SubTasks: None
-#========================================
-
-#========================================
-Task #12: Implement Admin Pages
-Resolution: Finished Other Than Admin Editing Themes
+Resolution: In Progress
 SubTasks: None
 #========================================
 
 #========================================
 Task #6: Design Unit and Intergration Tests
 Resolution: Not Started
-SubTasks: None
-#========================================
-
-#========================================
-Task #7: Implement HTML and CSS
-Resolution: Animiations and Polish Still Needed
 SubTasks: None
 #========================================
 
@@ -38,6 +26,18 @@ SubTasks: None
 
 Finished Tasks
 -----------------------------------------
+
+#========================================
+Task #7: Implement HTML and CSS
+Resolution: Finished
+SubTasks: None
+#========================================
+
+#========================================
+Task #12: Implement Admin Pages
+Resolution: Finished
+SubTasks: None
+#========================================
 
 #========================================
 Task #13: Implement Logout

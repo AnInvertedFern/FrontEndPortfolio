@@ -40,131 +40,26 @@ export class UserComponent implements OnInit{
 
   constructor (private userservice: UserService, private searchService: SearchService, private loginService: LoginService, private themeService: ThemesService){ 
     console.log("in user component constructor");
-    loginService.currentUserUpdate$.subscribe(
-      newCurrentUser => {this.currentUser = newCurrentUser;
-    });
-    searchService.searchUserUpdate$.subscribe(
-      (response:any) => {this.users = response.body.users;
-    });
   }
 
   public ngOnInit() {
-    this.getUsers();
-    // this.users.push(
-    //   {
-    //     id: 1,
-    //     firstName: "Bob",
-    //     lastName: "Smith",
-    //     title: "Cook",
-    //     contacts: [-1,-1,-1],
-    //     contactNum: 3,
-    //     quote: "Hi, I am Bob",
-    //     secret: "This is a secret",
-    //     lastTheme: undefined,
-    //     symbol: "O",
-    //     symbolColor: "Green",
-    //     cardColor: "Black",
-    //     textColor: "White",
-    //     symbolBackgroundColor: "purple",
-    //   }
-    // );
-    // this.users.push(
-    //   {
-    //     id: 2,
-    //     firstName: "Bob",
-    //     lastName: "Smith",
-    //     title: "Cook",
-    //     contacts: [-1,-1,-1],
-    //     contactNum: 3,
-    //     quote: "Hi, I am Bob",
-    //     secret: "This is a secret",
-    //     lastTheme: undefined,
-    //     symbol: "O",
-    //     symbolColor: "Green",
-    //     cardColor: "Black",
-    //     textColor: "White",
-    //     symbolBackgroundColor: "purple",
-    //   }
-    // );
-    // this.users.push(
-    //   {
-    //     id: 3,
-    //     firstName: "Bob",
-    //     lastName: "Smith",
-    //     title: "Cook",
-    //     contacts: [-1,-1,-1],
-    //     contactNum: 3,
-    //     quote: "Hi, I am Bob",
-    //     secret: "This is a secret",
-    //     lastTheme: undefined,
-    //     symbol: "O",
-    //     symbolColor: "Green",
-    //     cardColor: "Black",
-    //     textColor: "White",
-    //     symbolBackgroundColor: "purple",
-    //   }
-    // );
-    // this.users.push(
-    //   {
-    //     id: 5,
-    //     firstName: "Bob",
-    //     lastName: "Smith",
-    //     title: "Cook",
-    //     contacts: [-1,-1,-1],
-    //     contactNum: 3,
-    //     quote: "Hi, I am Bob",
-    //     secret: "This is a secret",
-    //     lastTheme: undefined,
-    //     symbol: "O",
-    //     symbolColor: "Green",
-    //     cardColor: "Black",
-    //     textColor: "White",
-    //     symbolBackgroundColor: "purple",
-    //   }
-    // );
-    // this.users.push(
-    //   {
-    //     id: 6,
-    //     firstName: "Bob",
-    //     lastName: "Smith",
-    //     title: "Cook",
-    //     contacts: [-1,-1,-1],
-    //     contactNum: 3,
-    //     quote: "Hi, I am Bob",
-    //     secret: "This is a secret",
-    //     lastTheme: undefined,
-    //     symbol: "O",
-    //     symbolColor: "Green",
-    //     cardColor: "Black",
-    //     textColor: "White",
-    //     symbolBackgroundColor: "purple",
-    //   }
-    // );
-    // this.users.push(
-    //   {
-    //     id: 7,
-    //     firstName: "Bob",
-    //     lastName: "Smith",
-    //     title: "Cook",
-    //     contacts: [-1,-1,-1],
-    //     contactNum: 3,
-    //     quote: "Hi, I am Bob",
-    //     secret: "This is a secret",
-    //     lastTheme: undefined,
-    //     symbol: "O",
-    //     symbolColor: "Green",
-    //     cardColor: "Black",
-    //     textColor: "White",
-    //     symbolBackgroundColor: "purple",
-    //   }
-    // );
+    this.loginService.currentUserUpdate$.subscribe(
+      newCurrentUser => {this.currentUser = newCurrentUser;
+    });
+    this.searchService.searchUserUpdate$.subscribe(
+      (response:any) => {this.users = response.body.users;
+    });
     
+    this.getUsers();
+
     let docUsers = document.querySelector(".users");
     let newStyle = document.createElement("style");
     newStyle.textContent = `
       .users{ display:flex; flex-direction: column; align-items: center; }
-      .card-container{ overflow:auto; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
-      .card{ height: 250px; width: 200px; display:flex; border-radius: 4px; background-color: cyan; margin: 10px 8px 16px;  box-shadow: 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray;}
+      .card-container{ width: 100vw; overflow:auto; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
+      .card{ margin: 20px 20px 20px 20px; height: 250px; width: 200px; display:flex; border-radius: 4px; background-color: cyan; box-shadow: 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray;}
+      .card:hover { transform: translateY(-1rem) translatex(-.5rem); box-shadow: 0px 3px 15px gold, 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray; }
+      
       .inner-card{ height: 230px; width: 180px; display:flex; flex:1; flex-direction: column; align-items: center; }
       .card-top{ width:100%; display:flex; flex-direction: row; align-items: center; justify-content: center; }
       .user-symbol-container{ display:flex; flex:1; align-items: center; justify-content: center; }
@@ -173,14 +68,18 @@ export class UserComponent implements OnInit{
       .user-about{display:flex; flex:1; flex-direction: column; }
       
       .new-user-button-container{ height: 230px; width: 180px; position: fixed; bottom:20px; right: 20px; display:flex; align-items: center; justify-content: center; filter: drop-shadow(-5px -5px 10px black) drop-shadow(5px 5px 10px lightslategray); }
-      .new-user-button{ position: absolute; height: 100px; width: 100px; clip-path: circle(50px); }
+      .new-user-button{ position: absolute; height: 200px; width: 200px; clip-path: circle(60px); }
       .new-user-button-text-container{ position: absolute; height: 70px; width: 70px; display:flex; align-items: center; justify-content: center; }
       .new-user-button-text{ text-align: center; }
+      .new-user-button:hover { clip-path: circle(80px); }
+      .new-user-button-text:hover{ transform: translateY(-.2em);  }
 
       .refresh-users-button-container{ height: 230px; width: 180px; position: fixed; bottom:200px; right: 20px; display:flex; align-items: center; justify-content: center; filter: drop-shadow(-5px -5px 10px black) drop-shadow(5px 5px 10px lightslategray); }
-      .refresh-users-button{ position: absolute; height: 100px; width: 100px; background-color:green; clip-path: circle(40px); }
+      .refresh-users-button{ position: absolute; height: 150px; width: 150px; background-color:green; clip-path: circle(50px); }
       .refresh-users-button-text-container{ position: absolute; height: 50px; width: 50px; display:flex; align-items: center; justify-content: center; }
       .refresh-users-button-text{ text-align: center; }
+      .refresh-users-button:hover { clip-path: circle(70px); }
+      .refresh-users-button-text:hover{ transform: translateY(-.2em);  }
 
       .seperator{ height: 10px; width:100%; background-color: orange; }
       .user-footer{ display:flex; align-items: center; justify-content: center; }
@@ -201,10 +100,10 @@ export class UserComponent implements OnInit{
     docUsers?.appendChild(newStyle);
     
   }
-  public getCurrentUser(){
-    return this.currentUser;
-    //get it from login service
-  }
+  // public getCurrentUser(){
+  //   return this.currentUser;
+  //   //get it from login service
+  // }
 
   public getUsers() {//(usersResponse:Array<User>)
     this.userservice.getUsers().subscribe( (usersResponse:any) => {

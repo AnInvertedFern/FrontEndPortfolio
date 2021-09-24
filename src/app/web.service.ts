@@ -110,7 +110,7 @@ export class WebService {
     public getThemes(){
         return this.http.get<User[]>(`${this.serverUrl}api/themes/all/`, {observe:'response'});
     }
-    public updateThemes(themes: Theme[], credentials: any){
+    public updateThemes(themes: Theme, credentials: any){
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
             return this.http.post<User[]>(`${this.serverUrl}api/themes/`, themes, {headers: headers1, observe:'response'} );

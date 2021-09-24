@@ -25,7 +25,10 @@ export class TitlesComponent implements OnInit{
   searchPopup: boolean = false;
 
   constructor (private titlesservice: TitlesService, private searchService: SearchService, private themeService: ThemesService){ 
-    searchService.searchTitlesUpdate$.subscribe(
+  }
+
+  public ngOnInit() {
+    this.searchService.searchTitlesUpdate$.subscribe(
       (searchedTitles:any) => {
         console.log("recevied Search");
         console.log(searchedTitles);
@@ -46,235 +49,6 @@ export class TitlesComponent implements OnInit{
     });
     // this.setLeftRightTitles();
     this.setTitleTo(this.currentSelectedTitle);
-  }
-
-  public ngOnInit() {
-    // this.titles.push(
-    //   {
-    //     id:-1,
-    //     title: "cook",
-    //     users: [
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //     ]
-    //   }
-    // );
-    // this.titles.push(
-    //   {
-    //     id:-1,
-    //     title: "bus driver",
-    //     users: [
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //     ]
-    //   }
-    // );
-    // this.titles.push(
-    //   {
-    //     id:-1,
-    //     title: "clock maker",
-    //     users: [
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //     ]
-    //   }
-    // );
-    // this.titles.push(
-    //   {
-    //     id:-1,
-    //     title: "carver",
-    //     users: [
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //       {
-    //         id: -1,
-    //         firstName: "Bob",
-    //         lastName: "Smith",
-    //         title: "Cook",
-    //         contacts: [-1,-1,-1],
-    //         contactNum: 3,
-    //         quote: "Hi, I am Bob",
-    //         secret: "This is a secret",
-    //         lastTheme: undefined,
-    //         symbol: "O",
-    //         symbolColor: "Green",
-    //         cardColor: "Black",
-    //         textColor: "White",
-    //         symbolBackgroundColor: "purple",
-    //       },
-    //     ]
-    //   }
-    // );
-    // this.setLeftRightTitles();
-    this.setTitleTo(0);
 
     
     this.getTitles();
@@ -290,6 +64,7 @@ export class TitlesComponent implements OnInit{
       .search-results-visible{ display:flex; }
       .search-results-subcontainer{ height:100%; display:flex; justify-content:space-around; flex-direction:column; align-items:center; }
       .title-column{ overflow:auto; display:flex; flex:1; flex-direction:column; align-items:center; }
+      .title-column:hover { transform: translateY(.5rem); text-shadow: 0px 5px .1em purple; }
       .title-column-main{}
       .title-column-left{}
       .title-column-right{}

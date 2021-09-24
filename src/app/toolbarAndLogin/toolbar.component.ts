@@ -24,19 +24,20 @@ export class ToolbarComponent implements OnInit {
   
 
   constructor (private route: ActivatedRoute, private searchService: SearchService, public loginService: LoginService) {
-    loginService.responseBoxSuccessUpdate$.subscribe(
+  }
+  public ngOnInit() {
+    this.loginService.responseBoxSuccessUpdate$.subscribe(
       toPublish => {
         console.log("in response success");
         this.responseBoxSuccess = toPublish;
         this.responseBoxSuccessPopup = true;
     });
-    loginService.responseBoxFailureUpdate$.subscribe(
+    this.loginService.responseBoxFailureUpdate$.subscribe(
       toPublish => {
         this.responseBoxFailure = toPublish;
         this.responseBoxFailurePopup = true;
     });
-  }
-  public ngOnInit() {
+
     let docToolbar = document.querySelector(".toolbar"); //background-color: blue;
     let newStyle = document.createElement("style");
     newStyle.textContent = `
@@ -50,14 +51,18 @@ export class ToolbarComponent implements OnInit {
       .search-container3{ height: 30px; height: 20px; background-color: grey; border-radius: 3px; margin: auto 10px auto 10px; display:flex; flex-direction: row; align-items: center; }
       #search-enter{ box-sizing: border-box; height: 30px; }
       
-      .login-container{ height: 30px; border-radius: 4px; display:none; justify-items: center; align-items: center; flex:1; flex-direction: row-reverse; }
+      .login-container{ height: 100%; width:100%; border-radius: 4px; display:none; justify-items: center; align-items: center; flex:1; flex-direction: row-reverse; }
       .login-container2{ height: 30px; width: 120px; border-radius: 4px; margin: auto 30px auto 30px; margin: auto 30px auto 30px; display:flex; align-items: center; justify-content: center; }
 
-      .logout-container{ height: 30px; border-radius: 4px; display:none; justify-items: center; align-items: center; flex:1; flex-direction: row-reverse; }
+      .logout-container{ height: 100%; width:100%; border-radius: 4px; display:none; justify-items: center; align-items: center; flex:1; flex-direction: row-reverse; }
       .logout-container2{ height: 30px; width: 120px; border-radius: 4px; margin: auto 30px auto 30px; margin: auto 30px auto 30px; display:flex; align-items: center; justify-content: center; }
 
       .login-button-visible{ display:flex; }
       .logout-button-visible{ display:flex; }
+      .login{ display:flex; align-items: center; justify-content: center; height: 100%; width:100%; }
+      .logout{ display:flex; align-items: center; justify-content: center; height: 100%; width:100%; }
+      .login:hover{ transform: translateY(-.1em) translatex(-.5em); text-shadow: 0px 3px .1em gold; }
+      .logout:hover{ transform: translateY(-.1em) translatex(-.5em); text-shadow: 0px 3px .1em gold; }
 
       .login-form{ border: 2px solid black; position:fixed; top: 50px; right: 50px; display:none; }
       .login-form-subcontainer{ margin: 10px 10px 10px 10px; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }

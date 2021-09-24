@@ -8,7 +8,7 @@ import { Theme } from "./theme";
 @Injectable({providedIn:'root'})
 export class ThemesService {
   
-  selectedTheme: number = 0;
+  // selectedTheme: number = 0;
   currentTheme: number = 0;
 
   
@@ -33,7 +33,7 @@ export class ThemesService {
     loginService.loginThemeUpdate$.subscribe(
       (lastTheme: number) => {
         console.log(lastTheme);
-        this.currentTheme = lastTheme; this.selectedTheme = lastTheme;
+        this.currentTheme = lastTheme;// this.selectedTheme = lastTheme;
         this.loadTheme();
     });
 
@@ -102,7 +102,9 @@ export class ThemesService {
   SetUserLastLoggedInTheme( currentUser:User, currentTheme: number ) {
     return this.webService.updateLastTheme(currentUser, currentTheme, this.loginService.checkedCredentials);
   }
-
+  public updateTheme(themeToChange: Theme) {
+    return this.webService.updateThemes(themeToChange, this.loginService.checkedCredentials);
+  }
   
   public loadTheme(){
 
@@ -125,6 +127,30 @@ export class ThemesService {
       .logout-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
       .new-user-button{ background-color: ${this.themes[this.currentTheme].addUserColor}; }
       .theme-confirm-button{ background-color: ${this.themes[this.currentTheme].confirmThemeColor}; }
+    `;
+    docGeneral?.appendChild(newStyle2);
+  }
+  public previewTheme(previewingTheme:Theme){
+
+    let docGeneral = document.querySelector(".general-styles");
+    console.log(docGeneral);
+    console.log(document.getElementsByClassName("general-styles"));
+    console.log(document.querySelector("general-styles"));
+    let newStyle2 = document.createElement("style");   //${this.themes[0].searchBarColor}; }
+    newStyle2.textContent = `
+      *{ color: ${previewingTheme.textColor}; overflow:hidden; }
+      body{ margin: 0px 0px 0px 0px; }
+      .background-colorer{ background-color: ${previewingTheme.backgroundColor}; position: absolute; width:100vw; height:100vh; }
+      .popup{ background-color: ${previewingTheme.backgroundColor}; }
+      .tab-container{ background-color: ${previewingTheme.inactiveTabColor}; }
+      .active{ background-color: ${previewingTheme.activeTabColor}; }
+      .toolbar{ background-color: ${previewingTheme.toolbarColor}; }
+      .search-container{ background-color: white}
+      #search-input{ background-color: ${previewingTheme.searchBarColor}; }
+      .login-container2{ background-color: ${previewingTheme.logoutButtonColor}; }
+      .logout-container2{ background-color: ${previewingTheme.logoutButtonColor}; }
+      .new-user-button{ background-color: ${previewingTheme.addUserColor}; }
+      .theme-confirm-button{ background-color: ${previewingTheme.confirmThemeColor}; }
     `;
     docGeneral?.appendChild(newStyle2);
   }
