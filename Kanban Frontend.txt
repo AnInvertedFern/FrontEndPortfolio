@@ -4,19 +4,10 @@ Current Tasks
 -----------------------------------------
 
 #========================================
-Task #15: Polish CSS and HTML
+Task #15: Polish CSS and HTML and Code
 Resolution: In Progress
 SubTasks: None
 #========================================
-
-#========================================
-Task #6: Design Unit and Intergration Tests
-Resolution: Not Started
-SubTasks: None
-#========================================
-
-On Hold
------------------------------------------
 
 #========================================
 Task #3: Do Application Tests
@@ -26,6 +17,12 @@ SubTasks: None
 
 Finished Tasks
 -----------------------------------------
+
+#========================================
+Task #6: Design Unit and Intergration Tests
+Resolution: Finished
+SubTasks: None
+#========================================
 
 #========================================
 Task #7: Implement HTML and CSS
