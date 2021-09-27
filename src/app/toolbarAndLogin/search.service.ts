@@ -13,10 +13,10 @@ export class SearchService {
   constructor( private webService: WebService, private loginService: LoginService ) { 
     console.log(this.searchUsersUpdateSource);
   }
-  usersSearch( value: string, options: Object ) {
+  usersSearch( value: string) {//, options: Object 
     console.log(this.searchUsersUpdateSource);
     console.log(value);
-    this.webService.getUsersSearch(value, options, this.loginService.checkedCredentials).subscribe((res: any) => {console.log(this.searchUsersUpdateSource);this.usersSearchHelper(res)});
+    this.webService.getUsersSearch(value, this.loginService.checkedCredentials).subscribe((res: any) => {console.log(this.searchUsersUpdateSource);this.usersSearchHelper(res)});//, options
 
   }
   usersSearchHelper(res: any) {
@@ -24,9 +24,9 @@ export class SearchService {
     console.log(res);
     this.searchUsersUpdateSource.next(res);
   }
-  titlesSearch( value: string, options: Object ) {
+  titlesSearch( value: string) {//, options: Object 
     console.log(value);
-    this.webService.getTitlesSearch(value, options, this.loginService.checkedCredentials).subscribe( (res: any) => {console.log(this.searchTitlesUpdateSource);this.titlesSearchHelper(res)});
+    this.webService.getTitlesSearch(value, this.loginService.checkedCredentials).subscribe( (res: any) => {console.log(this.searchTitlesUpdateSource);this.titlesSearchHelper(res)});//, options
 
   }
   titlesSearchHelper(res:any) {

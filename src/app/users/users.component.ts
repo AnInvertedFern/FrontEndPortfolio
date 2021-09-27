@@ -145,20 +145,31 @@ export class UserComponent implements OnInit{
       console.log( !(this.loginService.currentUser.id in popupUser.sourceUser.contacts) );
       this.addContact(tempUser, this.loginService.currentUser); 
     }
-    this.userservice.updateUsers(tempUser).subscribe( (res: any) => { 
-      console.log(res); 
-      this.loginService.pushToResponseBoxSuccess(`Updated User: ${res.body.users[0].id}`); 
-      this.getUsers();
-    });
+    if (this.loginService.isLoggedin && this.loginService.currentUser && (this.loginService.currentUser.id===popupUser.sourceUser.id || this.loginService.isAdmin) ) {
+      this.userservice.updateUsers(tempUser).subscribe( (res: any) => { 
+        console.log(res); 
+        if (res.body.success !== false) {
+          this.loginService.pushToResponseBoxSuccess(`Updated User: ${res.body.users[0].id}`); 
+        }
+        this.getUsers();
+      });
+    }
     this.cancelUserPopup();
   }
   public deleteUser(userID:number){
     console.log(userID);
     this.userservice.deleteUser(userID).subscribe( (res: any) => { 
       console.log(res); 
-      this.loginService.pushToResponseBoxSuccess(`Deleted User: ${res.body.message}`);
+      if (res.body.success !== false) {
+        this.loginService.pushToResponseBoxSuccess(`Deleted User: ${res.body.message}`);
+      }
+      console.log(Number(res.body.message));
+      console.log(this.loginService.currentUser?.id);
+      console.log(Number(res.body.message) == this.loginService.currentUser?.id);
+      if (this.loginService.currentUser && Number(res.body.message) === this.loginService.currentUser.id ) {
+        this.loginService.cancelLogin();
+      }
       this.getUsers();
-      this.loginService.cancelLogin();
     });
     this.cancelUserPopup();
   }
@@ -187,7 +198,9 @@ export class UserComponent implements OnInit{
     let tempPassword = popupUser.password; 
     this.userservice.addUser({ message: tempPassword, primaryUser: newUser }).subscribe( (res: any) => { 
       console.log(res); 
-      this.loginService.pushToResponseBoxSuccess(`Added User: ${res.body.users[0].id}`);
+      if (res.body.success !== false) {
+        this.loginService.pushToResponseBoxSuccess(`Added User: ${res.body.users[0].id}`);
+      }
       this.getUsers();
     });
     this.cancelUserPopup();
@@ -197,9 +210,9 @@ export class UserComponent implements OnInit{
     this.userservice.addContact(userAddTo, userToAdd).subscribe( (res: any) => { console.log(res); this.getUsers();});
   }
 
-  public selectUser(user:User) {
-    this.selectedUser = user;
-  }
+  // public selectUser(user:User) {
+  //   this.selectedUser = user;
+  // }
   public toggleNewUserPopup(){
     console.log("Opening new User Popup");
     this.resetPopupUser();
@@ -214,8 +227,14 @@ export class UserComponent implements OnInit{
 
     let docUsersFormContacts = document.querySelector("#user-form-contacts");
     docUsersFormContacts?.setAttribute("disabled", "");
+
     let docUsersFormLastName = document.querySelector("#user-form-last-name");
-    docUsersFormLastName?.setAttribute("disabled", "");
+    
+    if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.isAdmin) {
+    docUsersFormLastName?.removeAttribute("disabled");
+    } else {
+      docUsersFormLastName?.setAttribute("disabled", "");
+    }
 
     let docUsersFormRate = document.querySelector("#user-form-rate");
     if (this.loginService.currentUser) {

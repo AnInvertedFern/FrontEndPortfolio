@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { LoginService } from "../toolbarAndLogin/login.service";
-import { WebService } from "../web.service";
-import { Theme } from "./theme";
+  import { WebService } from "../web.service";
+  import { Theme } from "./theme";
 import { ThemesService } from "./themes.service";
 
 
@@ -15,7 +15,7 @@ export class ThemeComponent implements OnInit, OnDestroy {
   // LastUserUsedTheme: Theme | undefined;
   
   dummyTheme:Theme = {
-    index: -1,
+    id: -1,
     inactiveTabColor: "",
     activeTabColor: "",
     toolbarColor: "",
@@ -27,11 +27,11 @@ export class ThemeComponent implements OnInit, OnDestroy {
     editUserColor: "",
     confirmThemeColor: "",
   };
-  themes: Theme[] = [];
+  themes: Theme[] = [this.dummyTheme];
   
   selectedTheme: number = this.themeService.currentTheme;
   selectedThemeCopy:Theme = {
-    index: -1,
+    id: -1,
     inactiveTabColor: "",
     activeTabColor: "",
     toolbarColor: "",
@@ -52,8 +52,9 @@ export class ThemeComponent implements OnInit, OnDestroy {
       (themes: Theme[]) => {
         this.themes = themes;
         this.themeService.loadTheme();
+        this.setThemeForm();
     });
-    this.themeService.GetThemesfromBackend();
+    // this.themeService.GetThemesfromBackend();
     this.themeService.themesChanged();
 
     // this.themeService.GetThemesfromBackend().subscribe(this.setThemes);
@@ -82,6 +83,40 @@ export class ThemeComponent implements OnInit, OnDestroy {
       .disable-button{ visibility:hidden; }
     `;
     docThemes?.appendChild(newStyle);
+    
+    let docThemeFormInactiveTabColor = document.querySelector("#theme-detail-inactiveTabColor");
+    let docThemeFormActiveTabColor = document.querySelector("#theme-detail-activeTabColor");
+    let docThemeFormToolbarColor = document.querySelector("#theme-detail-toolbarColor");
+    let docThemeFormSearchBarColor = document.querySelector("#theme-detail-searchBarColor");
+    let docThemeFormLogoutButtonColor = document.querySelector("#theme-detail-logoutButtonColor");
+    let docThemeFormBackgroundColor = document.querySelector("#theme-detail-backgroundColor");
+    let docThemeFormTextColor = document.querySelector("#theme-detail-textColor");
+    let docThemeFormAddUserColor = document.querySelector("#theme-detail-addUserColor");
+    let docThemeFormEditUserColor = document.querySelector("#theme-detail-editUserColor");
+    let docThemeFormConfirmThemeColor = document.querySelector("#theme-detail-confirmThemeColor");
+    if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.isAdmin) {
+      docThemeFormInactiveTabColor?.removeAttribute("disabled");
+      docThemeFormActiveTabColor?.removeAttribute("disabled");
+      docThemeFormToolbarColor?.removeAttribute("disabled");
+      docThemeFormSearchBarColor?.removeAttribute("disabled");
+      docThemeFormLogoutButtonColor?.removeAttribute("disabled");
+      docThemeFormBackgroundColor?.removeAttribute("disabled");
+      docThemeFormTextColor?.removeAttribute("disabled");
+      docThemeFormAddUserColor?.removeAttribute("disabled");
+      docThemeFormEditUserColor?.removeAttribute("disabled");
+      docThemeFormConfirmThemeColor?.removeAttribute("disabled");
+    } else {
+      docThemeFormInactiveTabColor?.setAttribute("disabled", "");
+      docThemeFormActiveTabColor?.setAttribute("disabled", "");
+      docThemeFormToolbarColor?.setAttribute("disabled", "");
+      docThemeFormSearchBarColor?.setAttribute("disabled", "");
+      docThemeFormLogoutButtonColor?.setAttribute("disabled", "");
+      docThemeFormBackgroundColor?.setAttribute("disabled", "");
+      docThemeFormTextColor?.setAttribute("disabled", "");
+      docThemeFormAddUserColor?.setAttribute("disabled", "");
+      docThemeFormEditUserColor?.setAttribute("disabled", "");
+      docThemeFormConfirmThemeColor?.setAttribute("disabled", "");
+    }
 
     this.themeService.loadTheme();
     this.selectTheme(this.selectedTheme);
@@ -103,17 +138,14 @@ export class ThemeComponent implements OnInit, OnDestroy {
   // public copyThemesToService(){
   //   this.themeService.themes = this.themes;
   // }
-  public setThemes(themes: any){
-    this.themes = themes;
-    //add code to add the themes into css
-    // this.copyThemesToService();
-  }
-  selectTheme( selectedTheme: number ) {
-    // console.log(this.themeService.selectedTheme);
-    // this.themeService.selectedTheme = selectedTheme;
-    this.selectedTheme = selectedTheme;
+  // public setThemes(themes: any){
+  //   this.themes = themes;
+  //   //add code to add the themes into css
+  //   // this.copyThemesToService();
+  // }
+  private setThemeForm(){
     this.selectedThemeCopy = {
-      index: -1,
+      id: -1,
       inactiveTabColor: "",
       activeTabColor: "",
       toolbarColor: "",
@@ -126,6 +158,12 @@ export class ThemeComponent implements OnInit, OnDestroy {
       confirmThemeColor: "",
     };
     this.selectedThemeCopy =  Object.assign(this.selectedThemeCopy, this.themes[this.selectedTheme]);
+  }
+  selectTheme( selectedTheme: number ) {
+    // console.log(this.themeService.selectedTheme);
+    // this.themeService.selectedTheme = selectedTheme;
+    this.selectedTheme = selectedTheme;
+    this.setThemeForm();
     // Object.entries(this.themes[this.selectedTheme]);
     console.log(this.selectedThemeCopy);
     // console.log(this.themeService.selectedTheme);
@@ -146,7 +184,7 @@ export class ThemeComponent implements OnInit, OnDestroy {
   }
   updateTheme() {
     console.log("updating theme")
-    if (true){//this.loginService.isLoggedin && this.loginService.currentUser !== undefined && this.loginService.isAdmin === true) {
+    if (this.loginService.isLoggedin && this.loginService.currentUser !== undefined && this.loginService.isAdmin === true) {//true){//
       this.themeService.updateTheme(this.selectedThemeCopy).subscribe( (res:any) => {
         console.log("updated theme");
         console.log(res);

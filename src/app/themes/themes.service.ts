@@ -13,7 +13,7 @@ export class ThemesService {
 
   
   dummyTheme:Theme = {
-    index: -1,
+    id: -1,
     inactiveTabColor: "",
     activeTabColor: "",
     toolbarColor: "",
@@ -37,59 +37,6 @@ export class ThemesService {
         this.loadTheme();
     });
 
-    // this.GetThemesfromBackend();
-
-    // this.themes.push(
-    //   {
-    //     index: -1,
-    //     inactiveTabColor: "blue",
-    //     activeTabColor: "yellow",
-    //     toolbarColor: "red",
-    //     searchBarColor: "navy",
-    //     logoutButtonColor: "purple",
-    //     backgroundColor: "grey",
-    //     textColor: "brown",
-    //     addUserColor: "gold",
-    //     editUserColor: "green",
-    //     confirmThemeColor: "red",
-    //     userCardOutlineColor: "green",
-    //   }
-    // );
-    // this.themes.push(
-    //   {
-    //     index: -1,
-    //     inactiveTabColor: "yellow",
-    //     activeTabColor: "blue",
-    //     toolbarColor: "navy",
-    //     searchBarColor: "red",
-    //     logoutButtonColor: "black",
-    //     backgroundColor: "purple",
-    //     textColor: "lime",
-    //     addUserColor: "brown",
-    //     editUserColor: "green",
-    //     confirmThemeColor: "red",
-    //     userCardOutlineColor: "green",
-    //   }
-    // );
-    // this.themes.push(
-    //   {
-    //     index: -1,
-    //     inactiveTabColor: "blue",
-    //     activeTabColor: "yellow",
-    //     toolbarColor: "red",
-    //     searchBarColor: "navy",
-    //     logoutButtonColor: "purple",
-    //     backgroundColor: "black",
-    //     textColor: "white",
-    //     addUserColor: "brown",
-    //     editUserColor: "green",
-    //     confirmThemeColor: "red",
-    //     userCardOutlineColor: "green",
-    //   }
-    // );
-
-    // this.themesChanged();
-
     this.GetThemesfromBackend();
   }
   GetThemesfromBackend() {
@@ -107,28 +54,29 @@ export class ThemesService {
   }
   
   public loadTheme(){
+    this.previewTheme(this.themes[this.currentTheme]);
 
-    let docGeneral = document.querySelector(".general-styles");
-    console.log(docGeneral);
-    console.log(document.getElementsByClassName("general-styles"));
-    console.log(document.querySelector("general-styles"));
-    let newStyle2 = document.createElement("style");   //${this.themes[0].searchBarColor}; }
-    newStyle2.textContent = `
-      *{ color: ${this.themes[this.currentTheme].textColor}; overflow:hidden; }
-      body{ margin: 0px 0px 0px 0px; }
-      .background-colorer{ background-color: ${this.themes[this.currentTheme].backgroundColor}; position: absolute; width:100vw; height:100vh; }
-      .popup{ background-color: ${this.themes[this.currentTheme].backgroundColor}; }
-      .tab-container{ background-color: ${this.themes[this.currentTheme].inactiveTabColor}; }
-      .active{ background-color: ${this.themes[this.currentTheme].activeTabColor}; }
-      .toolbar{ background-color: ${this.themes[this.currentTheme].toolbarColor}; }
-      .search-container{ background-color: white}
-      #search-input{ background-color: ${this.themes[this.currentTheme].searchBarColor}; }
-      .login-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
-      .logout-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
-      .new-user-button{ background-color: ${this.themes[this.currentTheme].addUserColor}; }
-      .theme-confirm-button{ background-color: ${this.themes[this.currentTheme].confirmThemeColor}; }
-    `;
-    docGeneral?.appendChild(newStyle2);
+    // let docGeneral = document.querySelector(".general-styles");
+    // console.log(docGeneral);
+    // console.log(document.getElementsByClassName("general-styles"));
+    // console.log(document.querySelector("general-styles"));
+    // let newStyle2 = document.createElement("style");   //${this.themes[0].searchBarColor}; }
+    // newStyle2.textContent = `
+    //   *{ color: ${this.themes[this.currentTheme].textColor}; overflow:hidden; }
+    //   body{ margin: 0px 0px 0px 0px; }
+    //   .background-colorer{ background-color: ${this.themes[this.currentTheme].backgroundColor}; position: absolute; width:100vw; height:100vh; }
+    //   .popup{ background-color: ${this.themes[this.currentTheme].backgroundColor}; }
+    //   .tab-container{ background-color: ${this.themes[this.currentTheme].inactiveTabColor}; }
+    //   .active{ background-color: ${this.themes[this.currentTheme].activeTabColor}; }
+    //   .toolbar{ background-color: ${this.themes[this.currentTheme].toolbarColor}; }
+    //   .search-container{ background-color: white}
+    //   #search-input{ background-color: ${this.themes[this.currentTheme].searchBarColor}; }
+    //   .login-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
+    //   .logout-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
+    //   .new-user-button{ background-color: ${this.themes[this.currentTheme].addUserColor}; }
+    //   .theme-confirm-button{ background-color: ${this.themes[this.currentTheme].confirmThemeColor}; }
+    // `;
+    // docGeneral?.appendChild(newStyle2);
   }
   public previewTheme(previewingTheme:Theme){
 

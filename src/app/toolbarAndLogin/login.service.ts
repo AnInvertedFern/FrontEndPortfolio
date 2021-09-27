@@ -18,12 +18,12 @@ export class LoginService {
   checkedCredentials: any | undefined;
   constructor(private webService: WebService, private router: Router,private route: ActivatedRoute) { 
   }
-  public IsAdmin() {
-    return this.isAdmin;
-  }
-  public getCurrentUser() {
-    return this.currentUser;
-  }
+  // public IsAdmin() {
+  //   return this.isAdmin;
+  // }
+  // public getCurrentUser() {
+  //   return this.currentUser;
+  // }
   // public setCredentials(userID: number, password: string){
   //   this.password = password;
   //   this.userID = userID;
@@ -47,7 +47,8 @@ export class LoginService {
       this.isLoggedin = false;
       this.currentUser = undefined;
       console.log(this);
-      let tempPath = this.route.snapshot.children[0].url[0].path;
+      // let tempPath = this.route.snapshot.children[0].url[0].path;
+      let tempPath = (<any> this.route)._routerState.snapshot.url;
       this.router.navigateByUrl("/dummy-component", {skipLocationChange:true}).then(()=>this.router.navigate([tempPath]));
     });
   }
@@ -58,7 +59,10 @@ export class LoginService {
     this.isLoggedin = false;
     this.currentUser = undefined;
     console.log(this);
-    let tempPath = this.route.snapshot.children[0].url[0].path;
+
+    console.log((<any> this.route)._routerState.snapshot.url);
+    let tempPath = (<any> this.route)._routerState.snapshot.url;
+    // let tempPath = this.route.snapshot.children[0].url[0].path;
     this.router.navigateByUrl("/dummy-component", {skipLocationChange:true}).then(()=>this.router.navigate([tempPath]));
 
   }
@@ -73,14 +77,18 @@ export class LoginService {
         this.currentUser = res.body.currentUser;
       }
     }
+    this.unCheckedCredentials = undefined;
   }
   public loginHelper2(){
     // this.currentUser = res.currentUser;
     if (this.currentUser !== undefined){
       this.currentUserUpdateSource.next( this.currentUser );
       this.loginThemeUpdateSource.next( this.currentUser.lastTheme );
-      console.log(this.route.snapshot.children[0].url[0].path);
-      let tempPath = this.route.snapshot.children[0].url[0].path;
+      console.log(this.route);
+      // console.log(this.route.snapshot.children[0].url[0].path);
+      // let tempPath = this.route.snapshot.children[0].url[0].path;
+      console.log((<any> this.route)._routerState.snapshot.url);
+      let tempPath = (<any> this.route)._routerState.snapshot.url;
       this.router.navigateByUrl("/dummy-component", {skipLocationChange:true}).then(()=>this.router.navigate([tempPath]));
     }
   }

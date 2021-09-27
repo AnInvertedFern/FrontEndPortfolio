@@ -9,7 +9,7 @@ import { SearchService } from "./search.service";
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
-  searchPopup: boolean = false;
+  // searchPopup: boolean = false;
   loginPopup: boolean = false;
   searchEntry: string = "";
   popupLoginObject:any={
@@ -17,8 +17,8 @@ export class ToolbarComponent implements OnInit {
     password:"",
   }
 
-  responseBoxSuccess: string = "a much longer test";
-  responseBoxFailure: string = "a much longer test";
+  responseBoxSuccess: string = "";
+  responseBoxFailure: string = "";
   responseBoxSuccessPopup: boolean = false;
   responseBoxFailurePopup: boolean = false;
   
@@ -84,14 +84,16 @@ export class ToolbarComponent implements OnInit {
     
   }
   public getCurrentTab() {
-    return this.route.snapshot.children[0].url[0].path;
+    return (<any> this.route)._routerState.snapshot.url;
+    // return this.route.snapshot.children[0].url[0].path;
   }
   public search(  ) {
     console.log(this.route.snapshot.children[0].url[0].path);
-    if (this.getCurrentTab() === "users-component") {
-      this.searchService.usersSearch(this.searchEntry, {});
-    } if (this.getCurrentTab() === "titles-component") {
-      this.searchService.titlesSearch(this.searchEntry, {});
+    console.log(this.getCurrentTab());
+    if (this.getCurrentTab() === "/users-component") {
+      this.searchService.usersSearch(this.searchEntry);//, {}
+    } if (this.getCurrentTab() === "/titles-component") {
+      this.searchService.titlesSearch(this.searchEntry);//, {}
     }
     this.searchEntry = "";
   }
@@ -120,9 +122,9 @@ export class ToolbarComponent implements OnInit {
   }
 
   
-  public searchPopupEvent() {
-    this.searchPopup = !this.searchPopup;
-  }
+  // public searchPopupEvent() {
+  //   this.searchPopup = !this.searchPopup;
+  // }
   public login(  ) {
     this.loginService.login(this.popupLoginObject);
     console.log(this.popupLoginObject);

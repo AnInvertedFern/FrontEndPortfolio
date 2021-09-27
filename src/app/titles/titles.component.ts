@@ -24,7 +24,7 @@ export class TitlesComponent implements OnInit{
   
   searchPopup: boolean = false;
 
-  constructor (private titlesservice: TitlesService, private searchService: SearchService, private themeService: ThemesService){ 
+  constructor (private titlesservice: TitlesService, private searchService: SearchService){ //, private themeService: ThemesService
   }
 
   public ngOnInit() {
@@ -52,10 +52,11 @@ export class TitlesComponent implements OnInit{
 
     
     this.getTitles();
-    if (this.titles.length > 0) {
-      // this.setTitleTo(this.titles[0]);
-      this.setTitleTo(0);
-    }
+
+    // if (this.titles.length > 0) {
+    //   // this.setTitleTo(this.titles[0]);
+    //   this.setTitleTo(0);
+    // }
     let docTitles = document.querySelector(".titles");
     let newStyle = document.createElement("style");
     newStyle.textContent = `
@@ -76,13 +77,9 @@ export class TitlesComponent implements OnInit{
   public getTitles() {
     this.titlesservice.getTitles().subscribe( (titlesResponse:any) => {
       this.titles = titlesResponse.body.allTitles;
-      // if (this.currentSelectedTitle !== undefined){
-      //   if ( this.titles.indexOf(this.currentSelectedTitle) === -1 ){
-      //     if (this.titles.length > 0) this.setTitleTo(this.titles[0]);
-      //   }
-      // }
       console.log(this.titles);
-      this.setTitleTo(0);
+      // this.setTitleTo(0);
+      this.setTitleTo(this.currentSelectedTitle);
     });
   }
 
@@ -96,14 +93,10 @@ export class TitlesComponent implements OnInit{
   }
   private setLeftRightTitles(){
     if (this.currentSelectedTitle != undefined){
-      // let titleIndex = this.titles.indexOf(this.currentSelectedTitle);
       this.leftTitle = (this.currentSelectedTitle-1 >= 0) ? this.currentSelectedTitle-1 : this.titles.length-1;
       this.rightTitle = (this.currentSelectedTitle+1 <= this.titles.length-1) ? this.currentSelectedTitle+1 : 0;
     }
   }
-  // public searchTitles( searchValue: string ) {
-  //   this.titlesservice.searchTitles(searchValue).subscribe( (titlesResponse:any) => {this.DisplayTitlesInSearch = titlesResponse;});
-  // }
   public getIndexOfTitleByName(name:string){
     let index:number = 0;
     for (let title of this.titles){

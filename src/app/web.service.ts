@@ -22,9 +22,9 @@ export class WebService {
         console.log(credentials);
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.get<User[]>(`${this.serverUrl}api/users/all`  , {headers: headers1, observe:'response'});
+            return this.http.get<User[]>(`${this.serverUrl}api/users/all/`  , {headers: headers1, observe:'response'});
         }
-        else { return this.http.get<User[]>(`${this.serverUrl}api/users/all`  , {observe:'response'}); }
+        else { return this.http.get<User[]>(`${this.serverUrl}api/users/all/`  , {observe:'response'}); }
 
     }
     public addContact(userAddTo: User, userToAdd: User, credentials: any){
@@ -68,13 +68,13 @@ export class WebService {
     //     return this.http.post<User[]>(`${this.serverUrl}api/titles/search/`, {searchValue});
     // }
     //Wants back an array of an array of titles: first index being all titles, second index being searched filtered titled
-    public getTitlesSearch(value: string, options: Object, credentials: any){
+    public getTitlesSearch(value: string, credentials: any){//, options: Object
         console.log(value);
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.post<Title[]>(`${this.serverUrl}api/titles/search/`, {value, options}, {params: {searchValue: value}, headers: headers1, observe:'response' } );
+            return this.http.post<Title[]>(`${this.serverUrl}api/titles/search/`, {}, {params: {searchValue: value}, headers: headers1, observe:'response' } );//, {value, options}
         }
-        else { return this.http.post<Title[]>(`${this.serverUrl}api/titles/search/`, {value, options}, {params: {searchValue: value}, observe:'response' } ); }
+        else { return this.http.post<Title[]>(`${this.serverUrl}api/titles/search/`, {}, {params: {searchValue: value}, observe:'response' } ); }//, {value, options}
         
     }
     // Wants back loginSucess:boolean, isAdmin:boolean, currentUser:User
@@ -94,12 +94,12 @@ export class WebService {
     //     return this.http.get<User[]>(`${this.serverUrl}api/users/${ID}/`);
     // }
     //Wants a array of Users
-    public getUsersSearch(value: string, options: Object, credentials: any){ //needs to also pass in current user, to see if a secret needs to be gotton
+    public getUsersSearch(value: string, credentials: any){ //, options: Object//needs to also pass in current user, to see if a secret needs to be gotton
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.post<User[]>(`${this.serverUrl}api/users/search/`, {value, options}, {params: {searchValue: value}, headers: headers1, observe:'response' } );
+            return this.http.post<User[]>(`${this.serverUrl}api/users/search/`, {}, {params: {searchValue: value}, headers: headers1, observe:'response' } );//, {value, options}
         }
-        else { return this.http.post<User[]>(`${this.serverUrl}api/users/search/`, {value, options}, {params: {searchValue: value}, observe:'response' } ); }
+        else { return this.http.post<User[]>(`${this.serverUrl}api/users/search/`, {}, {params: {searchValue: value}, observe:'response' } ); }//, {value, options}
         
     }
     public updateLastTheme(currentUser: User, currentTheme: number, credentials: any){
