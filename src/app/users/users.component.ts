@@ -55,8 +55,8 @@ export class UserComponent implements OnInit{
     let docUsers = document.querySelector(".users");
     let newStyle = document.createElement("style");
     newStyle.textContent = `
-      .users{ display:flex; flex-direction: column; align-items: center; }
-      .card-container{ width: 100vw; overflow:auto; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
+      .users{ display:flex; flex-direction: column; align-items: center; overflow: auto; }
+      .card-container{ width: 100vw; height: 100vh; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
       .card{ margin: 20px 20px 20px 20px; height: 250px; width: 200px; display:flex; border-radius: 4px; background-color: cyan; box-shadow: 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray;}
       .card:hover { transform: translateY(-1rem) translatex(-.5rem); box-shadow: 0px 3px 15px gold, 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray; }
       
@@ -85,11 +85,11 @@ export class UserComponent implements OnInit{
       .user-footer{ display:flex; align-items: center; justify-content: center; }
 
       
-      .edit-user-form{ top: 50px; left: 50px; display:none; border: 2px solid black; position:fixed; }
+      .edit-user-form{ top: 50px; left: 50px; display:none; border: 2px solid black; position:fixed; z-index:1; }
       .edit-user-form-subcontainer{ margin: 10px 10px 10px 10px; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
       .user-form-buttons{ margin: 10px 10px 10px 10px; display:flex; flex-direction: row; align-items: center; justify-content: center; }
     
-      .new-user-form{ bottom: 50px; right: 50px; display:none; border: 2px solid black; position:fixed; }
+      .new-user-form{ bottom: 50px; right: 50px; display:none; border: 2px solid black; position:fixed; z-index:1; }
       .new-user-form-subcontainer{ margin: 10px 10px 10px 10px; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
       
       .user-form-visible{ display:flex; }

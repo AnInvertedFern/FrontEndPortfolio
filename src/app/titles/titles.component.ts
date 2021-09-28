@@ -59,16 +59,17 @@ export class TitlesComponent implements OnInit{
     // }
     let docTitles = document.querySelector(".titles");
     let newStyle = document.createElement("style");
+    // .title-column:hover { transform: translateY(.5rem); text-shadow: 0px 5px .1em purple; }
     newStyle.textContent = `
       .titles{ display:flex; justify-content:center; }
-      .search-results{ justify-content:center; width:70%; height:70%; border: 2px solid black; position:absolute; top:100px; display:none; }
+      .search-results{ justify-content:center; width:70%; height:70%; border: 2px solid black; position:absolute; top:100px; display:none; z-index:1; }
       .search-results-visible{ display:flex; }
       .search-results-subcontainer{ height:100%; display:flex; justify-content:space-around; flex-direction:column; align-items:center; }
-      .title-column{ overflow:auto; display:flex; flex:1; flex-direction:column; align-items:center; }
-      .title-column:hover { transform: translateY(.5rem); text-shadow: 0px 5px .1em purple; }
+      .search-item:hover { height: 30px; transform: translateY(.2rem); text-shadow: 0px 2px .1em purple; }
+      .title-column{ height: 100vh; overflow:auto; display:flex; flex:1; flex-direction:column; align-items:center; }
       .title-column-main{}
-      .title-column-left{}
-      .title-column-right{}
+      .title-column-left:hover { transform: translateY(.5rem); text-shadow: 0px 5px .1em purple; }
+      .title-column-right:hover { transform: translateY(.5rem); text-shadow: 0px 5px .1em purple; }
       .titles-border{ height: 100vh; width: 10px; background-color: black; box-shadow: 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray; }
       .titles-user-detail-container{ display:flex; flex-direction:column; }
     `;

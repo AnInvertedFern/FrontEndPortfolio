@@ -1,0 +1,404 @@
+Application Tests (Manual Tests):
+/////////////////////////////////////////
+
+General Tests
+-----------------------------------------
+
+Default Expected State (all States [Toolbar]):
+Toolbar should be visible
+  Color should match the color of the Current Theme
+Three tabs in the left portion of the toolbar
+  Color of the active tab (check url) should match the Current Theme
+  Color of the two inactive tabs are also match the Current Theme
+  Color of the type of tabs (Users, Titles, Themes) should match the text color in the Current Theme
+The middle of the toolbar should have a Search bar
+  Color of the text should match the text color in the Current Theme
+  There should an Enter or submit button to the right of the search field
+The far right of the toolbar should have a login/logout button
+  Color of the text should match the text color in the Current Theme
+  The color of the button should match the text color in the Current Theme
+The background color of the Main Section should match the background color in the Current Theme
+
+Default Expected State (all States [Users]):
+A section that contains User Cards
+A section that contains the Footer below the User Cards
+And a section that contains the Refresh and Add User buttons (two buttons)
+  The buttons should be floating on the lower right of the screen
+  The color of the Add User button should match the current Theme
+
+User Cards:
+A card should be displayed for each user
+New cards should be displayed to the right of older cards or on a new row
+Each card should display:
+  The user's name (first and last name)
+  The user's title
+  The number of other users the user has connections with
+  A quote of the user
+  The user's secret
+  The colors for each card's background, symbol color, 
+    symbol background circle color, and text color is choose by the user and should match their information
+
+Clicking on a user card should bring up the edit user window
+  For each field of the user there should be the fields's name and its value
+    Except, the list of connections should not be listed
+    There should also an entry to add yourself (your user profile) to that user as a contact
+Clicking on the add user button should bring up the add user window
+  For each field of the user there should be the fields's name and its value
+    Except, the list of connections should not be listed
+    There should also an entry to add the password for the new user
+Each window should have an enter and cancel button
+The edit user window should also have a delete button, but its visiblity should be state dependent
+  (only visible on the currently logged in user's window, or always visible if logged in as an admin)
+
+Default Expected State (all States [Titles]):
+Titles should consist of three sections, each containing information about a title
+
+Title Columns:
+At the top of each column should be the title of the users in the column
+The color of the text on the page should match the background color for the Cuurrent theme
+Under the title should be each user that has that title as their title
+For each of the users with that title there should be:
+  The user's name (first and last name)
+  The number of other users the user has connections with (across all users, not just in the title)
+  The quote of the user
+
+Default Expected State (all States [Themes]):
+Titles should consist of three sections:
+  The first section should have buttons
+    The confirm button should always be visible
+    The update (change) theme button's visibility is state dependent (Only visible to admins)
+  The second section should be a list of shapes
+    There should be one shape for each theme
+      Each should should be a rounded square
+      In each rounded square should be circle
+      In each circle should be four smaller circles in each corner
+    The colors of each shape and subshape should match a color within their represented theme
+  The last section should be a box with the details of each theme in text
+    For each parameter of each theme there should be the parameter's name and its value
+
+Tests: (Login)
+(Action)
+Click the login button
+(Expected Result)
+A login window should appear
+The login button should be replaced by a logout button
+(Action)
+Click the cancel button
+(Expected Result)
+A login window should close
+(Action)
+Fill out the login form with a user id and password and hit enter
+(Expected Result)
+You should get logged in
+(Action)
+Click the log out button
+(Expected Result)
+You should get logged out
+The logout button should be replaced by a login button
+
+Page #1: Users
+'''''''''''''''''''''''''''''''''''''''''
+Default Expected State [Page Users]:
+Users should be the active tab (check its color)
+
+Tests:
+(Action) [repeat]
+Click on a user card
+(Expected Result)
+An edit user window should appear
+The information in the window should match the info in the user card
+  (Action)
+  Click the cancel button
+  (Expected Result)
+  The edit user window should close
+(Action) [repeat]
+Click the add user button
+(Expected Result)
+An add user window should appear
+The fields should match the above descriptions
+  (Action)
+  Click the cancel button
+  (Expected Result)
+  The add user window should close
+  (Action)
+  Open the form and fill it out and submit it
+  Only use letters and - and _ for the name
+  Only use letters and - and _ and numbers for the title
+  Only use letters and - and _ and numbers and . and ! and , and ? and spaces for the quote and secret
+  Only use a single character for the symbol
+  Only use letters for the colors
+  (Expected Result)
+  A new user card should appear
+  Its colors should match the fields you entered as long as they were valid colors
+    If they were not valid default colors should be used
+  The user id should appear in a popup box
+  (Action) [repeat]
+  Open the form and fill it out break the rules and submit it
+  (Expected Result)
+  Nothing should happen
+  (Action)
+  Change the theme, and then login using of the users that was made
+  (Expected Result)
+  The theme should change to the theme that was active when that user was made
+(Action)
+Change the users in the backend and click the refresh users button
+(Expected Result)
+The user cards should update themselves
+(Action)
+Enter a query into the search bar and hit enter
+(Expected Result)
+The user cards should be filtered by the results that have that query substring in:
+  First name or last name or title or quote, and only by these fields
+'''''''''''''''''''''''''''''''''''''''''
+
+Page #2 Titles:
+'''''''''''''''''''''''''''''''''''''''''
+Default Expected State [Page Titles]:
+Titles should be the active tab (check its color)
+
+This page should not change on changed login state
+
+Before Tests:
+Add users with new titles until there are at least 5 unique titles in use amoung users
+
+Tests:
+(Action)
+Click the left column
+(Expected Result)
+The left column becomes the central column
+(Action)
+Click the right column
+(Expected Result)
+The right column becomes the central column
+(Action)
+Keep clicking the same non-central column
+(Expected Result)
+The titles should keep shifting over without repeats until all titles and users have been seen
+(Action)
+Hover over a column
+(Expected Result)
+The column's text should pop up a bit with a drop shadow
+(Action) [repeat]
+Type a query into the search bar and hit enter
+(Expected Result)
+A search results window should open
+It should display a list of all titles that has the query in it as a substring
+  (Action)
+  Click on on a result 
+  (Expected Result)
+  The result should no be the central column
+'''''''''''''''''''''''''''''''''''''''''
+
+Page #3: Themes
+'''''''''''''''''''''''''''''''''''''''''
+Default Expected State [Page Themes]:
+Themes should be the active tab (check its color)
+
+Tests:
+(Action)
+Click on the current theme's shape
+(Expected Result)
+Nothing should happen
+(Action)
+Click on a different theme's shape
+(Expected Result)
+The theme (colors on the site) should change as a preview
+The theme details form should change its values to match the selected theme's info
+  (Action)
+  Leave themes without hitting confirm
+  (Expected Result)
+  The theme should switch back to the previous confirmed theme
+(Action)
+Click and select a different theme and hit confirm and leave the page
+(Expected Result)
+The new theme should stay active across the site
+'''''''''''''''''''''''''''''''''''''''''
+-----------------------------------------
+
+#========================================
+Test Group #1: State: Not Logged In
+
+All General Tests Should Still Hold
+
+Default Expected State (Not Logged In):
+The Login/Logout button should say Login
+
+Page #1: Users
+'''''''''''''''''''''''''''''''''''''''''
+Default Expected State (Not Logged In [Users]):
+All secrets in the cards and edit user windows should be replaced by ***Secret***
+
+Tests:
+(Action)
+Open the Edit user window
+(Expected Result)
+All fields should be greyed out and disabled
+(Action)
+Open the Edit user window and enable fields with the browser's inspector
+  (select the element and delete the disabled attribute)
+Edit some fields and submit
+(Expected Result)
+Nothing should happen
+(Action)
+Open the Edit user window and enable the delete button with the browser's inspector
+  (select the delete button element and delete the disabled attribute)
+Click the delete button
+(Expected Result)
+Nothing should happen
+(Action)
+Enter and submit a search
+(Expected Result)
+All filtered results should still have ***Secret*** for their secret
+(Action)
+Create a new user
+(Expected Result)
+The new user still have ***Secret*** for their secret
+
+'''''''''''''''''''''''''''''''''''''''''
+Page #2: Themes
+'''''''''''''''''''''''''''''''''''''''''
+Default Expected State (Not Logged In [Themes]):
+All fields in the theme details form should be disabled
+'''''''''''''''''''''''''''''''''''''''''
+#========================================
+
+#========================================
+Test Group #2: State: (Non-Admin) Login
+
+All General Tests Should Still Hold
+
+Default Expected State (Non-Admin Login):
+The Login/Logout button should say Logout
+The current user's ID should be displayed to the left of the logout button
+
+Page #1: Users
+'''''''''''''''''''''''''''''''''''''''''
+Default Expected State (Non-Admin Login [Users]):
+All secrets in the cards and edit user windows other than 
+  the current user's should be replaced by ***Secret***
+
+Tests:
+(Action)
+Click a different user's card (that does not have the current user as a contact)
+(Expected Result)
+All fields should be greyed out and disabled
+  Except for the "You Know Them?" field
+(Action)
+Select the "You Know Them?" field and submit
+(Expected Result)
+The current user should be added their their contacts list (not visible)
+Their number of contacts should have increased by one
+The "You know Them?" field should now be disabled
+(Action)
+Click on the current user's card
+(Expected Result)
+All fields except Last Name, Number of Contacts, and "You Know Them?" should be enabled
+(Action)
+Change some fields, sticking the allowed character guidelines for adding users above
+Submit the changes
+(Expected Result)
+The fields should change one the card and on the form
+(Action) [repeat]
+Change and submit the form while breaking the guidelines
+(Expected Result)
+Nothing should happen
+(Action)
+Open the form and hit delete
+(Expected Result)
+The user card should vanish, the login/logout button should be login
+If you attempt to log back in with that user, it should not work
+
+'''''''''''''''''''''''''''''''''''''''''
+
+Page #2: Themes
+'''''''''''''''''''''''''''''''''''''''''
+Default Expected State (Non-Admin Login [Themes]):
+All fields in the theme details form should be disabled
+
+Tests:
+(Action)
+Login with a user that has a theme different than the current one
+(Expected Result)
+The theme should swith the that user's last theme
+(Action)
+Swith themes, logout, login as a different user that had a different last theme
+Logout of that different user, then log back in with the old user
+(Expected Result)
+The theme should swith the the old user's last theme
+(Action)
+Select and confirm a different theme, switch tabs to check its confirmation
+Logout, switch and confirm themes again, and then log back in
+(Expected Result)
+Then theme should select the the new last them that that user had
+'''''''''''''''''''''''''''''''''''''''''
+#========================================
+
+#========================================
+Test Group #3: State: Admin Login
+
+All General Tests Should Still Hold
+
+Default Expected State (Admin Login):
+The Login/Logout button should say Logout
+The current user's ID should be displayed to the left of the logout button
+
+Page #1: Users
+'''''''''''''''''''''''''''''''''''''''''
+
+Default Expected State (Admin Login [Users]):
+All secrets in the cards and edit user windows other than 
+  the current user's should be viewable in their actually text
+
+Tests:
+(Action)
+Click on any user card
+(Expected Result)
+All fields except number of contacts, secret should be enabled
+  (if the admin user is a contacts of the selected user the "You Know Them?" will be disabled)
+The delete button should be visible
+(Action) [repeat]
+Edit some fields and submit following the allowed character guidelines for adding users above
+(Expected Result)
+The fields should change in the user's card and edit user form
+(Action) [repeat]
+Edit some fields and submit breaking the allowed character guidelines for adding users above
+(Expected Result)
+Nothing should happen
+(Action)
+Add the admin user as a contact to a user
+(Expected Result)
+The number of contacts should go up and the "You Know Them?" field should be disabled for that user
+(Action)
+Enable the secret field via the brower inspector, change, and submit
+(Expected Result)
+Nothing should happen
+(Action)
+Select a user card, and click the delete button
+(Expected Result)
+The user card should vanish and the deleted user's login information should no longer work
+
+'''''''''''''''''''''''''''''''''''''''''
+
+Page #2: Themes
+'''''''''''''''''''''''''''''''''''''''''
+
+All Non-Admin Login Themes Tests Should Still Hold
+
+Default Expected State (Admin Login [Themes]):
+The update button should be visible
+The fields in the theme details form should be enabled
+
+Tests:
+(Action)
+Select a theme, and change a field in the theme details form, and submit
+Make sure the change is still a valid color
+(Expected Result)
+The change should be reflected in the theme
+The changed theme should be now be confirmed as the admin user's last theme
+(Action)
+Logout of the admin user and login as a different user
+Switch to the changed theme
+(Expected Result)
+The change should still be present in the theme across users
+'''''''''''''''''''''''''''''''''''''''''
+#========================================

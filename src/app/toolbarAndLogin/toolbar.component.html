@@ -36,6 +36,7 @@
     <div class="logout-container2" (click)="logout()">
       <div class="logout">Logout</div>
     </div>
+    Current User's ID: &nbsp;{{loginService.currentUser?.id}}
   </div>
 
   <div class="login-form popup" [class.login-form-visible]="loginPopup">

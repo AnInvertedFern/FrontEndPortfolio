@@ -64,14 +64,14 @@ export class ToolbarComponent implements OnInit {
       .login:hover{ transform: translateY(-.1em) translatex(-.5em); text-shadow: 0px 3px .1em gold; }
       .logout:hover{ transform: translateY(-.1em) translatex(-.5em); text-shadow: 0px 3px .1em gold; }
 
-      .login-form{ border: 2px solid black; position:fixed; top: 50px; right: 50px; display:none; }
+      .login-form{ border: 2px solid black; position:fixed; top: 50px; right: 50px; display:none; z-index:1; }
       .login-form-subcontainer{ margin: 10px 10px 10px 10px; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
       .login-form-visible{ display:flex; }
 
       
-      .response-box-success{ height:15%; width:35%; overflow:auto; border: 2px solid darkgreen; position:fixed; top: 100px; left: 70px; display:none; }
+      .response-box-success{ height:15%; width:35%; overflow:auto; border: 2px solid darkgreen; position:fixed; top: 100px; left: 70px; display:none; z-index:1; }
       .response-box-success-subcontainer{ height:100%; width:100%; background-color:green; color:darkgreen; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
-      .response-box-failure{ height:15%; width:35%; overflow:auto; border: 2px solid darkred; position:fixed; top: 100px; left: 70px; display:none; }
+      .response-box-failure{ height:15%; width:35%; overflow:auto; border: 2px solid darkred; position:fixed; top: 100px; left: 70px; display:none; z-index:1; }
       .response-box-failure-subcontainer{ height:100%; width:100%; background-color:red; color:darkred; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }
 
       .response-box-close{ position:absolute; bottom:2px; right:2px; color:midnightblue;}

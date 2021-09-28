@@ -86,7 +86,8 @@ export class ThemesService {
     console.log(document.querySelector("general-styles"));
     let newStyle2 = document.createElement("style");   //${this.themes[0].searchBarColor}; }
     newStyle2.textContent = `
-      *{ color: ${previewingTheme.textColor}; overflow:hidden; }
+      *{ color: ${previewingTheme.textColor}; overflow:hidden; cursor: default; }
+      input{ cursor: text; }
       body{ margin: 0px 0px 0px 0px; }
       .background-colorer{ background-color: ${previewingTheme.backgroundColor}; position: absolute; width:100vw; height:100vh; }
       .popup{ background-color: ${previewingTheme.backgroundColor}; }

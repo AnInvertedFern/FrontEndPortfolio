@@ -5,7 +5,7 @@
     <div class="search-results-subcontainer">
       <h4>Search Results:</h4>
       <div *ngFor="let searchTitle of DisplayTitlesInSearch">
-        <div (click) = "setTitleTo(getIndexOfTitleByName(searchTitle.title)); searchPopupEvent();">
+        <div class="search-item" (click) = "setTitleTo(getIndexOfTitleByName(searchTitle.title)); searchPopupEvent();">
             {{searchTitle.title}}
         </div>
 
