@@ -11,5 +11,15 @@ export interface Theme{
     editUserColor: string;
     confirmThemeColor: string;
 
+
+    refreshUserColor: string;
+    popupColor: string;
+    titleShadowColor: string;
+    searchTitleShadowColor: string;
+    footerSeperatorColor: string;
+    loginShadowColor: string;
+    inputColor: string;
+    inputButtonColor: string;
+
     // userCardOutlineColor: string;
 }

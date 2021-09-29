@@ -1,17 +1,16 @@
+import { HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
-import { LoginService } from "../toolbarAndLogin/login.service";
+import { Observable, Subject } from "rxjs";
+import { Credentials, LoginService } from "../toolbarAndLogin/login.service";
 import { User } from "../users/user";
-import { WebService } from "../web.service";
+import { UserReply, WebService } from "../web.service";
 import { Theme } from "./theme";
 
 @Injectable({providedIn:'root'})
 export class ThemesService {
   
-  // selectedTheme: number = 0;
   currentTheme: number = 0;
 
-  
   dummyTheme:Theme = {
     id: -1,
     inactiveTabColor: "",
@@ -24,89 +23,86 @@ export class ThemesService {
     addUserColor: "",
     editUserColor: "",
     confirmThemeColor: "",
+    
+    refreshUserColor: "",
+    popupColor: "",
+    titleShadowColor: "",
+    searchTitleShadowColor: "",
+    footerSeperatorColor: "",
+    loginShadowColor: "",
+    inputColor: "",
+    inputButtonColor: "",
   }
   themes: Theme[] = [this.dummyTheme];
 
-  
   constructor( private webService: WebService, private loginService: LoginService) { 
-    console.log("in themes service constructor");
     loginService.loginThemeUpdate$.subscribe(
       (lastTheme: number) => {
-        console.log(lastTheme);
-        this.currentTheme = lastTheme;// this.selectedTheme = lastTheme;
+        this.currentTheme = lastTheme;
         this.loadTheme();
     });
 
     this.GetThemesfromBackend();
   }
-  GetThemesfromBackend() {
-    this.webService.getThemes().subscribe( (res:any) => {
-      this.themes = res.body;
+  GetThemesfromBackend() : void {
+    this.webService.getThemes().subscribe( (res:HttpResponse<Theme[]>) => {
+      this.themes = <Theme[]> res.body;
       this.loadTheme();
       this.themesChanged();
     });
   }
-  SetUserLastLoggedInTheme( currentUser:User, currentTheme: number ) {
-    return this.webService.updateLastTheme(currentUser, currentTheme, this.loginService.checkedCredentials);
+  SetUserLastLoggedInTheme( currentUser:User, currentTheme: number ) : Observable<HttpResponse<UserReply>> {
+    return this.webService.updateLastTheme(currentUser, currentTheme, <Credentials> this.loginService.checkedCredentials);
   }
-  public updateTheme(themeToChange: Theme) {
-    return this.webService.updateThemes(themeToChange, this.loginService.checkedCredentials);
+  public updateTheme(themeToChange: Theme) : Observable<HttpResponse<Theme>> {
+    return this.webService.updateThemes(themeToChange, <Credentials> this.loginService.checkedCredentials);
   }
   
-  public loadTheme(){
+  public loadTheme() : void {
     this.previewTheme(this.themes[this.currentTheme]);
-
-    // let docGeneral = document.querySelector(".general-styles");
-    // console.log(docGeneral);
-    // console.log(document.getElementsByClassName("general-styles"));
-    // console.log(document.querySelector("general-styles"));
-    // let newStyle2 = document.createElement("style");   //${this.themes[0].searchBarColor}; }
-    // newStyle2.textContent = `
-    //   *{ color: ${this.themes[this.currentTheme].textColor}; overflow:hidden; }
-    //   body{ margin: 0px 0px 0px 0px; }
-    //   .background-colorer{ background-color: ${this.themes[this.currentTheme].backgroundColor}; position: absolute; width:100vw; height:100vh; }
-    //   .popup{ background-color: ${this.themes[this.currentTheme].backgroundColor}; }
-    //   .tab-container{ background-color: ${this.themes[this.currentTheme].inactiveTabColor}; }
-    //   .active{ background-color: ${this.themes[this.currentTheme].activeTabColor}; }
-    //   .toolbar{ background-color: ${this.themes[this.currentTheme].toolbarColor}; }
-    //   .search-container{ background-color: white}
-    //   #search-input{ background-color: ${this.themes[this.currentTheme].searchBarColor}; }
-    //   .login-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
-    //   .logout-container2{ background-color: ${this.themes[this.currentTheme].logoutButtonColor}; }
-    //   .new-user-button{ background-color: ${this.themes[this.currentTheme].addUserColor}; }
-    //   .theme-confirm-button{ background-color: ${this.themes[this.currentTheme].confirmThemeColor}; }
-    // `;
-    // docGeneral?.appendChild(newStyle2);
   }
-  public previewTheme(previewingTheme:Theme){
+  public previewTheme(previewingTheme:Theme) : void {
 
     let docGeneral = document.querySelector(".general-styles");
-    console.log(docGeneral);
-    console.log(document.getElementsByClassName("general-styles"));
-    console.log(document.querySelector("general-styles"));
-    let newStyle2 = document.createElement("style");   //${this.themes[0].searchBarColor}; }
-    newStyle2.textContent = `
-      *{ color: ${previewingTheme.textColor}; overflow:hidden; cursor: default; }
-      input{ cursor: text; }
-      body{ margin: 0px 0px 0px 0px; }
-      .background-colorer{ background-color: ${previewingTheme.backgroundColor}; position: absolute; width:100vw; height:100vh; }
-      .popup{ background-color: ${previewingTheme.backgroundColor}; }
-      .tab-container{ background-color: ${previewingTheme.inactiveTabColor}; }
-      .active{ background-color: ${previewingTheme.activeTabColor}; }
-      .toolbar{ background-color: ${previewingTheme.toolbarColor}; }
-      .search-container{ background-color: white}
-      #search-input{ background-color: ${previewingTheme.searchBarColor}; }
-      .login-container2{ background-color: ${previewingTheme.logoutButtonColor}; }
-      .logout-container2{ background-color: ${previewingTheme.logoutButtonColor}; }
-      .new-user-button{ background-color: ${previewingTheme.addUserColor}; }
-      .theme-confirm-button{ background-color: ${previewingTheme.confirmThemeColor}; }
-    `;
-    docGeneral?.appendChild(newStyle2);
+    let newStyle2 = document.querySelector(".theme-style");
+    if (newStyle2 === null) {
+      newStyle2 = document.createElement("style");
+      newStyle2.setAttribute("class", "theme-style");
+    }
+    if (newStyle2 !== null) {
+      newStyle2.textContent = `
+        *{ color: ${previewingTheme.textColor}; overflow:hidden; cursor: default; }
+        body{ margin: 0px 0px 0px 0px; }
+        .background-colorer{ background-color: ${previewingTheme.backgroundColor}; position: absolute; width:100vw; height:100vh; }
+        .tab-container{ background-color: ${previewingTheme.inactiveTabColor}; }
+        .active{ background-color: ${previewingTheme.activeTabColor}; }
+        .toolbar{ background-color: ${previewingTheme.toolbarColor}; }
+        #search-input{ background-color: ${previewingTheme.searchBarColor}; }
+        .login-container2{ background-color: ${previewingTheme.logoutButtonColor}; }
+        .logout-container2{ background-color: ${previewingTheme.logoutButtonColor}; }
+        .new-user-button{ background-color: ${previewingTheme.addUserColor}; }
+
+        .refresh-users-button{ background-color: ${previewingTheme.refreshUserColor}; }
+        .popup{ background-color: ${previewingTheme.popupColor}; }
+        .title-column-left:hover, .title-column-right:hover { text-shadow: 0px 5px .1em ${previewingTheme.titleShadowColor}; }
+        .search-item:hover { text-shadow: 0px 2px .5em ${previewingTheme.searchTitleShadowColor}; }
+        .seperator{ background-color: ${previewingTheme.footerSeperatorColor}; }
+        .login:hover, .logout:hover { transform: translateY(-.1em) translatex(-.5em); text-shadow: 0px 3px .5em ${previewingTheme.loginShadowColor}; }
+        .search-container{ background-color: white}
+        .theme-confirm-button, #theme-update-button { background-color: ${previewingTheme.confirmThemeColor}; }
+        input{ background-color: ${previewingTheme.inputColor}; }
+        input[type="button"]{ background-color: ${previewingTheme.inputButtonColor}; }
+      `;
+      docGeneral?.appendChild(newStyle2);
+    } else {
+      throw console.error();
+      ////////////////////////////////////////
+      // Should be unreachable
+    }
   }
   private themeUpdateSource = new Subject<Theme[]>();
   themeUpdate$ = this.themeUpdateSource.asObservable();
-  public themesChanged(){
-    console.log("in theme changed");
+  public themesChanged() : void{
     this.themeUpdateSource.next( this.themes );
   }
 

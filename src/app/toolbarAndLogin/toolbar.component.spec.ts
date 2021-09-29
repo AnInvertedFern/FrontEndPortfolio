@@ -6,6 +6,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { DummyComponent } from "../dummy.component";
 import { ThemeComponent } from "../themes/themes.component";
 import { TitlesComponent } from "../titles/titles.component";
+import { User } from "../users/user";
 import { UserComponent } from "../users/users.component";
 import { ToolbarComponent } from "./toolbar.component";
 
@@ -46,16 +47,16 @@ describe('ToolbarComponent testing', () => {
 
     toolbarComponent.loginPopupEvent();
     expect(toolbarComponent.loginPopup).toBe(true);
-    toolbarComponent.popupLoginObject.userID ="";
+    toolbarComponent.popupLoginObject.userID ="1";
     toolbarComponent.popupLoginObject.password = "fruit";
     toolbarComponent.loginPopupCancel();
     expect(toolbarComponent.loginPopup).toBe(false);
     expect(toolbarComponent.popupLoginObject.userID).toBe("");
     expect(toolbarComponent.popupLoginObject.password).toBe("");
 
-    toolbarComponent.popupLoginObject.userID = 1;
+    toolbarComponent.popupLoginObject.userID = "1";
     toolbarComponent.popupLoginObject.password = "fruit";
-    expect(toolbarComponent.popupLoginObject.userID).toBe(1);
+    expect(toolbarComponent.popupLoginObject.userID).toBe("1");
     expect(toolbarComponent.popupLoginObject.password).toBe("fruit");
     toolbarComponent.resetPopupLogin();
     expect(toolbarComponent.popupLoginObject.userID).toBe("");
@@ -67,19 +68,17 @@ describe('ToolbarComponent testing', () => {
     expect(toolbarComponent.responseBoxSuccessPopup).toBe(false);
     
     
-    toolbarComponent.popupLoginObject.userID = 1;
+    toolbarComponent.popupLoginObject.userID = "1";
     toolbarComponent.popupLoginObject.password = "fruit";
     toolbarComponent.login();
     expect(toolbarComponent.loginPopup).toBe(false);
     expect(toolbarComponent.popupLoginObject.userID).toBe("");
     expect(toolbarComponent.popupLoginObject.password).toBe("");
-
     
-    expect(toolbarComponent.loginService.unCheckedCredentials.userID).toBe(1);
-    expect(toolbarComponent.loginService.unCheckedCredentials.password).toBe("fruit");
+    expect(toolbarComponent.loginService.unCheckedCredentials?.userID).toBe("1");
+    expect(toolbarComponent.loginService.unCheckedCredentials?.password).toBe("fruit");
 
-    
-    let tempUser: any = {
+    let tempUser: User = {
       id:1,
       firstName: "ASD",
       lastName: "afga",
@@ -97,7 +96,6 @@ describe('ToolbarComponent testing', () => {
       symbolBackgroundColor:"",
     };
 
-
     let req = httpTestingController.expectOne('http://localhost:8080/login/get_role/');
     expect(req.request.method).toBe('GET');
     req.flush({message:"", success:true, admin:true, currentUser:tempUser});
@@ -106,8 +104,8 @@ describe('ToolbarComponent testing', () => {
     expect(toolbarComponent.loginService.isAdmin).toBe(true);
     expect(toolbarComponent.loginService.currentUser?.firstName).toBe("ASD");
 
-    expect(toolbarComponent.loginService.checkedCredentials.userID).toBe(1);
-    expect(toolbarComponent.loginService.checkedCredentials.password).toBe("fruit");
+    expect(toolbarComponent.loginService.checkedCredentials?.userID).toBe("1");
+    expect(toolbarComponent.loginService.checkedCredentials?.password).toBe("fruit");
 
     toolbarComponent.logout();
 
@@ -121,8 +119,6 @@ describe('ToolbarComponent testing', () => {
     expect(toolbarComponent.loginService.currentUser).toBe(undefined);
     expect(toolbarComponent.loginService.isAdmin).toBe(false);
     expect(toolbarComponent.loginService.isLoggedin).toBe(false);
-
-
 
     //Router does not work in testing, so cannot test search logic in toolbar component
     //It is tested in login service 

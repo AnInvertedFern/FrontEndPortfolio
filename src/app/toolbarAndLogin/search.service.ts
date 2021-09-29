@@ -1,41 +1,35 @@
+import { HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { Title } from "../titles/titles";
 import { TitlesComponent } from "../titles/titles.component";
 import { User } from "../users/user";
 import { UserComponent } from "../users/users.component";
-import { WebService } from "../web.service";
-import { LoginService } from "./login.service";
+import { TitlesReply, UserReply, WebService } from "../web.service";
+import { Credentials, LoginService } from "./login.service";
 
 @Injectable({providedIn:'root'})
 export class SearchService {
 
   constructor( private webService: WebService, private loginService: LoginService ) { 
-    console.log(this.searchUsersUpdateSource);
   }
-  usersSearch( value: string) {//, options: Object 
-    console.log(this.searchUsersUpdateSource);
-    console.log(value);
-    this.webService.getUsersSearch(value, this.loginService.checkedCredentials).subscribe((res: any) => {console.log(this.searchUsersUpdateSource);this.usersSearchHelper(res)});//, options
+  usersSearch( value: string) : void {
+    this.webService.getUsersSearch(value, <Credentials> this.loginService.checkedCredentials).subscribe((res: HttpResponse<UserReply>) => {this.usersSearchHelper(res)});
 
   }
-  usersSearchHelper(res: any) {
-    console.log(this.searchUsersUpdateSource);
-    console.log(res);
+  usersSearchHelper(res: HttpResponse<UserReply>) : void {
     this.searchUsersUpdateSource.next(res);
   }
-  titlesSearch( value: string) {//, options: Object 
-    console.log(value);
-    this.webService.getTitlesSearch(value, this.loginService.checkedCredentials).subscribe( (res: any) => {console.log(this.searchTitlesUpdateSource);this.titlesSearchHelper(res)});//, options
+  titlesSearch( value: string) : void {
+    this.webService.getTitlesSearch(value, <Credentials> this.loginService.checkedCredentials).subscribe( (res: HttpResponse<TitlesReply>) => {this.titlesSearchHelper(res)});
 
   }
-  titlesSearchHelper(res:any) {
-    console.log(res);
+  titlesSearchHelper(res:HttpResponse<TitlesReply>) : void {
     this.searchTitlesUpdateSource.next(res);
   }
   
-  private searchUsersUpdateSource = new Subject<User[]>();
-  private searchTitlesUpdateSource = new Subject<(Title[])[]>();
+  private searchUsersUpdateSource = new Subject<HttpResponse<UserReply>>();
+  private searchTitlesUpdateSource = new Subject<HttpResponse<TitlesReply>>();
   searchUserUpdate$ = this.searchUsersUpdateSource.asObservable();
   searchTitlesUpdate$ = this.searchTitlesUpdateSource.asObservable();
   

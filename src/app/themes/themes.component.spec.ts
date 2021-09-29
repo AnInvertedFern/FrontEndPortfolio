@@ -6,6 +6,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { DummyComponent } from "../dummy.component";
 import { TitlesComponent } from "../titles/titles.component";
 import { ToolbarComponent } from "../toolbarAndLogin/toolbar.component";
+import { User } from "../users/user";
 import { UserComponent } from "../users/users.component";
 import { Theme } from "./theme";
 import { ThemeComponent } from "./themes.component";
@@ -55,8 +56,6 @@ describe('ThemesComponent testing', () => {
   });
   it('ThemesComponent Tests', () => {
 
-    
-
     let tempTheme1:Theme = {
       id: 1,
       inactiveTabColor: "red",
@@ -69,6 +68,15 @@ describe('ThemesComponent testing', () => {
       addUserColor: "magenta",
       editUserColor: "cyan",
       confirmThemeColor: "teal",
+    
+      refreshUserColor: "grey",
+      popupColor: "maroon",
+      titleShadowColor: "navy",
+      searchTitleShadowColor: "orange",
+      footerSeperatorColor: "purple",
+      loginShadowColor: "red",
+      inputColor: "white",
+      inputButtonColor: "yellow",
     };
     let tempTheme2:Theme = {
       id: 2,
@@ -82,12 +90,21 @@ describe('ThemesComponent testing', () => {
       addUserColor: "green",
       editUserColor: "yellow",
       confirmThemeColor: "purple",
+    
+      refreshUserColor: "cyan",
+      popupColor: "green",
+      titleShadowColor: "brown",
+      searchTitleShadowColor: "red",
+      footerSeperatorColor: "blue",
+      loginShadowColor: "gold",
+      inputColor: "green",
+      inputButtonColor: "purple",
     };
-
-    let req = httpTestingController.expectOne("http://localhost:8080/api/themes/all/");
+    let reqArray = httpTestingController.match("http://localhost:8080/api/themes/all/");
+    expect(reqArray.length === 2);
+    let req = reqArray[0];
     expect(req.request.method).toBe('GET');
     req.flush([tempTheme1, tempTheme2]);
-
 
     themesComponent.themes = [tempTheme1, tempTheme2];
     themesComponent.selectTheme(1);
@@ -103,8 +120,7 @@ describe('ThemesComponent testing', () => {
     expect(themesComponent.selectedThemeCopy.textColor).toBe("orange");
     expect(themesComponent.selectedThemeCopy.confirmThemeColor).toBe("purple");
     
-
-    let tempUser: any = {
+    let tempUser: User = {
       id:1,
       firstName: "ASD",
       lastName: "afga",
@@ -121,7 +137,7 @@ describe('ThemesComponent testing', () => {
   
       symbolBackgroundColor:"",
     };
-    toolbarComponent.popupLoginObject.userID = 1;
+    toolbarComponent.popupLoginObject.userID = "1";
     toolbarComponent.popupLoginObject.password = "qwerty";
     toolbarComponent.login();
 
@@ -148,10 +164,7 @@ describe('ThemesComponent testing', () => {
     expect(req.request.method).toBe('GET');
     req.flush([tempUpdatedTheme, tempTheme2]);
 
-
     expect(themesComponent.themes[0].activeTabColor).toBe("lightsalmon");
-
-
 
   });
 });

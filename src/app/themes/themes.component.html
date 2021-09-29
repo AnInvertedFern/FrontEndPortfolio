@@ -3,7 +3,7 @@
         <div class="theme-confirm-button" (click)="confirmTheme()">
             Confirm
         </div>
-        <div id="theme-update-button" (click)="updateTheme()">
+        <div id="theme-update-button" class="disable-button" (click)="updateTheme()">
             Update
         </div>
     </div>
@@ -24,50 +24,81 @@
     </div>
 
     <div class="theme-details-container">
-        <div class="theme-details-subcontainer">
+        <div class="theme-details-subcontainer popup">
             Theme's Details:
-            <!-- <div class="theme-detail" *ngFor="let item of selectedThemeEntries"> -->
-                <!-- {{item}} -->
-            <!-- </div> -->
             <div>
-                <label for="theme-detail-inactiveTabColor">inactiveTabColor: </label>
+                <label for="theme-detail-inactiveTabColor">Inactive Tab Color: </label>
                 <input id="theme-detail-inactiveTabColor" type="text" [(ngModel)]="selectedThemeCopy.inactiveTabColor">
             </div>
             <div>
-                <label for="theme-detail-activeTabColor">activeTabColor: </label>
+                <label for="theme-detail-activeTabColor">Active Tab Color: </label>
                 <input id="theme-detail-activeTabColor" type="text" [(ngModel)]="selectedThemeCopy.activeTabColor">
             </div>
             <div>
-                <label for="theme-detail-toolbarColor">toolbarColor: </label>
+                <label for="theme-detail-toolbarColor">Toolbar Color: </label>
                 <input id="theme-detail-toolbarColor" type="text" [(ngModel)]="selectedThemeCopy.toolbarColor">
             </div>
             <div>
-                <label for="theme-detail-searchBarColor">searchBarColor: </label>
+                <label for="theme-detail-searchBarColor">Search Bar Color: </label>
                 <input id="theme-detail-searchBarColor" type="text" [(ngModel)]="selectedThemeCopy.searchBarColor">
             </div>
             <div>
-                <label for="theme-detail-logoutButtonColor">logoutButtonColor: </label>
+                <label for="theme-detail-logoutButtonColor">Logout Button Color: </label>
                 <input id="theme-detail-logoutButtonColor" type="text" [(ngModel)]="selectedThemeCopy.logoutButtonColor">
             </div>
             <div>
-                <label for="theme-detail-backgroundColor">backgroundColor: </label>
+                <label for="theme-detail-backgroundColor">Background Color: </label>
                 <input id="theme-detail-backgroundColor" type="text" [(ngModel)]="selectedThemeCopy.backgroundColor">
             </div>
             <div>
-                <label for="theme-detail-textColor">textColor: </label>
+                <label for="theme-detail-textColor">Text Color: </label>
                 <input id="theme-detail-textColor" type="text" [(ngModel)]="selectedThemeCopy.textColor">
             </div>
             <div>
-                <label for="theme-detail-addUserColor">addUserColor: </label>
+                <label for="theme-detail-addUserColor">Add User Color: </label>
                 <input id="theme-detail-addUserColor" type="text" [(ngModel)]="selectedThemeCopy.addUserColor">
             </div>
             <div>
-                <label for="theme-detail-editUserColor">editUserColor: </label>
+                <label for="theme-detail-editUserColor">Edit User Color: </label>
                 <input id="theme-detail-editUserColor" type="text" [(ngModel)]="selectedThemeCopy.editUserColor">
             </div>
             <div>
-                <label for="theme-detail-confirmThemeColor">confirmThemeColor: </label>
+                <label for="theme-detail-confirmThemeColor">Confirm Theme Color: </label>
                 <input id="theme-detail-confirmThemeColor" type="text" [(ngModel)]="selectedThemeCopy.confirmThemeColor">
+            </div>
+
+            
+            <div>
+                <label for="theme-detail-refreshUserColor">Refresh User Color: </label>
+                <input id="theme-detail-refreshUserColor" type="text" [(ngModel)]="selectedThemeCopy.refreshUserColor">
+            </div>
+            <div>
+                <label for="theme-detail-popupColor">Popup Color: </label>
+                <input id="theme-detail-popupColor" type="text" [(ngModel)]="selectedThemeCopy.popupColor">
+            </div>
+            <div>
+                <label for="theme-detail-titleShadowColor">Title Shadow Color: </label>
+                <input id="theme-detail-titleShadowColor" type="text" [(ngModel)]="selectedThemeCopy.titleShadowColor">
+            </div>
+            <div>
+                <label for="theme-detail-searchTitleShadowColor">Search Title Shadow Color: </label>
+                <input id="theme-detail-searchTitleShadowColor" type="text" [(ngModel)]="selectedThemeCopy.searchTitleShadowColor">
+            </div>
+            <div>
+                <label for="theme-detail-footerSeperatorColor">Footer Seperator Color: </label>
+                <input id="theme-detail-footerSeperatorColor" type="text" [(ngModel)]="selectedThemeCopy.footerSeperatorColor">
+            </div>
+            <div>
+                <label for="theme-detail-loginShadowColor">Login Shadow Color: </label>
+                <input id="theme-detail-loginShadowColor" type="text" [(ngModel)]="selectedThemeCopy.loginShadowColor">
+            </div>
+            <div>
+                <label for="theme-detail-inputColor">Input Color: </label>
+                <input id="theme-detail-inputColor" type="text" [(ngModel)]="selectedThemeCopy.inputColor">
+            </div>
+            <div>
+                <label for="theme-detail-inputButtonColor">Input Button Color: </label>
+                <input id="theme-detail-inputButtonColor" type="text" [(ngModel)]="selectedThemeCopy.inputButtonColor">
             </div>
         </div>
     </div>

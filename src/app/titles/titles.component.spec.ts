@@ -5,6 +5,7 @@ import { BrowserTestingModule } from "@angular/platform-browser/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { DummyComponent } from "../dummy.component";
 import { ThemeComponent } from "../themes/themes.component";
+import { User } from "../users/user";
 import { UserComponent } from "../users/users.component";
 import { TitlesComponent } from "./titles.component";
 
@@ -30,7 +31,6 @@ describe('TitlesComponent testing', () => {
       ], 
       providers: [
         TitlesComponent,
-
       ]
     }).compileComponents();
 
@@ -40,11 +40,10 @@ describe('TitlesComponent testing', () => {
     titlesFixture = TestBed.createComponent(TitlesComponent);
     titlesComponent = titlesFixture.componentInstance;
     titlesFixture.detectChanges();
-
   });
   it('TitlesComponent Tests', () => {
     
-    let tempUser1: any = {
+    let tempUser1: User = {
       id:1,
       firstName: "ASD",
       lastName: "afga",
@@ -61,7 +60,7 @@ describe('TitlesComponent testing', () => {
   
       symbolBackgroundColor:"",
     };
-    let tempUser2: any = {
+    let tempUser2: User = {
       id:2,
       firstName: "dfghdg",
       lastName: "djfgh",
@@ -78,7 +77,7 @@ describe('TitlesComponent testing', () => {
   
       symbolBackgroundColor:"",
     };
-    let tempUser3: any = {
+    let tempUser3: User = {
       id:3,
       firstName: "lhbl",
       lastName: "lubu",
@@ -95,7 +94,7 @@ describe('TitlesComponent testing', () => {
   
       symbolBackgroundColor:"",
     };
-    let tempUser4: any = {
+    let tempUser4: User = {
       id:4,
       firstName: "vfdsgf",
       lastName: "vghdj",
@@ -112,7 +111,7 @@ describe('TitlesComponent testing', () => {
   
       symbolBackgroundColor:"",
     };
-    let tempUser5: any = {
+    let tempUser5: User = {
       id:5,
       firstName: "udfsb",
       lastName: "usdfg",
@@ -160,7 +159,6 @@ describe('TitlesComponent testing', () => {
     expect(titlesComponent.leftTitle).toBe(0);
     expect(titlesComponent.rightTitle).toBe(0);
 
-
     titlesComponent.titles = [{ title: "afh", users: [tempUser1] },{ title: "lkj", users: [tempUser2,tempUser3] },{ title: "wer", users: [tempUser4] },{ title: "vbn", users: [tempUser5] }];
     titlesComponent.setTitleTo(1);
     expect(titlesComponent.currentSelectedTitle).toBe(1);
@@ -178,7 +176,5 @@ describe('TitlesComponent testing', () => {
     expect(titlesComponent.currentSelectedTitle).toBe(0);
     expect(titlesComponent.leftTitle).toBe(3);
     expect(titlesComponent.rightTitle).toBe(1);
-
-
   });
 });

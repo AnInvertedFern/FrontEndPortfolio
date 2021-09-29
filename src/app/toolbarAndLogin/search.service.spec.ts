@@ -6,6 +6,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { DummyComponent } from "../dummy.component";
 import { ThemeComponent } from "../themes/themes.component";
 import { TitlesComponent } from "../titles/titles.component";
+import { User } from "../users/user";
 import { UserComponent } from "../users/users.component";
 import { SearchService } from "./search.service";
 import { ToolbarComponent } from "./toolbar.component";
@@ -38,7 +39,6 @@ describe('SearchService testing', () => {
         SearchService,
         UserComponent,
         TitlesComponent,
-
       ]
     }).compileComponents();
 
@@ -52,22 +52,19 @@ describe('SearchService testing', () => {
     titlesFixture = TestBed.createComponent(TitlesComponent);
     titlesComponent = titlesFixture.componentInstance;
     titlesFixture.detectChanges();
-
   });
   it('SearchService Tests', () => {
     
-
     httpTestingController.expectOne("http://localhost:8080/api/themes/all/");
     
     httpTestingController.expectOne("http://localhost:8080/api/users/all/");
     
     httpTestingController.expectOne("http://localhost:8080/api/titles/all/");
 
-
     expect(userComponent.users.length).toBe(0);
     searchService.usersSearch("afg");
 
-    let tempUser1: any = {
+    let tempUser1: User = {
       id:1,
       firstName: "ASD",
       lastName: "afga",
@@ -84,7 +81,7 @@ describe('SearchService testing', () => {
   
       symbolBackgroundColor:"",
     };
-    let tempUser2: any = {
+    let tempUser2: User = {
       id:2,
       firstName: "dfghdg",
       lastName: "djfgh",
@@ -101,7 +98,7 @@ describe('SearchService testing', () => {
   
       symbolBackgroundColor:"",
     };
-    let tempUser3: any = {
+    let tempUser3: User = {
       id:3,
       firstName: "lhbl",
       lastName: "lubu",
@@ -125,7 +122,6 @@ describe('SearchService testing', () => {
     expect(userComponent.users.length).toBe(1);
     expect(userComponent.users[0].lastName).toBe("afga");
 
-
     searchService.titlesSearch("af");
     req = httpTestingController.expectOne('http://localhost:8080/api/titles/search/?searchValue=af');
     expect(req.request.method).toBe('POST');
@@ -141,7 +137,6 @@ describe('SearchService testing', () => {
     expect(titlesComponent.titles[1].users.length).toBe(2);
     expect(titlesComponent.searchPopup).toBe(true);
 
-
     searchService.titlesSearch("");
     req = httpTestingController.expectOne('http://localhost:8080/api/titles/search/?searchValue=');
     expect(req.request.method).toBe('POST');
@@ -155,7 +150,6 @@ describe('SearchService testing', () => {
     expect(titlesComponent.titles[1].title).toBe("lkj");
     expect(titlesComponent.titles[1].users.length).toBe(2);
     expect(titlesComponent.searchPopup).toBe(true);
-    
 
     searchService.titlesSearch("");
     req = httpTestingController.expectOne('http://localhost:8080/api/titles/search/?searchValue=');
@@ -169,7 +163,6 @@ describe('SearchService testing', () => {
     expect(titlesComponent.titles[0].title).toBe("");
     expect(titlesComponent.titles[0].users.length).toBe(0);
     expect(titlesComponent.searchPopup).toBe(true);
-
 
   });
 });

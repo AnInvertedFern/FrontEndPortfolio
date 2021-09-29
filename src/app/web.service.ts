@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Theme } from "./themes/theme";
 import { Title } from "./titles/titles";
-import { LoginService } from "./toolbarAndLogin/login.service";
+import { Credentials, LoginService } from "./toolbarAndLogin/login.service";
 import { User } from "./users/user";
 
 @Injectable({providedIn:'root'})
@@ -11,113 +11,101 @@ export class WebService {
     private users:User[] = [];
     private serverUrl: string = `http://localhost:8080/`;
 
-    constructor( private http: HttpClient) { //, private loginService: LoginService 
+    constructor( private http: HttpClient) {
     }
 
-
-    //How to login information to webservice for user data selection?
-    //have all services pass in current user and credentials since they are all connected to login
-
-    public getUsers(credentials: any){ //needs to also pass in current user, to get the secret
-        console.log(credentials);
+    public getUsers(credentials: Credentials) : Observable<HttpResponse<UserReply>> {
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.get<User[]>(`${this.serverUrl}api/users/all/`  , {headers: headers1, observe:'response'});
+            return this.http.get<UserReply>(`${this.serverUrl}api/users/all/`  , {headers: headers1, observe:'response'});
         }
-        else { return this.http.get<User[]>(`${this.serverUrl}api/users/all/`  , {observe:'response'}); }
+        else { return this.http.get<UserReply>(`${this.serverUrl}api/users/all/`  , {observe:'response'}); }
 
     }
-    public addContact(userAddTo: User, userToAdd: User, credentials: any){
+    public addContact(userAddTo: User, userToAdd: User, credentials: Credentials) : Observable<HttpResponse<UserReply>> {
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.post<User[]>(`${this.serverUrl}api/users/addcontact/`, {primaryUser:userAddTo, secondaryUser:userToAdd} , {headers: headers1, observe:'response'} );
+            return this.http.post<UserReply>(`${this.serverUrl}api/users/addcontact/`, {primaryUser:userAddTo, secondaryUser:userToAdd} , {headers: headers1, observe:'response'} );
         }
-        else { return this.http.post<User[]>(`${this.serverUrl}api/users/addcontact/`, {primaryUser:userAddTo, secondaryUser:userToAdd} , {observe:'response'} ); }
+        else { return this.http.post<UserReply>(`${this.serverUrl}api/users/addcontact/`, {primaryUser:userAddTo, secondaryUser:userToAdd} , {observe:'response'} ); }
     }
-    public updateUsers(user:User, credentials: any) { //needs to also pass in current user, to see if certian fields can be updated
+    public updateUsers(user:User, credentials: Credentials) : Observable<HttpResponse<UserReply>> {
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.post<User[]>(`${this.serverUrl}api/users/`, user, {headers: headers1, observe:'response'} );
+            return this.http.post<UserReply>(`${this.serverUrl}api/users/`, user, {headers: headers1, observe:'response'} );
         }
-        else { return this.http.post<User[]>(`${this.serverUrl}api/users/`, user, {observe:'response'} ); }
+        else { return this.http.post<UserReply>(`${this.serverUrl}api/users/`, user, {observe:'response'} ); }
     }
-    public addUser(user:User){
-        console.log(user);
-        return this.http.put<User[]>( `${this.serverUrl}api/users/`, user, {observe:'response'});
+    // Expected format: { message: "password", primaryUser: "user" } 
+    public addUser(user:any) : Observable<HttpResponse<UserReply>> {
+        return this.http.put<UserReply>( `${this.serverUrl}api/users/`, user, {observe:'response'});
     }
-    // public deleteUser(user:User, callback:any){ //needs to also pass in current user, to see if the non-admin user can delete that user
-    //     const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa('user' +':'+'password') });
-    //     this.http.delete<User>( `${this.serverUrl}api/users/${user.id}`  , {headers: headers1}).subscribe(callback);
-    // }
-    
-    public deleteUser(userID:number, credentials: any){ //needs to also pass in current user, to see if the non-admin user can delete that user
-        // const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa('user' +':'+'password') });
+    public deleteUser(userID:number, credentials: Credentials) : Observable<HttpResponse<UserReply>> {
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.delete<User>( `${this.serverUrl}api/users/${userID}`  , {headers: headers1, observe:'response'});
+            return this.http.delete<UserReply>( `${this.serverUrl}api/users/${userID}`  , {headers: headers1, observe:'response'});
         }
-        else { return this.http.delete<User>( `${this.serverUrl}api/users/${userID}`  , {observe:'response'}); }
+        else { return this.http.delete<UserReply>( `${this.serverUrl}api/users/${userID}`  , {observe:'response'}); }
     }
-    // public searchUser(searchValue: string, orderBy: Object){ //needs to also pass in current user, to see if a secret needs to be gotten
-    //     return this.http.post<User[]>(`${this.serverUrl}api/users/search/`, {searchValue, orderBy});
-    // }
-    public getTitles(){
-        return this.http.get<User[]>(`${this.serverUrl}api/titles/all/`, {observe:'response'});
+    public getTitles() : Observable<HttpResponse<TitlesReply>> {
+        return this.http.get<TitlesReply>(`${this.serverUrl}api/titles/all/`, {observe:'response'});
     }
-    // public searchTitles(searchValue: string){
-    //     return this.http.post<User[]>(`${this.serverUrl}api/titles/search/`, {searchValue});
-    // }
-    //Wants back an array of an array of titles: first index being all titles, second index being searched filtered titled
-    public getTitlesSearch(value: string, credentials: any){//, options: Object
-        console.log(value);
+    public getTitlesSearch(value: string, credentials: Credentials) : Observable<HttpResponse<TitlesReply>> {
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.post<Title[]>(`${this.serverUrl}api/titles/search/`, {}, {params: {searchValue: value}, headers: headers1, observe:'response' } );//, {value, options}
+            return this.http.post<TitlesReply>(`${this.serverUrl}api/titles/search/`, {}, {params: {searchValue: value}, headers: headers1, observe:'response' } );
         }
-        else { return this.http.post<Title[]>(`${this.serverUrl}api/titles/search/`, {}, {params: {searchValue: value}, observe:'response' } ); }//, {value, options}
+        else { return this.http.post<TitlesReply>(`${this.serverUrl}api/titles/search/`, {}, {params: {searchValue: value}, observe:'response' } ); }
         
     }
-    // Wants back loginSucess:boolean, isAdmin:boolean, currentUser:User
-    public attemptLogin_GetRole(credentials: any){
+    public attemptLogin_GetRole(credentials: Credentials) : Observable<HttpResponse<getRoleReply>> {
         const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-        console.log(`${credentials.userID}` +`:`+`${credentials.password}`);
-        // const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa('user' +':'+'password') });
-        return this.http.get<User[]>(`${this.serverUrl}login/get_role/`  , {headers: headers1, observe:'response'});
+        return this.http.get<getRoleReply>(`${this.serverUrl}login/get_role/`  , {headers: headers1, observe:'response'});
     }
-    public attemptLogout(credentials: any){
+    public attemptLogout(credentials: Credentials) : Observable<HttpResponse<string>> {
         const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-        console.log(`${credentials.userID}` +`:`+`${credentials.password}`);
-        // const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa('user' +':'+'password') });
-        return this.http.get<User[]>(`${this.serverUrl}logout/`  , {headers: headers1, observe:'response'});
+        return this.http.get<string>(`${this.serverUrl}logout/`  , {headers: headers1, observe:'response'});
     }
-    // public getUserByID(ID:number){ //needs to also pass in current user, although in the current setup it is only used for the current user
-    //     return this.http.get<User[]>(`${this.serverUrl}api/users/${ID}/`);
-    // }
-    //Wants a array of Users
-    public getUsersSearch(value: string, credentials: any){ //, options: Object//needs to also pass in current user, to see if a secret needs to be gotton
+    public getUsersSearch(value: string, credentials: Credentials) : Observable<HttpResponse<UserReply>> {
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.post<User[]>(`${this.serverUrl}api/users/search/`, {}, {params: {searchValue: value}, headers: headers1, observe:'response' } );//, {value, options}
+            return this.http.post<UserReply>(`${this.serverUrl}api/users/search/`, {}, {params: {searchValue: value}, headers: headers1, observe:'response' } );
         }
-        else { return this.http.post<User[]>(`${this.serverUrl}api/users/search/`, {}, {params: {searchValue: value}, observe:'response' } ); }//, {value, options}
+        else { return this.http.post<UserReply>(`${this.serverUrl}api/users/search/`, {}, {params: {searchValue: value}, observe:'response' } ); }
         
     }
-    public updateLastTheme(currentUser: User, currentTheme: number, credentials: any){
+    public updateLastTheme(currentUser: User, currentTheme: number, credentials: Credentials) : Observable<HttpResponse<UserReply>> {
         //just use update user
         currentUser.lastTheme = currentTheme;
         return this.updateUsers(currentUser, credentials);
     }
-    public getThemes(){
-        return this.http.get<User[]>(`${this.serverUrl}api/themes/all/`, {observe:'response'});
+    public getThemes() : Observable<HttpResponse<Theme[]>> {
+        return this.http.get<Theme[]>(`${this.serverUrl}api/themes/all/`, {observe:'response'});
     }
-    public updateThemes(themes: Theme, credentials: any){
+    public updateThemes(themes: Theme, credentials: Credentials) : Observable<HttpResponse<Theme>> {
         if (credentials) {
             const headers1 = new HttpHeaders({ 'Authorization': 'Basic ' + btoa(`${credentials.userID}` +`:`+`${credentials.password}`) });
-            return this.http.post<User[]>(`${this.serverUrl}api/themes/`, themes, {headers: headers1, observe:'response'} );
+            return this.http.post<Theme>(`${this.serverUrl}api/themes/`, themes, {headers: headers1, observe:'response'} );
         }
-        else { return this.http.post<User[]>(`${this.serverUrl}api/themes/`, themes, {observe:'response'} ); }
-        
+        else { return this.http.post<Theme>(`${this.serverUrl}api/themes/`, themes, {observe:'response'} ); }   
     }
+}
 
-
+export class UserReply {
+    message: String | undefined;
+    success: boolean | undefined;
+    users: User[] | undefined;
+    allUsers: User[] | undefined;
+}
+export class TitlesReply {
+  message: String | undefined;
+  success: boolean | undefined;
+  titles: Title[] | undefined;
+  allTitles: Title[] | undefined;
+}
+export class getRoleReply {
+    message: String | undefined;
+    success: boolean | undefined;
+    admin: boolean | undefined;
+    currentUser: User | undefined;
 }

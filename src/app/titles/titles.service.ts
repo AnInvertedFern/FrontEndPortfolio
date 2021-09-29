@@ -1,5 +1,7 @@
+import { HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { WebService } from "../web.service";
+import { Observable } from "rxjs";
+import { TitlesReply, WebService } from "../web.service";
 
 @Injectable({providedIn:'root'})
 export class TitlesService {
@@ -7,11 +9,7 @@ export class TitlesService {
     constructor( private webService: WebService ) { 
     }
 
-    public getTitles() {
+    public getTitles() : Observable<HttpResponse<TitlesReply>> {
       return this.webService.getTitles();
     }
-    // public searchTitles( searchValue: string ) {
-    //   return this.webService.searchTitles(searchValue);
-    // }
-
 }

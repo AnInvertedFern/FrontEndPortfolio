@@ -1,9 +1,10 @@
 import { style } from "@angular/animations";
+import { HttpResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { ThemesService } from "../themes/themes.service";
 import { LoginService } from "../toolbarAndLogin/login.service";
 import { SearchService } from "../toolbarAndLogin/search.service";
-import { WebService } from "../web.service";
+import { UserReply, WebService } from "../web.service";
 import { User } from "./user";
 import { UserService } from "./users.service";
 
@@ -11,16 +12,14 @@ import { UserService } from "./users.service";
   selector: 'users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  // providers: [UserService]
 })
 export class UserComponent implements OnInit{
   users: Array<User> = [];
   selectedUser: User | undefined;
   NewUserPopup: boolean = false;
   EditUserPopup: boolean = false;
-  currentUser: User | undefined;
 
-  popupUserObject:any = {
+  popupUserObject:any = { // popupUserObject cannot be given a type without breaking Angular bindings
     firstName: "",
     lastName: "",
     title: "",
@@ -37,17 +36,12 @@ export class UserComponent implements OnInit{
     sourceUser:undefined,
   }
 
-
   constructor (private userservice: UserService, private searchService: SearchService, private loginService: LoginService, private themeService: ThemesService){ 
-    console.log("in user component constructor");
   }
 
-  public ngOnInit() {
-    this.loginService.currentUserUpdate$.subscribe(
-      newCurrentUser => {this.currentUser = newCurrentUser;
-    });
+  public ngOnInit() : void {
     this.searchService.searchUserUpdate$.subscribe(
-      (response:any) => {this.users = response.body.users;
+      (response:HttpResponse<UserReply>) => {this.users = <User[]> response.body?.users;
     });
     
     this.getUsers();
@@ -56,7 +50,7 @@ export class UserComponent implements OnInit{
     let newStyle = document.createElement("style");
     newStyle.textContent = `
       .users{ display:flex; flex-direction: column; align-items: center; overflow: auto; }
-      .card-container{ width: 100vw; height: 100vh; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
+      .card-container{ width: 100vw; height: 80vh; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
       .card{ margin: 20px 20px 20px 20px; height: 250px; width: 200px; display:flex; border-radius: 4px; background-color: cyan; box-shadow: 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray;}
       .card:hover { transform: translateY(-1rem) translatex(-.5rem); box-shadow: 0px 3px 15px gold, 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray; }
       
@@ -70,18 +64,18 @@ export class UserComponent implements OnInit{
       .new-user-button-container{ height: 230px; width: 180px; position: fixed; bottom:20px; right: 20px; display:flex; align-items: center; justify-content: center; filter: drop-shadow(-5px -5px 10px black) drop-shadow(5px 5px 10px lightslategray); }
       .new-user-button{ position: absolute; height: 200px; width: 200px; clip-path: circle(60px); }
       .new-user-button-text-container{ position: absolute; height: 70px; width: 70px; display:flex; align-items: center; justify-content: center; }
-      .new-user-button-text{ text-align: center; }
+      .new-user-button-text{ text-align: center; font-weight: bold; }
       .new-user-button:hover { clip-path: circle(80px); }
       .new-user-button-text:hover{ transform: translateY(-.2em);  }
 
       .refresh-users-button-container{ height: 230px; width: 180px; position: fixed; bottom:200px; right: 20px; display:flex; align-items: center; justify-content: center; filter: drop-shadow(-5px -5px 10px black) drop-shadow(5px 5px 10px lightslategray); }
-      .refresh-users-button{ position: absolute; height: 150px; width: 150px; background-color:green; clip-path: circle(50px); }
-      .refresh-users-button-text-container{ position: absolute; height: 50px; width: 50px; display:flex; align-items: center; justify-content: center; }
-      .refresh-users-button-text{ text-align: center; }
+      .refresh-users-button{ position: absolute; height: 150px; width: 150px; clip-path: circle(50px); }
+      .refresh-users-button-text-container{ position: absolute; height: 55px; width: 55px; display:flex; align-items: center; justify-content: center; }
+      .refresh-users-button-text{ text-align: center; font-weight: bold; }
       .refresh-users-button:hover { clip-path: circle(70px); }
       .refresh-users-button-text:hover{ transform: translateY(-.2em);  }
 
-      .seperator{ height: 10px; width:100%; background-color: orange; }
+      .seperator{ height: 10px; width:100%; }
       .user-footer{ display:flex; align-items: center; justify-content: center; }
 
       
@@ -98,26 +92,14 @@ export class UserComponent implements OnInit{
       
     `;
     docUsers?.appendChild(newStyle);
-    
   }
-  // public getCurrentUser(){
-  //   return this.currentUser;
-  //   //get it from login service
-  // }
-
-  public getUsers() {//(usersResponse:Array<User>)
-    this.userservice.getUsers().subscribe( (usersResponse:any) => {
-      this.users = usersResponse.body.allUsers; 
-      console.log(this.users);
-      console.log(usersResponse);
+  public getUsers() : void {
+    this.userservice.getUsers().subscribe( (usersResponse:HttpResponse<UserReply>) => {
+      this.users = <User[]> usersResponse.body?.allUsers; 
     });
-    console.log("Getting Users");
   }
-
-  public updateUsers(popupUser: any){
-    console.log("Updating User");
-    
-    let tempUser: any = {
+  public updateUsers(popupUser: any) : void {
+    let tempUser: User = {
       id:-1,
       firstName: "",
       lastName: "",
@@ -134,50 +116,35 @@ export class UserComponent implements OnInit{
   
       symbolBackgroundColor:"",
     };
-    // let tempUser: any = popupUser.sourceUser;
-    // tempUser = Object.assign(tempUser, user);
     for (let key in tempUser){
-      tempUser[key] = popupUser[key];
+      (<any>tempUser)[key] = popupUser[key];
     }
-    console.log(popupUser.sourceUser);
-    console.log(tempUser);
     if(popupUser.rated && this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id!==popupUser.sourceUser.id && popupUser.sourceUser.contacts.indexOf(this.loginService.currentUser.id)===-1 ) { 
-      console.log( !(this.loginService.currentUser.id in popupUser.sourceUser.contacts) );
       this.addContact(tempUser, this.loginService.currentUser); 
     }
     if (this.loginService.isLoggedin && this.loginService.currentUser && (this.loginService.currentUser.id===popupUser.sourceUser.id || this.loginService.isAdmin) ) {
-      this.userservice.updateUsers(tempUser).subscribe( (res: any) => { 
-        console.log(res); 
-        if (res.body.success !== false) {
-          this.loginService.pushToResponseBoxSuccess(`Updated User: ${res.body.users[0].id}`); 
+      this.userservice.updateUsers(tempUser).subscribe( (res: HttpResponse<UserReply>) => { 
+        if (res.body?.success !== false) {
+          if (res.body?.users) { this.loginService.pushToResponseBoxSuccess(`Updated User: ${res.body.users[0].id}`); }
         }
         this.getUsers();
       });
     }
     this.cancelUserPopup();
   }
-  public deleteUser(userID:number){
-    console.log(userID);
-    this.userservice.deleteUser(userID).subscribe( (res: any) => { 
-      console.log(res); 
-      if (res.body.success !== false) {
-        this.loginService.pushToResponseBoxSuccess(`Deleted User: ${res.body.message}`);
+  public deleteUser(userID:number) : void {
+    this.userservice.deleteUser(userID).subscribe( (res: HttpResponse<UserReply>) => { 
+      if (res.body?.success !== false) {
+        this.loginService.pushToResponseBoxSuccess(`Deleted User: ${res.body?.message}`);
       }
-      console.log(Number(res.body.message));
-      console.log(this.loginService.currentUser?.id);
-      console.log(Number(res.body.message) == this.loginService.currentUser?.id);
-      if (this.loginService.currentUser && Number(res.body.message) === this.loginService.currentUser.id ) {
+      if (this.loginService.currentUser && Number(res.body?.message) === this.loginService.currentUser.id ) {
         this.loginService.cancelLogin();
       }
       this.getUsers();
     });
     this.cancelUserPopup();
   }
-  
-  //needs to somehow return the user id
-  public addUser(popupUser: any){
-    console.log("Adding User");
-    console.log(popupUser);
+  public addUser(popupUser: any) : void {
     let newUser = {
       // id: number;
       firstName: popupUser.firstName,
@@ -196,31 +163,24 @@ export class UserComponent implements OnInit{
       symbolBackgroundColor:popupUser.symbolBackgroundColor,
     }
     let tempPassword = popupUser.password; 
-    this.userservice.addUser({ message: tempPassword, primaryUser: newUser }).subscribe( (res: any) => { 
-      console.log(res); 
-      if (res.body.success !== false) {
-        this.loginService.pushToResponseBoxSuccess(`Added User: ${res.body.users[0].id}`);
+    // Since primaryUser lacks an id, it is not yet a user and must be passed in as an "any"
+    this.userservice.addUser({ message: tempPassword, primaryUser: newUser }).subscribe( (res: HttpResponse<UserReply>) => { 
+      if (res.body?.success !== false) {
+        if (res.body?.users) { this.loginService.pushToResponseBoxSuccess(`Added User: ${res.body.users[0].id}`); }
       }
       this.getUsers();
     });
     this.cancelUserPopup();
   }
-  public addContact(userAddTo: User, userToAdd: User){
-    console.log("Adding Contact");
-    this.userservice.addContact(userAddTo, userToAdd).subscribe( (res: any) => { console.log(res); this.getUsers();});
+  public addContact(userAddTo: User, userToAdd: User) : void {
+    this.userservice.addContact(userAddTo, userToAdd).subscribe( (res: HttpResponse<UserReply>) => { this.getUsers();});
   }
-
-  // public selectUser(user:User) {
-  //   this.selectedUser = user;
-  // }
-  public toggleNewUserPopup(){
-    console.log("Opening new User Popup");
+  public toggleNewUserPopup() : void {
     this.resetPopupUser();
     this.EditUserPopup = false;
     this.NewUserPopup = true;
   }
-  public toggleEditUserPopup(user:User){
-    console.log("Opening edit User Popup");
+  public toggleEditUserPopup(user:User) : void {
     this.resetPopupUser();
     this.popupUserObject = Object.assign(this.popupUserObject, user);
     this.popupUserObject.sourceUser = user;
@@ -237,12 +197,6 @@ export class UserComponent implements OnInit{
     }
 
     let docUsersFormRate = document.querySelector("#user-form-rate");
-    if (this.loginService.currentUser) {
-      console.log(user.contacts.indexOf(this.loginService.currentUser.id)!==-1);
-      console.log(this.loginService.currentUser.id);
-      console.log(user.contacts);
-      console.log(this.loginService.currentUser.id === user.contacts[0]);
-    }
     if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id !== user.id && this.loginService.currentUser && user.contacts.indexOf(this.loginService.currentUser.id)===-1) {
       docUsersFormRate?.removeAttribute("disabled");
     } else {
@@ -281,27 +235,21 @@ export class UserComponent implements OnInit{
       docUsersFormDelete?.setAttribute("disabled", "");
       docUsersFormDelete?.setAttribute("class", "disable-button");
     }
-
-    
     let docUsersFormSecret = document.querySelector("#user-form-secret");
     if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.currentUser.id === user.id) {
       docUsersFormSecret?.removeAttribute("disabled");
     } else {
       docUsersFormSecret?.setAttribute("disabled", "");
     }
-
-
-
     this.NewUserPopup = false;
     this.EditUserPopup = true;
   }
-  public cancelUserPopup(){
-    console.log("Closing User Popup");
+  public cancelUserPopup() : void {
     this.resetPopupUser();
     this.NewUserPopup = false;
     this.EditUserPopup = false;
   }
-  public resetPopupUser(){
+  public resetPopupUser() : void {
     this.popupUserObject = {
       firstName: "",
       lastName: "",

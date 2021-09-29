@@ -10,11 +10,11 @@ import { DummyComponent } from '../dummy.component';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { BrowserTestingModule } from '@angular/platform-browser/testing';
+import { User } from './user';
 
 describe('UserComponent testing', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-  let comp:UserComponent;
   let userComponent: UserComponent;
   let userFixture: ComponentFixture<UserComponent>;
   let toolbarComponent: ToolbarComponent;
@@ -37,13 +37,11 @@ describe('UserComponent testing', () => {
       providers: [
         UserComponent,
         ToolbarComponent,
-
       ]
     }).compileComponents();
 
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-    // comp = TestBed.inject(UserComponent);
 
     userFixture = TestBed.createComponent(UserComponent);
     userComponent = userFixture.componentInstance;
@@ -52,13 +50,9 @@ describe('UserComponent testing', () => {
     toolbarComponent = toolbarFixture.componentInstance;
     toolbarFixture.detectChanges();
   });
-  it('can test HttpClient.get', () => {
-    // const userElement: HTMLElement = fixture.nativeElement;
-    // const userElement: DebugElement = fixture.debugElement;
-    // console.log(userElement.querySelector(".users"));
-    // console.log(userElement.query(By.css(".users")));
+  it('UserComponenet Tests', () => {
 
-    let tempUser: any = {
+    let tempUser: User = {
       id:1,
       firstName: "ASD",
       lastName: "afga",
@@ -75,7 +69,7 @@ describe('UserComponent testing', () => {
   
       symbolBackgroundColor:"",
     };
-    let tempUser2: any = {
+    let tempUser2: User = {
       id:2,
       firstName: "dga",
       lastName: "dhjdh",
@@ -92,39 +86,21 @@ describe('UserComponent testing', () => {
   
       symbolBackgroundColor:"",
     };
-    // component.getUsers();
 
     httpTestingController.expectOne("http://localhost:8080/api/themes/all/");
 
     let req = httpTestingController.expectOne('http://localhost:8080/api/users/all/');
     expect(req.request.method).toBe('GET');
     req.flush({message:"", success:true, users:undefined, allUsers:[tempUser, tempUser2]});
-    // const req2 = httpTestingController.expectOne('http://localhost:8080/api/users/all');
-    // expect(req2.request.method).toBe('GET');
-    // req2.flush(tempUser);
-
-    // httpTestingController.verify();
-    
-    // console.log(userElement.querySelector(".refresh-users-button-text"));
-    // console.log(userElement.query(By.css(".user-bio")))
-    // expect(userElement.querySelector(".user-bio")).not.toBeNull();
-    console.log(userComponent.users);
     expect(userComponent.users).not.toBeNull();
     expect(userComponent.users.length).toBe(2);
     expect(userComponent.users[0].firstName).toBe("ASD");
     expect(userComponent.users[0].symbolColor).toBe("avbbv");
     expect(userComponent.users[1].lastName).toBe("dhjdh");
     expect(userComponent.users[1].quote).toBe("dfhj");
-    // expect(userElement.querySelector(".refresh-users-button-text")?.textContent).not.toBeNull();
 
-
-    
-    // console.log(userElement.querySelector("#user-form-first-name"));
     userComponent.toggleEditUserPopup(userComponent.users[0]);
-    // console.log(userElement.querySelector("#user-form-first-name"));
-    // expect(userElement.querySelector("#user-form-first-name")).not.toBeNull();
-    // expect(( <HTMLInputElement> userElement.querySelector("#user-form-first-name"))?.value).not.toBe("");
-    console.log(userComponent.popupUserObject);
+
     expect(userComponent.popupUserObject.firstName).toBe("ASD");
     expect(userComponent.popupUserObject.lastName).toBe("afga");
     expect(userComponent.popupUserObject.quote).toBe("aghsgf");
@@ -134,7 +110,7 @@ describe('UserComponent testing', () => {
     userComponent.updateUsers(userComponent.popupUserObject);
     httpTestingController.verify();
 
-    toolbarComponent.popupLoginObject.userID = 1;
+    toolbarComponent.popupLoginObject.userID = "1";
     toolbarComponent.popupLoginObject.password = "qwerty";
     toolbarComponent.login();
 
@@ -162,7 +138,6 @@ describe('UserComponent testing', () => {
     httpTestingController.verify();
     expect(userComponent.users[0].firstName).toBe("Bob");
 
-
     userComponent.toggleEditUserPopup(userComponent.users[1]);
     expect(userComponent.popupUserObject.rated).toBe(false);
     userComponent.popupUserObject.rated = true;
@@ -170,9 +145,7 @@ describe('UserComponent testing', () => {
     userComponent.updateUsers(userComponent.popupUserObject);
     req = httpTestingController.expectOne('http://localhost:8080/api/users/addcontact/');
     expect(req.request.method).toBe('POST');
-    console.log(Object.keys(req.request.body));
     expect(Object.keys(req.request.body).length).toBe(2);
-    console.log(req.request.body.primaryUser);
     tempTempUser = req.request.body.primaryUser;
     expect(tempTempUser.contactNum).toBe(0);
     tempTempUser.contactNum +=1;
@@ -182,19 +155,15 @@ describe('UserComponent testing', () => {
     req = httpTestingController.expectOne('http://localhost:8080/api/users/all/');
     expect(req.request.method).toBe('GET');
     req.flush({message:"", success:true, users:undefined, allUsers:[tempUser, tempTempUser]});
-    console.log(userComponent.users[0]);
-    console.log(userComponent.users[1]);
     expect(userComponent.users[0].contacts[0] === userComponent.users[1].id).toBe(true);
     expect(userComponent.users[0].contacts.length === userComponent.users[0].contactNum).toBe(true);
 
     expect(userComponent.EditUserPopup).toBe(false);
     httpTestingController.verify();
 
-    
     userComponent.deleteUser(userComponent.users[0].id);
     req = httpTestingController.expectOne(`http://localhost:8080/api/users/${userComponent.users[0].id}`);
     expect(req.request.method).toBe('DELETE');
-    console.log(req.request.url.split("/").pop());
     req.flush({message:req.request.url.split("/").pop(), success:true, users:undefined, allUsers:undefined});
     req = httpTestingController.expectOne('http://localhost:8080/api/users/all/');
     expect(req.request.method).toBe('GET');
@@ -203,7 +172,6 @@ describe('UserComponent testing', () => {
     httpTestingController.verify();
     expect(toolbarComponent.responseBoxSuccess).toBe("Deleted User: 1");
     expect(toolbarComponent.responseBoxSuccessPopup).toBe(true);
-
     
     userComponent.toggleNewUserPopup();
     expect(userComponent.EditUserPopup).toBe(false);
@@ -258,128 +226,5 @@ describe('UserComponent testing', () => {
     req.flush({message:"", success:true, users:undefined, allUsers:[tempTempUser, tempAddedUser]});
     httpTestingController.verify();
 
-
-
-
-
-    
-
   });
 });
-
-// import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
-// import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-// import { RouterTestingModule } from '@angular/router/testing';
-// import { AppComponent } from '../app.component';
-// import { MockLoginService } from '../mock/MockLoginService';
-// import { MockThemesService } from '../mock/MockSearchService';
-// import { MockSearchService } from '../mock/MockThemesService';
-// import { MockUserService } from '../mock/MockUserService';
-// import { ThemesService } from '../themes/themes.service';
-// import { LoginService } from '../toolbarAndLogin/login.service';
-// import { SearchService } from '../toolbarAndLogin/search.service';
-// import { UserComponent } from './users.component';
-// import { UserService } from './users.service';
-// import { AppRoutingModule } from '../app-routing.module';
-// import { defer } from 'rxjs/internal/observable/defer';
-// import { Injectable } from '@angular/core';
-// import { FormsModule } from '@angular/forms';
-// import { BrowserModule } from '@angular/platform-browser';
-
-// // @Injectable({providedIn:'root'})
-// // class HttpClientSpy {
-// //   // spy=jasmine.createSpyObj('HttpClient', ['get']);
-// //   get:any = {and: {returnValue:Function}};
-  
-// // }
-
-// describe('UserComponent', () => {
-//   let comp:UserComponent;
-//   let userService:UserService;
-//   let searchService;
-//   let loginService;
-//   let themesService;
-//   // let httpClient: HttpClient;
-//   let httpTestingController: HttpTestingController;
-
-//   let httpClientSpy: jasmine.SpyObj<HttpClient>;
-//   let component: UserComponent;
-//   let fixture: ComponentFixture<UserComponent>;
-
-//   beforeEach(async () => {
-//      const spy = jasmine.createSpyObj('HttpClient', ['get']);
-
-//     await TestBed.configureTestingModule({
-//       imports: [ //HttpClientTestingModule, 
-//         AppRoutingModule,
-//         // HttpClientModule, 
-//         FormsModule,
-//         BrowserModule,
-//       ],
-//       providers: [
-//         UserComponent,
-//         { provide: HttpClient, value: spy }, 
-//         // {provide: HttpHandler, useClass: HttpHandler },
-//         // { provide: UserService, useClass: MockUserService }, { provide: SearchService, useClass: MockSearchService }, { provide: LoginService, useClass: MockLoginService }, { provide: ThemesService, useClass: MockThemesService },
-//     ]
-//     }).compileComponents(); 
-    
-//     // comp = TestBed.inject(UserComponent);
-//     // userService = TestBed.inject(UserService);
-//     // searchService = TestBed.inject(SearchService);
-//     // loginService = TestBed.inject(LoginService);
-//     // themesService = TestBed.inject(ThemesService);
-//     // httpClient = TestBed.inject(HttpClient);
-//     // httpClient = TestBed.inject( jasmine.createSpyObj('HttpClient', ['get']));
-//     httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
-//     // httpTestingController = TestBed.inject(HttpTestingController);
-
-    
-//     fixture = TestBed.createComponent(UserComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//     // httpClientSpy = TestBed.inject(HttpClientSpy);
-
-//   });
-
-
-//   function asyncData<T>(data: T) {
-//     return defer(() => Promise.resolve(data));
-//   }
-  
-//   it('filler', () => {
-      
-//     const userElement: HTMLElement = fixture.nativeElement;
-//     console.log(userElement.querySelector(".users"));
-//     // expect().toContain('banner works!');
-
-//     let tempUser: any = {
-//       id:-1,
-//       firstName: "",
-//       lastName: "",
-//       title: "",
-//       contacts: [],
-//       contactNum: -1,
-//       quote: "",
-//       secret: "",
-//       lastTheme: -1,
-//       symbol: "",
-//       symbolColor: "",
-//       cardColor: "",
-//       textColor: "",
-  
-//       symbolBackgroundColor:"",
-//     };
-//     component.getUsers();
-    
-//     httpClientSpy.get.and.returnValue(asyncData([tempUser]));
-
-
-//     console.log(userElement.querySelector(".user-bio"));
-//     // expect(userElement.querySelector(".user-bio")).not.toBeNull();
-
-//   });
-
-  
-// });

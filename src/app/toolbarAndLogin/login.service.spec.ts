@@ -6,6 +6,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { DummyComponent } from "../dummy.component";
 import { ThemeComponent } from "../themes/themes.component";
 import { TitlesComponent } from "../titles/titles.component";
+import { User } from "../users/user";
 import { UserComponent } from "../users/users.component";
 import { LoginService } from "./login.service";
 import { ToolbarComponent } from "./toolbar.component";
@@ -43,11 +44,10 @@ describe('LoginService testing', () => {
   });
   it('LoginService Tests', () => {
 
+    loginService.login({userID:"1", password: "IsTest"});
 
-    loginService.login({userID:1, password: "IsTest"});
-
-    expect(loginService.unCheckedCredentials.userID).toBe(1);
-    expect(loginService.unCheckedCredentials.password).toBe("IsTest");
+    expect(loginService.unCheckedCredentials?.userID).toBe("1");
+    expect(loginService.unCheckedCredentials?.password).toBe("IsTest");
 
     let req = httpTestingController.expectOne('http://localhost:8080/login/get_role/');
     expect(req.request.method).toBe('GET');
@@ -59,7 +59,7 @@ describe('LoginService testing', () => {
     expect(loginService.isAdmin).toBe(false);
     expect(loginService.isLoggedin).toBe(false);
     
-    let tempUser: any = {
+    let tempUser: User = {
       id:1,
       firstName: "ASD",
       lastName: "afga",
@@ -77,8 +77,7 @@ describe('LoginService testing', () => {
       symbolBackgroundColor:"",
     };
 
-
-    loginService.login({userID:1, password: "IsTest"});
+    loginService.login({userID:"1", password: "IsTest"});
      req = httpTestingController.expectOne('http://localhost:8080/login/get_role/');
     expect(req.request.method).toBe('GET');
     req.flush({message:"", success:true, admin:true, currentUser:tempUser});
@@ -87,8 +86,8 @@ describe('LoginService testing', () => {
     expect(loginService.isAdmin).toBe(true);
     expect(loginService.currentUser?.firstName).toBe("ASD");
 
-    expect(loginService.checkedCredentials.userID).toBe(1);
-    expect(loginService.checkedCredentials.password).toBe("IsTest");
+    expect(loginService.checkedCredentials?.userID).toBe("1");
+    expect(loginService.checkedCredentials?.password).toBe("IsTest");
 
     loginService.logout();
 
@@ -102,11 +101,6 @@ describe('LoginService testing', () => {
     expect(loginService.currentUser).toBe(undefined);
     expect(loginService.isAdmin).toBe(false);
     expect(loginService.isLoggedin).toBe(false);
-
-
-
-
-
 
 
 
