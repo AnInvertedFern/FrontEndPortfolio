@@ -4,7 +4,7 @@ export interface Theme{
     activeTabColor: string;
     toolbarColor: string;
     searchBarColor: string;
-    logoutButtonColor: string;
+    loginButtonColor: string;
     backgroundColor: string;
     textColor: string;
     addUserColor: string;

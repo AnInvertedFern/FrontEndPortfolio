@@ -100,13 +100,14 @@ describe('UserComponent testing', () => {
     expect(userComponent.users[1].quote).toBe("dfhj");
 
     userComponent.toggleEditUserPopup(userComponent.users[0]);
-
     expect(userComponent.popupUserObject.firstName).toBe("ASD");
     expect(userComponent.popupUserObject.lastName).toBe("afga");
     expect(userComponent.popupUserObject.quote).toBe("aghsgf");
     expect(userComponent.popupUserObject.symbolColor).toBe("avbbv");
     expect(userComponent.popupUserObject.sourceUser).not.toBeNull();
     
+    //Attempt to update the user, no request should go through
+    //As login information should not be set
     userComponent.updateUsers(userComponent.popupUserObject);
     httpTestingController.verify();
 
@@ -120,10 +121,12 @@ describe('UserComponent testing', () => {
     httpTestingController.verify();
     expect(toolbarComponent.loginService.isLoggedin).toBe(true);
     
+    //Nothing should go through as the you cannot edit a different user unless your an admin
     userComponent.toggleEditUserPopup(userComponent.users[1]);
     userComponent.updateUsers(userComponent.popupUserObject);
     httpTestingController.verify();
     
+    //Should go through as it is now editing the logged-in user
     userComponent.toggleEditUserPopup(userComponent.users[0]);
     userComponent.popupUserObject.firstName = "Bob";
     userComponent.updateUsers(userComponent.popupUserObject);
@@ -138,6 +141,7 @@ describe('UserComponent testing', () => {
     httpTestingController.verify();
     expect(userComponent.users[0].firstName).toBe("Bob");
 
+    //The edited user is different than the login user, but the option to add as a contact is set to true
     userComponent.toggleEditUserPopup(userComponent.users[1]);
     expect(userComponent.popupUserObject.rated).toBe(false);
     userComponent.popupUserObject.rated = true;

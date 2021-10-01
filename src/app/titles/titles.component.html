@@ -18,40 +18,40 @@
   </div>
 
     <div class="title-column-left title-column" (click) = "setTitleTo(leftTitle)">
-        <h2>
+        <h2 style=" text-align: center; overflow: visible;">
             {{titles[leftTitle].title}}
         </h2>
         <div class="titles-user-detail-container" *ngFor="let user of titles[leftTitle].users">
             <div>
-                <h3> {{user.firstName}} {{user.lastName}} </h3>
-                <p>{{user.contactNum}}</p>
-                <p>{{user.quote}}</p>
+                <h3 style=" text-align: center;"> {{user.firstName}} {{user.lastName}} </h3>
+                <p style=" text-align: center;"> # Contacts: {{user.contactNum}}</p>
+                <p style=" text-align: center;">"{{user.quote}}"</p>
             </div>
         </div>
     </div>
     <div class="titles-border"></div>
     <div class="title-column-main title-column">
-        <h2>
+        <h2 style=" text-align: center; overflow: visible;">
             {{titles[currentSelectedTitle].title}}
         </h2>
         <div class="titles-user-detail-container" *ngFor="let user of titles[currentSelectedTitle].users">
             <div>
-                <h3> {{user.firstName}} {{user.lastName}} </h3>
-                <p>{{user.contactNum}}</p>
-                <p>{{user.quote}}</p>
+                <h3 style=" text-align: center;"> {{user.firstName}} {{user.lastName}} </h3>
+                <p style=" text-align: center;"> # Contacts: {{user.contactNum}}</p>
+                <p style=" text-align: center;">"{{user.quote}}"</p>
             </div>
         </div>
     </div>
     <div class="titles-border"></div>
     <div class="title-column-right title-column" (click) = "setTitleTo(rightTitle)">
-        <h2>
+        <h2 style=" text-align: center; overflow: visible;">
             {{titles[rightTitle].title}}
         </h2>
         <div class="titles-user-detail-container" *ngFor="let user of titles[rightTitle].users">
             <div>
-                <h3> {{user.firstName}} {{user.lastName}} </h3>
-                <p>{{user.contactNum}}</p>
-                <p>{{user.quote}}</p>
+                <h3 style=" text-align: center;"> {{user.firstName}} {{user.lastName}} </h3>
+                <p style=" text-align: center;"> # Contacts: {{user.contactNum}}</p>
+                <p style=" text-align: center;">"{{user.quote}}"</p>
             </div>
         </div>
     </div>

@@ -4,19 +4,31 @@ Current Tasks
 -----------------------------------------
 
 #========================================
-Task #15: Polish CSS and HTML and Code
-Resolution: In Progress
+Task #17: Write Readme
+Resolution: Not Started
 SubTasks: None
 #========================================
 
 #========================================
-Task #3: Do Application Tests
-Resolution: Finished Creating the form for Application Tests, Final Test run needed after last code change
+Task #16: Reorganized Files
+Resolution: Not Started
 SubTasks: None
 #========================================
 
 Finished Tasks
 -----------------------------------------
+
+#========================================
+Task #15: Polish CSS and HTML and Code
+Resolution: Finished
+SubTasks: None
+#========================================
+
+#========================================
+Task #3: Do Application Tests
+Resolution: Finished
+SubTasks: None
+#========================================
 
 #========================================
 Task #6: Design Unit and Intergration Tests

@@ -6,7 +6,6 @@ import { SearchService } from "./search.service";
 @Component({
   selector: 'toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
   loginPopup: boolean = false;
@@ -38,7 +37,7 @@ export class ToolbarComponent implements OnInit {
     let docToolbar = document.querySelector(".toolbar");
     let newStyle = document.createElement("style");
     newStyle.textContent = `
-      .toolbar{ height: 50px; border-radius: 4px; display:flex; align-items: center; }
+      .toolbar{ position:sticky; top:0; left:0; right:0; z-index:1; height: 50px; border-radius: 4px; display:flex; align-items: center; }
       .tabs{ display:flex; align-items: center; font-weight: bold; }
       .tab-container{ height: 30px; width: 70px; flex:1; margin: auto 5px auto 30px;  border-radius: 4px; display:flex; align-items: center; justify-content: center; }
       .active{  }
@@ -53,7 +52,7 @@ export class ToolbarComponent implements OnInit {
 
       .login-button-visible, .logout-button-visible { display:flex; }
       .login, .logout { display:flex; align-items: center; justify-content: center; height: 100%; width:100%; font-weight: bold; }
-      .login:hover, .logout:hover { transform: translateY(-.1em) translatex(-.5em); }
+      .login:active, .logout:active { transform: translateY(-.1em) translatex(-.1em); }
 
       .login-form{ border: 2px solid black; position:fixed; top: 50px; right: 50px; display:none; z-index:1; }
       .login-form-subcontainer{ margin: 10px 10px 10px 10px; display:flex; flex-wrap: wrap; flex-direction: column; align-items: center; justify-content: center; }

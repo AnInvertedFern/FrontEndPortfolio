@@ -54,6 +54,7 @@ describe('ToolbarComponent testing', () => {
     expect(toolbarComponent.popupLoginObject.userID).toBe("");
     expect(toolbarComponent.popupLoginObject.password).toBe("");
 
+    toolbarComponent.loginPopupEvent();
     toolbarComponent.popupLoginObject.userID = "1";
     toolbarComponent.popupLoginObject.password = "fruit";
     expect(toolbarComponent.popupLoginObject.userID).toBe("1");
@@ -61,12 +62,7 @@ describe('ToolbarComponent testing', () => {
     toolbarComponent.resetPopupLogin();
     expect(toolbarComponent.popupLoginObject.userID).toBe("");
     expect(toolbarComponent.popupLoginObject.password).toBe("");
-
-    expect(toolbarComponent.responseBoxSuccessPopup).toBe(false);
-    toolbarComponent.responseBoxSuccessPopup = true;
-    toolbarComponent.responseBoxCancel();
-    expect(toolbarComponent.responseBoxSuccessPopup).toBe(false);
-    
+    expect(toolbarComponent.loginPopup).toBe(true);
     
     toolbarComponent.popupLoginObject.userID = "1";
     toolbarComponent.popupLoginObject.password = "fruit";
@@ -119,6 +115,11 @@ describe('ToolbarComponent testing', () => {
     expect(toolbarComponent.loginService.currentUser).toBe(undefined);
     expect(toolbarComponent.loginService.isAdmin).toBe(false);
     expect(toolbarComponent.loginService.isLoggedin).toBe(false);
+
+    expect(toolbarComponent.responseBoxSuccessPopup).toBe(false);
+    toolbarComponent.responseBoxSuccessPopup = true;
+    toolbarComponent.responseBoxCancel();
+    expect(toolbarComponent.responseBoxSuccessPopup).toBe(false);
 
     //Router does not work in testing, so cannot test search logic in toolbar component
     //It is tested in login service 

@@ -54,15 +54,10 @@ describe('SearchService testing', () => {
     titlesFixture.detectChanges();
   });
   it('SearchService Tests', () => {
-    
+    //Purging requests from other services
     httpTestingController.expectOne("http://localhost:8080/api/themes/all/");
-    
     httpTestingController.expectOne("http://localhost:8080/api/users/all/");
-    
     httpTestingController.expectOne("http://localhost:8080/api/titles/all/");
-
-    expect(userComponent.users.length).toBe(0);
-    searchService.usersSearch("afg");
 
     let tempUser1: User = {
       id:1,
@@ -115,6 +110,10 @@ describe('SearchService testing', () => {
   
       symbolBackgroundColor:"",
     };
+
+    expect(userComponent.users.length).toBe(0);
+    searchService.usersSearch("afg");
+
     let req = httpTestingController.expectOne('http://localhost:8080/api/users/search/?searchValue=afg');
     expect(req.request.method).toBe('POST');
     req.flush({message:"", success:true, users:[tempUser1], allUsers: undefined});
@@ -137,6 +136,8 @@ describe('SearchService testing', () => {
     expect(titlesComponent.titles[1].users.length).toBe(2);
     expect(titlesComponent.searchPopup).toBe(true);
 
+    //Actually searching an empty string will return an empty array from the backend
+    //This is just for testing purposes
     searchService.titlesSearch("");
     req = httpTestingController.expectOne('http://localhost:8080/api/titles/search/?searchValue=');
     expect(req.request.method).toBe('POST');

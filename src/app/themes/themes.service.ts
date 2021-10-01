@@ -17,7 +17,7 @@ export class ThemesService {
     activeTabColor: "",
     toolbarColor: "",
     searchBarColor: "",
-    logoutButtonColor: "",
+    loginButtonColor: "",
     backgroundColor: "",
     textColor: "",
     addUserColor: "",
@@ -69,17 +69,22 @@ export class ThemesService {
       newStyle2 = document.createElement("style");
       newStyle2.setAttribute("class", "theme-style");
     }
+    // .background-colorer{ background-color: ${previewingTheme.backgroundColor}; position: absolute; width:100vw; height:100vh; }
     if (newStyle2 !== null) {
+      document.body.style.backgroundColor = `${previewingTheme.backgroundColor}`;
       newStyle2.textContent = `
         *{ color: ${previewingTheme.textColor}; overflow:hidden; cursor: default; }
-        body{ margin: 0px 0px 0px 0px; }
-        .background-colorer{ background-color: ${previewingTheme.backgroundColor}; position: absolute; width:100vw; height:100vh; }
+        body{ margin: 0px 0px 0px 0px; height:100vh;}
+        app-root{ display:block; height:100%; overflow-y:scroll; }
+        users{ display:block; }
+        titles{ display:block; height:100%; overflow:visible; }
+        themes{ display:block; }
         .tab-container{ background-color: ${previewingTheme.inactiveTabColor}; }
         .active{ background-color: ${previewingTheme.activeTabColor}; }
         .toolbar{ background-color: ${previewingTheme.toolbarColor}; }
         #search-input{ background-color: ${previewingTheme.searchBarColor}; }
-        .login-container2{ background-color: ${previewingTheme.logoutButtonColor}; }
-        .logout-container2{ background-color: ${previewingTheme.logoutButtonColor}; }
+        .login-container2{ background-color: ${previewingTheme.loginButtonColor}; }
+        .logout-container2{ background-color: ${previewingTheme.loginButtonColor}; }
         .new-user-button{ background-color: ${previewingTheme.addUserColor}; }
 
         .refresh-users-button{ background-color: ${previewingTheme.refreshUserColor}; }
@@ -87,11 +92,12 @@ export class ThemesService {
         .title-column-left:hover, .title-column-right:hover { text-shadow: 0px 5px .1em ${previewingTheme.titleShadowColor}; }
         .search-item:hover { text-shadow: 0px 2px .5em ${previewingTheme.searchTitleShadowColor}; }
         .seperator{ background-color: ${previewingTheme.footerSeperatorColor}; }
-        .login:hover, .logout:hover { transform: translateY(-.1em) translatex(-.5em); text-shadow: 0px 3px .5em ${previewingTheme.loginShadowColor}; }
+        .login:hover, .logout:hover { text-shadow: 0px 3px .5em ${previewingTheme.loginShadowColor}; }
         .search-container{ background-color: white}
         .theme-confirm-button, #theme-update-button { background-color: ${previewingTheme.confirmThemeColor}; }
         input{ background-color: ${previewingTheme.inputColor}; }
         input[type="button"]{ background-color: ${previewingTheme.inputButtonColor}; }
+        input[type="text"]:disabled{ background-color: lightgrey; }
       `;
       docGeneral?.appendChild(newStyle2);
     } else {

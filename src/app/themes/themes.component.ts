@@ -9,7 +9,6 @@ import { ThemesService } from "./themes.service";
 @Component({
   selector: 'themes',
   templateUrl: './themes.component.html',
-  styleUrls: ['./themes.component.css'],
 })
 export class ThemeComponent implements OnInit, OnDestroy {
   
@@ -19,7 +18,7 @@ export class ThemeComponent implements OnInit, OnDestroy {
     activeTabColor: "",
     toolbarColor: "",
     searchBarColor: "",
-    logoutButtonColor: "",
+    loginButtonColor: "",
     backgroundColor: "",
     textColor: "",
     addUserColor: "",
@@ -44,7 +43,7 @@ export class ThemeComponent implements OnInit, OnDestroy {
     activeTabColor: "",
     toolbarColor: "",
     searchBarColor: "",
-    logoutButtonColor: "",
+    loginButtonColor: "",
     backgroundColor: "",
     textColor: "",
     addUserColor: "",
@@ -87,6 +86,8 @@ export class ThemeComponent implements OnInit, OnDestroy {
       .preview-container{ display:flex; flex-direction:row; justify-content: center; }
       .theme-confirm-button{ border-radius: 4px; display:flex; align-items: center; justify-content: center; height: 30px; width: 70px; margin: 10px 30px 10px 30px; }
       #theme-update-button{ border-radius: 4px; display:flex; align-items: center; justify-content: center; height: 30px; width: 70px; margin: 10px 30px 10px 30px; }
+      .theme-confirm-button:active { height: 30px; width: 75px; }
+      #theme-update-button:active { height: 30px; width: 75px; }
       
       .theme-confirm-button:hover { transform: translatex(-.1rem); }
       #theme-update-button:hover { transform: translatex(-.1rem); }
@@ -102,34 +103,58 @@ export class ThemeComponent implements OnInit, OnDestroy {
     let docThemeFormActiveTabColor = document.querySelector("#theme-detail-activeTabColor");
     let docThemeFormToolbarColor = document.querySelector("#theme-detail-toolbarColor");
     let docThemeFormSearchBarColor = document.querySelector("#theme-detail-searchBarColor");
-    let docThemeFormLogoutButtonColor = document.querySelector("#theme-detail-logoutButtonColor");
+    let docThemeFormLoginButtonColor = document.querySelector("#theme-detail-loginButtonColor");
     let docThemeFormBackgroundColor = document.querySelector("#theme-detail-backgroundColor");
     let docThemeFormTextColor = document.querySelector("#theme-detail-textColor");
     let docThemeFormAddUserColor = document.querySelector("#theme-detail-addUserColor");
     let docThemeFormEditUserColor = document.querySelector("#theme-detail-editUserColor");
     let docThemeFormConfirmThemeColor = document.querySelector("#theme-detail-confirmThemeColor");
+    let docThemeFormRefreshUserColor = document.querySelector("#theme-detail-refreshUserColor");
+    let docThemeFormPopupColor = document.querySelector("#theme-detail-popupColor");
+    let docThemeFormTitleShadowColor = document.querySelector("#theme-detail-titleShadowColor");
+    let docThemeFormSearchTitleShadowColor = document.querySelector("#theme-detail-searchTitleShadowColor");
+    let docThemeFormFooterSeperatorColor = document.querySelector("#theme-detail-footerSeperatorColor");
+    let docThemeFormLoginShadowColor = document.querySelector("#theme-detail-loginShadowColor");
+    let docThemeFormInputColor = document.querySelector("#theme-detail-inputColor");
+    let docThemeFormInputButtonColor = document.querySelector("#theme-detail-inputButtonColor");
     if (this.loginService.isLoggedin && this.loginService.currentUser && this.loginService.isAdmin) {
       docThemeFormInactiveTabColor?.removeAttribute("disabled");
       docThemeFormActiveTabColor?.removeAttribute("disabled");
       docThemeFormToolbarColor?.removeAttribute("disabled");
       docThemeFormSearchBarColor?.removeAttribute("disabled");
-      docThemeFormLogoutButtonColor?.removeAttribute("disabled");
+      docThemeFormLoginButtonColor?.removeAttribute("disabled");
       docThemeFormBackgroundColor?.removeAttribute("disabled");
       docThemeFormTextColor?.removeAttribute("disabled");
       docThemeFormAddUserColor?.removeAttribute("disabled");
       docThemeFormEditUserColor?.removeAttribute("disabled");
       docThemeFormConfirmThemeColor?.removeAttribute("disabled");
+      docThemeFormRefreshUserColor?.removeAttribute("disabled");
+      docThemeFormPopupColor?.removeAttribute("disabled");
+      docThemeFormTitleShadowColor?.removeAttribute("disabled");
+      docThemeFormSearchTitleShadowColor?.removeAttribute("disabled");
+      docThemeFormFooterSeperatorColor?.removeAttribute("disabled");
+      docThemeFormLoginShadowColor?.removeAttribute("disabled");
+      docThemeFormInputColor?.removeAttribute("disabled");
+      docThemeFormInputButtonColor?.removeAttribute("disabled");
     } else {
       docThemeFormInactiveTabColor?.setAttribute("disabled", "");
       docThemeFormActiveTabColor?.setAttribute("disabled", "");
       docThemeFormToolbarColor?.setAttribute("disabled", "");
       docThemeFormSearchBarColor?.setAttribute("disabled", "");
-      docThemeFormLogoutButtonColor?.setAttribute("disabled", "");
+      docThemeFormLoginButtonColor?.setAttribute("disabled", "");
       docThemeFormBackgroundColor?.setAttribute("disabled", "");
       docThemeFormTextColor?.setAttribute("disabled", "");
       docThemeFormAddUserColor?.setAttribute("disabled", "");
       docThemeFormEditUserColor?.setAttribute("disabled", "");
       docThemeFormConfirmThemeColor?.setAttribute("disabled", "");
+      docThemeFormRefreshUserColor?.setAttribute("disabled", "");
+      docThemeFormPopupColor?.setAttribute("disabled", "");
+      docThemeFormTitleShadowColor?.setAttribute("disabled", "");
+      docThemeFormSearchTitleShadowColor?.setAttribute("disabled", "");
+      docThemeFormFooterSeperatorColor?.setAttribute("disabled", "");
+      docThemeFormLoginShadowColor?.setAttribute("disabled", "");
+      docThemeFormInputColor?.setAttribute("disabled", "");
+      docThemeFormInputButtonColor?.setAttribute("disabled", "");
     }
 
     this.themeService.loadTheme();
@@ -156,7 +181,7 @@ export class ThemeComponent implements OnInit, OnDestroy {
       activeTabColor: "",
       toolbarColor: "",
       searchBarColor: "",
-      logoutButtonColor: "",
+      loginButtonColor: "",
       backgroundColor: "",
       textColor: "",
       addUserColor: "",

@@ -36,7 +36,7 @@ export class WebService {
         }
         else { return this.http.post<UserReply>(`${this.serverUrl}api/users/`, user, {observe:'response'} ); }
     }
-    // Expected format: { message: "password", primaryUser: "user" } 
+    // Expected format of "user:any": { message: "password", primaryUser: "user" } 
     public addUser(user:any) : Observable<HttpResponse<UserReply>> {
         return this.http.put<UserReply>( `${this.serverUrl}api/users/`, user, {observe:'response'});
     }
@@ -75,7 +75,6 @@ export class WebService {
         
     }
     public updateLastTheme(currentUser: User, currentTheme: number, credentials: Credentials) : Observable<HttpResponse<UserReply>> {
-        //just use update user
         currentUser.lastTheme = currentTheme;
         return this.updateUsers(currentUser, credentials);
     }

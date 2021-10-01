@@ -12,8 +12,6 @@ const routes: Routes = [
   { path: 'dummy-component', component: DummyComponent },
   { path: '',   redirectTo: 'users-component', pathMatch: 'full' },
 ];
-
-// configures NgModule imports and exports
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
