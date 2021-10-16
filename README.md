@@ -90,16 +90,27 @@ Web Service - Service for all REST requests to the backend
 - Responsible for sending, and reciving to the backend and passing the HTTP response back up the layers
 ## Technologies
 Angular (Frontend TypeScript Framework)
+
 TypeScript/JavaScript
+
 HTML and CSS
+
 Jasmine (Testing Framework)
+
 Jackson (JSON)
+
 REST
+
 Java (Backend)
+
 Spring MVC (Backend Framework), Security (Authentication), and Testing (Spring's Testing Framework) (Backend)
+
 JUnit (Testing Framework) (Backend)
+
 JPA/HIbernate (No-SQL) (Backend)
+
 JDBC/SQL and PostgreSQL (Backend)
+
 ## Testing with Jasmine and JUnit
 Manual Testing
 - Application Tests
@@ -139,6 +150,9 @@ See the Backend at __!
 
 ## User Login Information *
 "Bob Smith" - User ID : 4, Password : AmFirstUser, Role : User
+
 "Jane Smith" - User ID : 5, Password : AmSecondUser, Role : Admin
+
 "Fred Joe" - User ID : 7, Password : AmThirdUser, Role : User
+
 \* User IDs are auto generated and system dependent, check the backend console or database to confirm for your system
