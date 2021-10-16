@@ -98,6 +98,8 @@ export class ThemesService {
         input{ background-color: ${previewingTheme.inputColor}; }
         input[type="button"]{ background-color: ${previewingTheme.inputButtonColor}; }
         input[type="text"]:disabled{ background-color: lightgrey; }
+
+        .user-footer-container{ background-color: ${previewingTheme.backgroundColor}; }
       `;
       docGeneral?.appendChild(newStyle2);
     } else {

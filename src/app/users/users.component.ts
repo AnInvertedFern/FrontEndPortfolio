@@ -48,8 +48,8 @@ export class UserComponent implements OnInit{
     let docUsers = document.querySelector(".users");
     let newStyle = document.createElement("style");
     newStyle.textContent = `
-      .users{ display:flex; flex-direction: column; align-items: center; }
-      .card-container{ overflow-y:scroll; width: 100vw; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
+      .users{ display:flex; flex-direction: column; align-items: center; margin: 0px 0px 100px 0px; }
+      .card-container{ overflow-y:auto; width: 100vw; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
       .card{ margin: 20px 20px 20px 20px; height: 250px; width: 200px; display:flex; border-radius: 4px; background-color: cyan; box-shadow: 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray;}
       .card:hover { transform: translateY(-1rem) translatex(-.5rem); box-shadow: 0px 3px 15px gold, 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray; }
       
@@ -60,19 +60,22 @@ export class UserComponent implements OnInit{
       .user-bio{ display:flex; flex:1; flex-direction: column; justify-content: center; }
       .user-about{display:flex; flex:1; flex-direction: column; }
       
-      .new-user-button-container{ height: 230px; width: 180px; position: fixed; bottom:20px; right: 20px; display:flex; align-items: center; justify-content: center; filter: drop-shadow(-5px -5px 10px black) drop-shadow(5px 5px 10px lightslategray); }
+      .new-user-button-container{ z-index:1; height: 230px; width: 180px; position: fixed; bottom:20px; right: 20px; display:flex; align-items: center; justify-content: center; filter: drop-shadow(-5px -5px 10px black) drop-shadow(5px 5px 10px lightslategray); }
       .new-user-button{ position: absolute; height: 200px; width: 200px; clip-path: circle(60px); }
       .new-user-button-text-container{ position: absolute; height: 70px; width: 70px; display:flex; align-items: center; justify-content: center; }
       .new-user-button-text{ text-align: center; font-weight: bold; }
       .new-user-button:active { clip-path: circle(80px); }
       .new-user-button-text:active{ transform: translateY(-.2em);  }
 
-      .refresh-users-button-container{ height: 230px; width: 180px; position: fixed; bottom:200px; right: 20px; display:flex; align-items: center; justify-content: center; filter: drop-shadow(-5px -5px 10px black) drop-shadow(5px 5px 10px lightslategray); }
+      .refresh-users-button-container{ z-index:1; height: 230px; width: 180px; position: fixed; bottom:200px; right: 20px; display:flex; align-items: center; justify-content: center; filter: drop-shadow(-5px -5px 10px black) drop-shadow(5px 5px 10px lightslategray); }
       .refresh-users-button{ position: absolute; height: 150px; width: 150px; clip-path: circle(50px); }
       .refresh-users-button-text-container{ position: absolute; height: 55px; width: 55px; display:flex; align-items: center; justify-content: center; }
       .refresh-users-button-text{ text-align: center; font-weight: bold; }
       .refresh-users-button:active { clip-path: circle(70px); }
       .refresh-users-button-text:active{ transform: translateY(-.2em);  }
+
+      
+      .user-footer-container{ position: fixed; bottom: 0; left: 0; right: 0; }
 
       .seperator{ height: 10px; width:100%; }
       .user-footer{ display:flex; align-items: center; justify-content: center; margin: 0px 0px 50px 0px; }

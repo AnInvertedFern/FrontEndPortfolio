@@ -2,6 +2,12 @@
 The frontend implementation for a full stack portfolio piece for CT
 
 ## Features
+
+![Add new users and login](readme-photos/screenshot_1.png)
+![Edit users](readme-photos/screenshot_2.png)
+![Search titles](readme-photos/screenshot_3.png)
+![Change themes](readme-photos/screenshot_4.png)
+
 ### Core Features
 - Create an account and customize your user card
 - Login and edit your user card
@@ -176,7 +182,7 @@ Intergration Testing
 
 Made By CT!
 
-See the Backend at __!
+See the Backend at [github.com/AnInvertedFern/BackEndPortfolio](https://github.com/AnInvertedFern/BackEndPortfolio)!
 
 ## User Login Information *
 "Bob Smith" - User ID : 4, Password : AmFirstUser, Role : User
