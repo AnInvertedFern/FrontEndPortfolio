@@ -37,7 +37,7 @@ export class ToolbarComponent implements OnInit {
     let docToolbar = document.querySelector(".toolbar");
     let newStyle = document.createElement("style");
     newStyle.textContent = `
-      .toolbar{ position:sticky; top:0; left:0; right:0; z-index:1; height: 50px; border-radius: 4px; display:flex; align-items: center; }
+      .toolbar{ position:sticky; top:0; left:0; right:0; z-index:1; height: 100%; border-radius: 4px; display:flex; align-items: center; }
       .tabs{ display:flex; align-items: center; font-weight: bold; }
       .tab-container{ height: 30px; width: 70px; flex:1; margin: auto 5px auto 30px;  border-radius: 4px; display:flex; align-items: center; justify-content: center; }
       .active{  }
@@ -76,9 +76,9 @@ export class ToolbarComponent implements OnInit {
     return (<any> this.route)._routerState.snapshot.url;
   }
   public search() : void {
-    if (this.getCurrentTab() === "/users-component") {
+    if (this.getCurrentTab() === "/users") {
       this.searchService.usersSearch(this.searchEntry);
-    } if (this.getCurrentTab() === "/titles-component") {
+    } if (this.getCurrentTab() === "/titles") {
       this.searchService.titlesSearch(this.searchEntry);
     }
     this.searchEntry = "";

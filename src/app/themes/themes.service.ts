@@ -69,16 +69,16 @@ export class ThemesService {
       newStyle2 = document.createElement("style");
       newStyle2.setAttribute("class", "theme-style");
     }
-    // .background-colorer{ background-color: ${previewingTheme.backgroundColor}; position: absolute; width:100vw; height:100vh; }
     if (newStyle2 !== null) {
       document.body.style.backgroundColor = `${previewingTheme.backgroundColor}`;
       newStyle2.textContent = `
         *{ color: ${previewingTheme.textColor}; overflow:hidden; cursor: default; }
         body{ margin: 0px 0px 0px 0px; height:100vh;}
-        app-root{ display:block; height:100%; overflow-y:scroll; }
-        users{ display:block; }
-        titles{ display:block; height:100%; overflow:visible; }
+        app-root{ display:flex; flex-direction:column; height:100%; }
+        users{ display: flex; flex-direction: column; }
+        titles{ display:block; height:100%; overflow:visible; min-height: 0px;}
         themes{ display:block; }
+        toolbar{ position:sticky; top:0; left:0; right:0; z-index:1; display:block; min-height:50px; height:50px;}
         .tab-container{ background-color: ${previewingTheme.inactiveTabColor}; }
         .active{ background-color: ${previewingTheme.activeTabColor}; }
         .toolbar{ background-color: ${previewingTheme.toolbarColor}; }

@@ -5,18 +5,18 @@ Current Tasks
 
 #========================================
 Task #17: Write Readme
-Resolution: Not Started
-SubTasks: None
-#========================================
-
-#========================================
-Task #16: Reorganized Files
-Resolution: Not Started
+Resolution: Finished Except for Screenshots
 SubTasks: None
 #========================================
 
 Finished Tasks
 -----------------------------------------
+
+#========================================
+Task #16: Reorganized Files
+Resolution: Finished
+SubTasks: None
+#========================================
 
 #========================================
 Task #15: Polish CSS and HTML and Code

@@ -20,11 +20,11 @@ describe('TitlesComponent testing', () => {
       imports: [ HttpClientTestingModule,
         RouterTestingModule.withRoutes(
           [
-            { path: 'users-component', component: UserComponent },
-            { path: 'titles-component', component: TitlesComponent },
-            { path: 'themes-component', component: ThemeComponent },
+            { path: 'users', component: UserComponent },
+            { path: 'titles', component: TitlesComponent },
+            { path: 'themes', component: ThemeComponent },
             { path: 'dummy-component', component: DummyComponent },
-            { path: '',   redirectTo: 'users-component', pathMatch: 'full' },
+            { path: '',   redirectTo: 'users', pathMatch: 'full' },
           ]
         ),
         BrowserTestingModule,

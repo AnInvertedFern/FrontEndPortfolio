@@ -49,7 +49,7 @@ export class UserComponent implements OnInit{
     let newStyle = document.createElement("style");
     newStyle.textContent = `
       .users{ display:flex; flex-direction: column; align-items: center; }
-      .card-container{ width: 100vw; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
+      .card-container{ overflow-y:scroll; width: 100vw; display:flex; flex-wrap: wrap; flex-direction: row; justify-content:center; }
       .card{ margin: 20px 20px 20px 20px; height: 250px; width: 200px; display:flex; border-radius: 4px; background-color: cyan; box-shadow: 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray;}
       .card:hover { transform: translateY(-1rem) translatex(-.5rem); box-shadow: 0px 3px 15px gold, 0 1px 2px 4px darkslategray, 0 1px 5px 10px lightslategray; }
       
