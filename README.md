@@ -1,7 +1,8 @@
 # Portfolio-Frontend
-The frontend implementation for a full stack portfolio piece for CT
+The frontend implementation of a full stack portfolio piece for CT!
 
 ## Features
+### Features
 
 ![Add new users and login](readme-photos/screenshot_1.png)
 
@@ -46,31 +47,31 @@ Change themes
 
 /titles - Titles HTML Component
 
-- Displays user columns
-- Displays search results
-- Responsible for generating the events related to switching "pages" to different titles
+- Displays title columns
+- Displays search results and search popup
+- Responsible for generating the events related to switching columns to different titles
 
 /themes - Themes HTML Component
 
 - Constructs and displays site theme representations
-- Displays the selected theme's values
+- Displays the selected theme's values in the theme's details form
 - Responsible for generating events related to selecting, confirming, and updating themes
 
 toolbar - Toolbar HTML Component
 
 - Displays tabs to naviagte the site
-- Displays the response info box
+- Displays the response info box popup
 - Display's the currently logged-in user's id
 - Display's the search bar
 - Responsible for generating the search events
 - Displays the login and logout buttons
-- Responsible for creating the login form, and generating login events
+- Responsible for creating the login form, and generating login and logout events
 ### Model Layer
 /users - Users TypeScript Component
 
 - Responsible for holding the information about displayed users
 - Responsible for applying CSS to the /users HTML
-- Responsible for generating the event triggers for the edit and add user popups and filling them out
+- Responsible for generating the event triggers for the edit and add user popups and for filling them out
 - Responsible for handling events for the adding, editing, deleting, and refreshing of users
 - Responsible for receiving information of filtered users sent from search
 - Responsible for passing requests for the changing of users to the service layer
@@ -80,8 +81,8 @@ toolbar - Toolbar HTML Component
 - Responsible for holding the information about displayed titles and user collections
 - Responsible for applying CSS to the /titles HTML
 - Responsible for generating requests to be passed to the backend for the getting of titles
-- Responsible for receiving titles and their users from the service layer and the receiving of filtered titles sent from the search service
-- Responsible for handling events for the switching of title "pages"
+- Responsible for receiving titles and their users from the service layer and for receiving filtered titles sent from the search service
+- Responsible for handling events for the switching of title columns
 
 /themes - Themes TypeScript Component
 
@@ -96,8 +97,8 @@ toolbar - Toolbar TypeScript Component
 - Responsible for applying CSS to the toolbar
 - Responsible for handling the content and status of the response info box
 - Responsible for handling, parsing, and passing search events to the service layer
-- Responsible for holding the login form information
-- Responsible for handling, packaging, and passing login and logout requestsn to the service layer
+- Responsible for holding the information in the login form
+- Responsible for handling, packaging, and passing login and logout requests to the service layer
 ### Controller Layer - (Service Layer)
 User Service
 
@@ -109,11 +110,11 @@ Titles Service
 
 Themes Service - Service for managing and applying themes across the site
 
-- Responsible for keeping track of the current and all themes
+- Responsible for keeping track of the current theme as well as all themes
 - Responsible for generating requests to get themes to the web access layer
 - Responsible for applying the colors from the current theme to the CSS across the site
-- Responsible for passing user's theme and update theme requests to the web access layer
-- Responsible for reciving the logged in user's theme from the Login Service
+- Responsible for passing the user's theme and update theme requests to the web access layer
+- Responsible for reciving the logged-in user's theme from the Login Service
 
 Login Service - Service for managing login and logout requests and keeping track of current logged-in user
 
@@ -129,7 +130,7 @@ Search Service - Service for handling search events and forwarding search result
 ### Web (Data) Access Layer
 Web Service - Service for all REST requests to the backend
 
-- Responsible for sending, and reciving to the backend and passing the HTTP response back up the layers
+- Responsible for sending, and reciving HTTP with the backend and passing HTTP responses back up the layers
 
 ## Technologies
 Angular (Frontend TypeScript Framework)
@@ -142,17 +143,17 @@ Jasmine (Testing Framework)
 
 Jackson (JSON)
 
-REST
+REST and HTTP
 
 Java (Backend)
 
-Spring MVC (Backend Framework), Security (Authentication), and Testing (Spring's Testing Framework) (Backend)
+Spring MVC (Backend Framework), Spring Security (Authentication), and Spring Testing (Spring's Testing Framework) (Backend)
 
 JUnit (Testing Framework) (Backend)
 
-JPA/HIbernate (No-SQL) (Backend)
+Hibernate/JPA (No-SQL) (Backend)
 
-JDBC/SQL and PostgreSQL (Backend)
+SQL/JDBC and PostgreSQL (Backend)
 
 ## Testing with Jasmine and JUnit
 Manual Testing
@@ -163,7 +164,7 @@ Manual Testing
     - Procedure for checking that each of the components in the main section loads correctly
   - Procedure for checking displayed objects' integrities and construction
   - Procedure for checking the functionality and display of different popups and forms
-  - Procedure for checking the functionality and state changes from buttons and other event sources on each of the three pages of the site
+  - Procedure for checking the functionality of and state changes from buttons and other event sources on each of the three pages of the site
   - Procedure for checking data transfer to the backend and data permanence
   - Procedure for checking proper state and display change to the site upon change in login status
   - Procedure for verifying login and display logic
@@ -189,12 +190,6 @@ Intergration Testing
   - Automatically tests for data integrity
   - Automatically tests API request and response data formats
 
-
-
-Made By CT!
-
-See the Backend at [github.com/AnInvertedFern/BackEndPortfolio](https://github.com/AnInvertedFern/BackEndPortfolio)!
-
 ## User Login Information *
 "Bob Smith" - User ID : 4, Password : AmFirstUser, Role : User
 
@@ -203,3 +198,9 @@ See the Backend at [github.com/AnInvertedFern/BackEndPortfolio](https://github.c
 "Fred Joe" - User ID : 7, Password : AmThirdUser, Role : User
 
 \* User IDs are auto generated and system dependent, check the backend console or database to confirm for your system
+
+
+
+Made By CT!
+
+See the Backend at [github.com/AnInvertedFern/BackEndPortfolio](https://github.com/AnInvertedFern/BackEndPortfolio)!

@@ -5,7 +5,7 @@ Current Tasks
 
 #========================================
 Task #17: Write Readme
-Resolution: Finished Except for Screenshots
+Resolution: Finished Except for Review
 SubTasks: None
 #========================================
 
