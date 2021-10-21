@@ -8,17 +8,25 @@ The frontend implementation of a full stack portfolio piece for CT!
 
 Add new users
 
+<br>
+
 ![Edit users](readme-photos/screenshot_2.png)
 
 Edit users
+
+<br>
 
 ![Search titles](readme-photos/screenshot_3.png)
 
 Search titles
 
+<br>
+
 ![Change themes](readme-photos/screenshot_4.png)
 
 Change themes
+
+<br>
 
 ### Core Features
 - Create an account and customize your user card
