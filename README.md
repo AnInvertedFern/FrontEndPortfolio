@@ -141,7 +141,7 @@ HTML and CSS
 
 Jasmine (Testing Framework)
 
-Jackson (JSON)
+Jackson (JSON) (Backend)
 
 REST and HTTP
 
@@ -151,7 +151,7 @@ Spring MVC (Backend Framework), Spring Security (Authentication), and Spring Tes
 
 JUnit (Testing Framework) (Backend)
 
-Hibernate/JPA (No-SQL) (Backend)
+Hibernate/JPA (Backend)
 
 SQL/JDBC and PostgreSQL (Backend)
 
@@ -199,7 +199,7 @@ Intergration Testing
 
 \* User IDs are auto generated and system dependent, check the backend console or database to confirm for your system
 
-
+<br><br>
 
 Made By CT!
 
